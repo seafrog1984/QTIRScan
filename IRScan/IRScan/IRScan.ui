@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1495</width>
-    <height>830</height>
+    <height>857</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -961,8 +961,8 @@ QToolButton{
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../../IRProc/IRProc/IRProc.qrc">
-           <normaloff>:/IRProc/M-Left</normaloff>:/IRProc/M-Left</iconset>
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-Left</normaloff>:/IRScan/Scan-Left</iconset>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_34">
@@ -993,8 +993,8 @@ QToolButton{
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../../IRProc/IRProc/IRProc.qrc">
-           <normaloff>:/IRProc/Data-DLeft</normaloff>:/IRProc/Data-DLeft</iconset>
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-DLeft</normaloff>:/IRScan/Scan-DLeft</iconset>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_35">
@@ -1025,8 +1025,8 @@ QToolButton{
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../../IRProc/IRProc/IRProc.qrc">
-           <normaloff>:/IRProc/M-Right</normaloff>:/IRProc/M-Right</iconset>
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-Right</normaloff>:/IRScan/Scan-Right</iconset>
          </property>
         </widget>
         <widget class="QToolButton" name="toolButton_36">
@@ -1057,8 +1057,8 @@ QToolButton{
           <string>...</string>
          </property>
          <property name="icon">
-          <iconset resource="../../IRProc/IRProc/IRProc.qrc">
-           <normaloff>:/IRProc/Data-DRight</normaloff>:/IRProc/Data-DRight</iconset>
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-DightR</normaloff>:/IRScan/Scan-DightR</iconset>
          </property>
         </widget>
         <widget class="QLineEdit" name="lineEdit_2">
@@ -1244,8 +1244,8 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
           <string>筛选</string>
          </property>
          <property name="icon">
-          <iconset resource="../../IRProc/IRProc/IRProc.qrc">
-           <normaloff>:/IRProc/Data-Filter</normaloff>:/IRProc/Data-Filter</iconset>
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-Filter</normaloff>:/IRScan/Scan-Filter</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -1666,8 +1666,7 @@ border:0px;
           <string>用户区最大化</string>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(21, 86, 141);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>用户区最大化</string>
@@ -1727,8 +1726,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(21, 86, 141);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>展开所有工具栏</string>
@@ -2044,9 +2042,15 @@ border:0px solid;</string>
     <item>
      <widget class="QStackedWidget" name="stackedWidget_2">
       <widget class="QWidget" name="page_3">
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
          <widget class="QTableWidget" name="tableWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="minimumSize">
            <size>
             <width>200</width>
@@ -2179,33 +2183,102 @@ border:0px solid;</string>
           </column>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item>
          <widget class="QWidget" name="widget" native="true">
-          <widget class="QLabel" name="label_2">
-           <property name="geometry">
-            <rect>
-             <x>50</x>
-             <y>0</y>
-             <width>480</width>
-             <height>640</height>
-            </rect>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>480</width>
-             <height>640</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>480</width>
+               <height>640</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgb(255, 255, 255);</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item>
          <widget class="QWidget" name="widget_2" native="true">
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">

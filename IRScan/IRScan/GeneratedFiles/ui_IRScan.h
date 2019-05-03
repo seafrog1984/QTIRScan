@@ -17,11 +17,13 @@
 #include <QtWidgets/QDateEdit>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableWidget>
@@ -115,10 +117,15 @@ public:
     QLabel *label_41;
     QStackedWidget *stackedWidget_2;
     QWidget *page_3;
-    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout;
     QTableWidget *tableWidget;
     QWidget *widget;
+    QGridLayout *gridLayout;
+    QSpacerItem *horizontalSpacer_2;
+    QSpacerItem *verticalSpacer;
     QLabel *label_2;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *verticalSpacer_2;
     QWidget *widget_2;
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout_2;
@@ -131,7 +138,7 @@ public:
     {
         if (IRScanClass->objectName().isEmpty())
             IRScanClass->setObjectName(QStringLiteral("IRScanClass"));
-        IRScanClass->resize(1495, 830);
+        IRScanClass->resize(1495, 857);
         QIcon icon;
         icon.addFile(QStringLiteral(":/IRScan/Scan-Sel"), QSize(), QIcon::Normal, QIcon::Off);
         IRScanClass->setWindowIcon(icon);
@@ -428,7 +435,7 @@ public:
         toolButton_33->setMaximumSize(QSize(15, 15));
         toolButton_33->setStyleSheet(QStringLiteral(""));
         QIcon icon17;
-        icon17.addFile(QStringLiteral(":/IRProc/M-Left"), QSize(), QIcon::Normal, QIcon::Off);
+        icon17.addFile(QStringLiteral(":/IRScan/Scan-Left"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_33->setIcon(icon17);
         toolButton_34 = new QToolButton(groupBox_11);
         toolButton_34->setObjectName(QStringLiteral("toolButton_34"));
@@ -437,7 +444,7 @@ public:
         toolButton_34->setMaximumSize(QSize(15, 15));
         toolButton_34->setStyleSheet(QStringLiteral(""));
         QIcon icon18;
-        icon18.addFile(QStringLiteral(":/IRProc/Data-DLeft"), QSize(), QIcon::Normal, QIcon::Off);
+        icon18.addFile(QStringLiteral(":/IRScan/Scan-DLeft"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_34->setIcon(icon18);
         toolButton_35 = new QToolButton(groupBox_11);
         toolButton_35->setObjectName(QStringLiteral("toolButton_35"));
@@ -446,7 +453,7 @@ public:
         toolButton_35->setMaximumSize(QSize(15, 15));
         toolButton_35->setStyleSheet(QStringLiteral(""));
         QIcon icon19;
-        icon19.addFile(QStringLiteral(":/IRProc/M-Right"), QSize(), QIcon::Normal, QIcon::Off);
+        icon19.addFile(QStringLiteral(":/IRScan/Scan-Right"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_35->setIcon(icon19);
         toolButton_36 = new QToolButton(groupBox_11);
         toolButton_36->setObjectName(QStringLiteral("toolButton_36"));
@@ -455,7 +462,7 @@ public:
         toolButton_36->setMaximumSize(QSize(15, 15));
         toolButton_36->setStyleSheet(QStringLiteral(""));
         QIcon icon20;
-        icon20.addFile(QStringLiteral(":/IRProc/Data-DRight"), QSize(), QIcon::Normal, QIcon::Off);
+        icon20.addFile(QStringLiteral(":/IRScan/Scan-DightR"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_36->setIcon(icon20);
         lineEdit_2 = new QLineEdit(groupBox_11);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
@@ -510,7 +517,7 @@ public:
         toolButton_38->setMaximumSize(QSize(50, 166667));
         toolButton_38->setStyleSheet(QStringLiteral(""));
         QIcon icon21;
-        icon21.addFile(QStringLiteral(":/IRProc/Data-Filter"), QSize(), QIcon::Normal, QIcon::Off);
+        icon21.addFile(QStringLiteral(":/IRScan/Scan-Filter"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_38->setIcon(icon21);
         toolButton_38->setIconSize(QSize(24, 24));
         toolButton_38->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -529,9 +536,7 @@ public:
         toolButton_49->setMaximumSize(QSize(32, 50));
         toolButton_49->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
-        QIcon icon22;
-        icon22.addFile(QStringLiteral(":/IRScan/Scan-Filter"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_49->setIcon(icon22);
+        toolButton_49->setIcon(icon21);
         toolButton_49->setIconSize(QSize(24, 24));
         toolButton_49->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         label_19 = new QLabel(groupBox_13);
@@ -544,9 +549,9 @@ public:
         toolButton_50->setMaximumSize(QSize(48, 48));
         toolButton_50->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
-        QIcon icon23;
-        icon23.addFile(QStringLiteral(":/IRScan/Show-All"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_50->setIcon(icon23);
+        QIcon icon22;
+        icon22.addFile(QStringLiteral(":/IRScan/Show-All"), QSize(), QIcon::Normal, QIcon::Off);
+        toolButton_50->setIcon(icon22);
         toolButton_50->setIconSize(QSize(48, 48));
         toolButton_50->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         lineEdit_9 = new QLineEdit(groupBox_13);
@@ -623,11 +628,10 @@ public:
         userAreaBt_2->setGeometry(QRect(90, 20, 32, 32));
         userAreaBt_2->setMinimumSize(QSize(32, 32));
         userAreaBt_2->setMaximumSize(QSize(32, 32));
-        userAreaBt_2->setStyleSheet(QLatin1String("background-color: rgb(21, 86, 141);\n"
-"border:0px solid;"));
-        QIcon icon24;
-        icon24.addFile(QStringLiteral(":/IRScan/Sys-UserMax"), QSize(), QIcon::Normal, QIcon::Off);
-        userAreaBt_2->setIcon(icon24);
+        userAreaBt_2->setStyleSheet(QStringLiteral(""));
+        QIcon icon23;
+        icon23.addFile(QStringLiteral(":/IRScan/Sys-UserMax"), QSize(), QIcon::Normal, QIcon::Off);
+        userAreaBt_2->setIcon(icon23);
         userAreaBt_2->setToolButtonStyle(Qt::ToolButtonIconOnly);
         label_23 = new QLabel(groupBox_22);
         label_23->setObjectName(QStringLiteral("label_23"));
@@ -639,11 +643,10 @@ public:
         toolBarExpandBt_2->setGeometry(QRect(185, 20, 32, 32));
         toolBarExpandBt_2->setMinimumSize(QSize(32, 32));
         toolBarExpandBt_2->setMaximumSize(QSize(32, 32));
-        toolBarExpandBt_2->setStyleSheet(QLatin1String("background-color: rgb(21, 86, 141);\n"
-"border:0px solid;"));
-        QIcon icon25;
-        icon25.addFile(QStringLiteral(":/IRScan/Sys-ExtTool"), QSize(), QIcon::Normal, QIcon::Off);
-        toolBarExpandBt_2->setIcon(icon25);
+        toolBarExpandBt_2->setStyleSheet(QStringLiteral(""));
+        QIcon icon24;
+        icon24.addFile(QStringLiteral(":/IRScan/Sys-ExtTool"), QSize(), QIcon::Normal, QIcon::Off);
+        toolBarExpandBt_2->setIcon(icon24);
         label_24 = new QLabel(groupBox_22);
         label_24->setObjectName(QStringLiteral("label_24"));
         label_24->setGeometry(QRect(160, 60, 85, 20));
@@ -662,9 +665,9 @@ public:
         sysSettingBt_2->setMinimumSize(QSize(32, 32));
         sysSettingBt_2->setMaximumSize(QSize(32, 32));
         sysSettingBt_2->setStyleSheet(QStringLiteral(""));
-        QIcon icon26;
-        icon26.addFile(QStringLiteral(":/IRScan/Sys-RightSet"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_2->setIcon(icon26);
+        QIcon icon25;
+        icon25.addFile(QStringLiteral(":/IRScan/Sys-RightSet"), QSize(), QIcon::Normal, QIcon::Off);
+        sysSettingBt_2->setIcon(icon25);
         label_25 = new QLabel(groupBox_23);
         label_25->setObjectName(QStringLiteral("label_25"));
         label_25->setGeometry(QRect(70, 60, 50, 20));
@@ -681,9 +684,9 @@ public:
         sysSettingBt_3->setMinimumSize(QSize(32, 32));
         sysSettingBt_3->setMaximumSize(QSize(32, 32));
         sysSettingBt_3->setStyleSheet(QStringLiteral(""));
-        QIcon icon27;
-        icon27.addFile(QStringLiteral(":/IRScan/Sys-Para"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_3->setIcon(icon27);
+        QIcon icon26;
+        icon26.addFile(QStringLiteral(":/IRScan/Sys-Para"), QSize(), QIcon::Normal, QIcon::Off);
+        sysSettingBt_3->setIcon(icon26);
         label_27 = new QLabel(groupBox_23);
         label_27->setObjectName(QStringLiteral("label_27"));
         label_27->setGeometry(QRect(210, 60, 50, 20));
@@ -695,9 +698,9 @@ public:
         sysSettingBt_4->setMinimumSize(QSize(32, 32));
         sysSettingBt_4->setMaximumSize(QSize(32, 32));
         sysSettingBt_4->setStyleSheet(QStringLiteral(""));
-        QIcon icon28;
-        icon28.addFile(QStringLiteral(":/IRScan/Sys-Hos"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_4->setIcon(icon28);
+        QIcon icon27;
+        icon27.addFile(QStringLiteral(":/IRScan/Sys-Hos"), QSize(), QIcon::Normal, QIcon::Off);
+        sysSettingBt_4->setIcon(icon27);
         label_28 = new QLabel(groupBox_23);
         label_28->setObjectName(QStringLiteral("label_28"));
         label_28->setGeometry(QRect(275, 60, 60, 20));
@@ -709,9 +712,9 @@ public:
         sysSettingBt_5->setMinimumSize(QSize(32, 32));
         sysSettingBt_5->setMaximumSize(QSize(32, 32));
         sysSettingBt_5->setStyleSheet(QStringLiteral(""));
-        QIcon icon29;
-        icon29.addFile(QStringLiteral(":/IRScan/Sys-Cor"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_5->setIcon(icon29);
+        QIcon icon28;
+        icon28.addFile(QStringLiteral(":/IRScan/Sys-Cor"), QSize(), QIcon::Normal, QIcon::Off);
+        sysSettingBt_5->setIcon(icon28);
         label_41 = new QLabel(groupBox_23);
         label_41->setObjectName(QStringLiteral("label_41"));
         label_41->setGeometry(QRect(25, 30, 20, 41));
@@ -723,10 +726,10 @@ public:
         stackedWidget_2->setObjectName(QStringLiteral("stackedWidget_2"));
         page_3 = new QWidget();
         page_3->setObjectName(QStringLiteral("page_3"));
-        gridLayout = new QGridLayout(page_3);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        horizontalLayout = new QHBoxLayout(page_3);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tableWidget = new QTableWidget(page_3);
         if (tableWidget->columnCount() < 11)
             tableWidget->setColumnCount(11);
@@ -756,6 +759,11 @@ public:
         if (tableWidget->rowCount() < 5)
             tableWidget->setRowCount(5);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
+        tableWidget->setSizePolicy(sizePolicy);
         tableWidget->setMinimumSize(QSize(200, 0));
         tableWidget->setMaximumSize(QSize(200, 16777215));
         tableWidget->setStyleSheet(QStringLiteral("background-color: rgb(255,255,255);"));
@@ -776,17 +784,45 @@ public:
         tableWidget->horizontalHeader()->setStretchLastSection(false);
         tableWidget->verticalHeader()->setVisible(false);
 
-        gridLayout->addWidget(tableWidget, 0, 0, 1, 1);
+        horizontalLayout->addWidget(tableWidget);
 
         widget = new QWidget(page_3);
         widget->setObjectName(QStringLiteral("widget"));
+        gridLayout = new QGridLayout(widget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_2, 1, 2, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        gridLayout->addItem(verticalSpacer, 0, 1, 1, 1);
+
         label_2 = new QLabel(widget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(50, 0, 480, 640));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy1);
         label_2->setMinimumSize(QSize(480, 640));
         label_2->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        label_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout->addWidget(widget, 0, 1, 1, 1);
+        gridLayout->addWidget(label_2, 1, 1, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(10, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer, 1, 0, 1, 1);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        gridLayout->addItem(verticalSpacer_2, 2, 1, 1, 1);
+
+
+        horizontalLayout->addWidget(widget);
 
         widget_2 = new QWidget(page_3);
         widget_2->setObjectName(QStringLiteral("widget_2"));
@@ -801,7 +837,7 @@ public:
         gridLayout_3->addLayout(gridLayout_2, 0, 0, 1, 1);
 
 
-        gridLayout->addWidget(widget_2, 0, 2, 1, 1);
+        horizontalLayout->addWidget(widget_2);
 
         stackedWidget_2->addWidget(page_3);
         page_4 = new QWidget();
