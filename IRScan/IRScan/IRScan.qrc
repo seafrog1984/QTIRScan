@@ -1,0 +1,41 @@
+<RCC>
+    <qresource prefix="/IRScan">
+        <file alias="Scan-Del">Resources/delete.png</file>
+        <file alias="Scan-Log">Resources/log.png</file>
+        <file alias="Sys-RightSet">Resources/rightSet.png</file>
+        <file alias="Scan-Scan">Resources/scan.png</file>
+        <file alias="Scan-AntiClock">Resources/scan-anticlock.png</file>
+        <file alias="Scan-Clock">Resources/scan-clock.png</file>
+        <file alias="Scan-Close">Resources/scan-close.png</file>
+        <file alias="Scan-Down">Resources/scan-down.png</file>
+        <file alias="Scan-Downs">Resources/scan-downs.png</file>
+        <file alias="Scan-Focus">Resources/scan-focus.png</file>
+        <file alias="Scan-Focus2">Resources/scan-focus2.png</file>
+        <file alias="Scan-Lefts">Resources/scan-lefts.png</file>
+        <file alias="Scan-Menu">Resources/Scan-Menu.png</file>
+        <file alias="Scan-On">Resources/scan-on.png</file>
+        <file alias="Scan-Rights">Resources/scan-rights.png</file>
+        <file alias="Scan-Sel">Resources/Scan-Sel.png</file>
+        <file alias="Scan-Up">Resources/scan-up.png</file>
+        <file alias="Scan-Ups">Resources/scan-ups.png</file>
+        <file alias="Show-All">Resources/show-all.png</file>
+        <file alias="Sys">Resources/sys.png</file>
+        <file alias="Sys-Cor">Resources/Sys-Correction.png</file>
+        <file alias="Sys-HighCor">Resources/sys-HighCor.png</file>
+        <file alias="Sys-Hos">Resources/Sys-Hospital.png</file>
+        <file alias="Sys-Para">Resources/sys-Para.png</file>
+        <file alias="Sys-Sel">Resources/sys-Sel.png</file>
+        <file alias="Sys-UserMax">Resources/userMax.png</file>
+        <file alias="Scan-Change">Resources/change.png</file>
+        <file alias="Scan-DLeft">Resources/scan-dleft.png</file>
+        <file alias="Scan-DightR">Resources/scan-dright.png</file>
+        <file alias="Scan-Left">Resources/scan-left.png</file>
+        <file alias="Scan-Right">Resources/scan-right.png</file>
+        <file alias="Scan-Filter">Resources/Scan-filter.png</file>
+        <file alias="Sys-ExtTool">Resources/sys-extandTool.png</file>
+        <file alias="Bg1">Resources/DataM-Bg1.png</file>
+        <file alias="Bg2">Resources/DataM-Bg2.png</file>
+        <file alias="BorderBg">Resources/rect1.png</file>
+        <file alias="Bg3">Resources/DataM-Bg3.png</file>
+    </qresource>
+</RCC>
