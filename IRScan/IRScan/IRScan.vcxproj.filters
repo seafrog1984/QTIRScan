@@ -71,5 +71,11 @@
     <ClInclude Include="GeneratedFiles\ui_IRScan.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="avilib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IRSDK.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

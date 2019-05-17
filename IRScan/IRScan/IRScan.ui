@@ -91,7 +91,7 @@ background-image: url(:/IRScan/Bg1);
         <property name="title">
          <string/>
         </property>
-        <widget class="QToolButton" name="toolButton_27">
+        <widget class="QToolButton" name="btn_scan">
          <property name="geometry">
           <rect>
            <x>105</x>
@@ -2219,7 +2219,7 @@ border:0px;
             </spacer>
            </item>
            <item row="1" column="1">
-            <widget class="QLabel" name="label_2">
+            <widget class="QLabel" name="scanPicShow">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>

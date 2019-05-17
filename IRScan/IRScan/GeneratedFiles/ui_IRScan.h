@@ -44,7 +44,7 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *pageScan;
     QGroupBox *groupBox_10;
-    QToolButton *toolButton_27;
+    QToolButton *btn_scan;
     QToolButton *toolButton_31;
     QToolButton *toolButton_30;
     QToolButton *toolButton_32;
@@ -123,7 +123,7 @@ public:
     QGridLayout *gridLayout;
     QSpacerItem *horizontalSpacer_2;
     QSpacerItem *verticalSpacer;
-    QLabel *label_2;
+    QLabel *scanPicShow;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer_2;
     QWidget *widget_2;
@@ -192,18 +192,18 @@ public:
         groupBox_10->setStyleSheet(QLatin1String("QGroupBox{\n"
 "background-image: url(:/IRScan/Bg1);\n"
 "}"));
-        toolButton_27 = new QToolButton(groupBox_10);
-        toolButton_27->setObjectName(QStringLiteral("toolButton_27"));
-        toolButton_27->setGeometry(QRect(105, 20, 32, 50));
-        toolButton_27->setMinimumSize(QSize(32, 50));
-        toolButton_27->setMaximumSize(QSize(32, 50));
-        toolButton_27->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_scan = new QToolButton(groupBox_10);
+        btn_scan->setObjectName(QStringLiteral("btn_scan"));
+        btn_scan->setGeometry(QRect(105, 20, 32, 50));
+        btn_scan->setMinimumSize(QSize(32, 50));
+        btn_scan->setMaximumSize(QSize(32, 50));
+        btn_scan->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/IRScan/Scan-Scan"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_27->setIcon(icon2);
-        toolButton_27->setIconSize(QSize(20, 20));
-        toolButton_27->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        btn_scan->setIcon(icon2);
+        btn_scan->setIconSize(QSize(20, 20));
+        btn_scan->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         toolButton_31 = new QToolButton(groupBox_10);
         toolButton_31->setObjectName(QStringLiteral("toolButton_31"));
         toolButton_31->setGeometry(QRect(145, 20, 32, 50));
@@ -800,18 +800,18 @@ public:
 
         gridLayout->addItem(verticalSpacer, 0, 1, 1, 1);
 
-        label_2 = new QLabel(widget);
-        label_2->setObjectName(QStringLiteral("label_2"));
+        scanPicShow = new QLabel(widget);
+        scanPicShow->setObjectName(QStringLiteral("scanPicShow"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
-        label_2->setSizePolicy(sizePolicy1);
-        label_2->setMinimumSize(QSize(480, 640));
-        label_2->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
-        label_2->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        sizePolicy1.setHeightForWidth(scanPicShow->sizePolicy().hasHeightForWidth());
+        scanPicShow->setSizePolicy(sizePolicy1);
+        scanPicShow->setMinimumSize(QSize(480, 640));
+        scanPicShow->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
+        scanPicShow->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
-        gridLayout->addWidget(label_2, 1, 1, 1, 1);
+        gridLayout->addWidget(scanPicShow, 1, 1, 1, 1);
 
         horizontalSpacer = new QSpacerItem(10, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
@@ -888,7 +888,7 @@ public:
         imgSysAct->setStatusTip(QApplication::translate("IRScanClass", "\347\263\273\347\273\237\351\200\211\351\241\271", 0));
 #endif // QT_NO_STATUSTIP
         groupBox_10->setTitle(QString());
-        toolButton_27->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217", 0));
+        btn_scan->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217", 0));
         toolButton_31->setText(QApplication::translate("IRScanClass", "\345\210\240\351\231\244", 0));
         toolButton_30->setText(QApplication::translate("IRScanClass", "\347\231\273\350\256\260", 0));
         toolButton_32->setText(QApplication::translate("IRScanClass", "\344\277\256\346\224\271", 0));
@@ -995,7 +995,7 @@ public:
         ___qtablewidgetitem9->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217\346\254\241\346\225\260", 0));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidget->horizontalHeaderItem(10);
         ___qtablewidgetitem10->setText(QApplication::translate("IRScanClass", "\345\214\273\351\231\242\345\220\215\347\247\260", 0));
-        label_2->setText(QString());
+        scanPicShow->setText(QString());
         toolBar->setWindowTitle(QApplication::translate("IRScanClass", "toolBar", 0));
     } // retranslateUi
 
