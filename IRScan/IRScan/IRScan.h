@@ -15,6 +15,9 @@ public:
 	IRScan(QWidget *parent = Q_NULLPTR);
 	void closeEvent(QCloseEvent* event);
 
+protected:
+	bool eventFilter(QObject *obj, QEvent *event);
+
 private:
 	Ui::IRScanClass ui;
 

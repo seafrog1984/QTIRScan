@@ -16,7 +16,8 @@ int	PalType;
 int Pal;
 Frame g_frame;
 
-int g_picTotalNum = 0;
+int g_picTotalNum = 0;//缩略图窗口数量
+int g_flag_play = 1;//视频暂停，播放标志位
 
 
 long FrameProc(long hFrame, long lParam)
@@ -158,4 +159,26 @@ void IRScan::btn_scan_Clicked()
 	//	int re=IRSDK_Play(0);
 	IRSDK_Connect(0);
 
+}
+
+bool IRScan::eventFilter(QObject *obj, QEvent *event)
+{
+	if (qobject_cast<QLabel*>(obj) == ui.scanPicShow&&event->type() == QEvent::MouseButtonRelease)
+	{
+		if (g_flag_play)
+		{
+			IRSDK_Stop(0);
+			g_flag_play = 0;
+		}
+		else
+		{
+			IRSDK_Play(0);
+			g_flag_play = 1;
+		}
+		return true;
+	}
+	else {
+		return false;
+		//return QMainWindow::eventFilter(obj, event);
+	}
 }
