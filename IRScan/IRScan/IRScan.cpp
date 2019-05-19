@@ -91,6 +91,8 @@ IRScan::IRScan(QWidget *parent)
 
 	ui.toolBar->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
 		"background-color: rgb(19, 35, 67);"));
+
+	ui.scanPicShow->installEventFilter(this);
 }
 
 
@@ -172,6 +174,13 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 		}
 		else
 		{
+			ofstream fout("E:\\tmp.dat");
+			for (int i = 0; i < IMAGE_WIDTH*IMAGE_HEIGHT; i++)
+			{
+				fout << *(g_frame.buffer + i) << ' ';
+			}
+
+			fout.close();
 			IRSDK_Play(0);
 			g_flag_play = 1;
 		}
