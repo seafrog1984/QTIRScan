@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1495</width>
-    <height>857</height>
+    <height>878</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -263,9 +263,9 @@ border:0px solid;</string>
          <property name="geometry">
           <rect>
            <x>30</x>
-           <y>30</y>
+           <y>20</y>
            <width>16</width>
-           <height>45</height>
+           <height>50</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1093,7 +1093,7 @@ QToolButton{
            <x>30</x>
            <y>20</y>
            <width>16</width>
-           <height>45</height>
+           <height>55</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1279,9 +1279,9 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
          <property name="geometry">
           <rect>
            <x>45</x>
-           <y>15</y>
+           <y>5</y>
            <width>16</width>
-           <height>60</height>
+           <height>80</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1354,14 +1354,14 @@ border:0px solid;</string>
           <rect>
            <x>440</x>
            <y>20</y>
-           <width>48</width>
-           <height>48</height>
+           <width>50</width>
+           <height>50</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>48</width>
-           <height>48</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="maximumSize">
@@ -1372,6 +1372,7 @@ border:0px solid;</string>
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(18, 59, 101);
+font: 8pt &quot;宋体&quot;;
 border:0px solid;</string>
          </property>
          <property name="text">
@@ -1407,7 +1408,7 @@ border:0px solid;</string>
            <x>285</x>
            <y>25</y>
            <width>35</width>
-           <height>12</height>
+           <height>15</height>
           </rect>
          </property>
          <property name="text">
@@ -1449,9 +1450,9 @@ border:0px;
        <widget class="QGroupBox" name="groupBox_21">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>280</x>
           <y>0</y>
-          <width>340</width>
+          <width>400</width>
           <height>90</height>
          </rect>
         </property>
@@ -1478,13 +1479,13 @@ border:0px;
           <rect>
            <x>80</x>
            <y>25</y>
-           <width>85</width>
+           <width>100</width>
            <height>16</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>85</width>
+           <width>100</width>
            <height>0</height>
           </size>
          </property>
@@ -1501,15 +1502,15 @@ border:0px;
         <widget class="QCheckBox" name="checkBox_15">
          <property name="geometry">
           <rect>
-           <x>170</x>
+           <x>190</x>
            <y>25</y>
-           <width>85</width>
+           <width>100</width>
            <height>16</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>85</width>
+           <width>100</width>
            <height>0</height>
           </size>
          </property>
@@ -1528,13 +1529,13 @@ border:0px;
           <rect>
            <x>80</x>
            <y>55</y>
-           <width>85</width>
+           <width>100</width>
            <height>16</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>85</width>
+           <width>100</width>
            <height>0</height>
           </size>
          </property>
@@ -1551,7 +1552,7 @@ border:0px;
         <widget class="QCheckBox" name="checkBox_18">
          <property name="geometry">
           <rect>
-           <x>170</x>
+           <x>190</x>
            <y>55</y>
            <width>85</width>
            <height>16</height>
@@ -1576,7 +1577,7 @@ border:0px;
         <widget class="QCheckBox" name="checkBox_19">
          <property name="geometry">
           <rect>
-           <x>260</x>
+           <x>300</x>
            <y>25</y>
            <width>85</width>
            <height>16</height>
@@ -1602,9 +1603,9 @@ border:0px;
          <property name="geometry">
           <rect>
            <x>25</x>
-           <y>30</y>
+           <y>20</y>
            <width>20</width>
-           <height>41</height>
+           <height>55</height>
           </rect>
          </property>
          <property name="text">
@@ -1619,7 +1620,7 @@ border:0px;
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>260</width>
+          <width>280</width>
           <height>90</height>
          </rect>
         </property>
@@ -1682,21 +1683,21 @@ border:0px;
         <widget class="QLabel" name="label_23">
          <property name="geometry">
           <rect>
-           <x>70</x>
+           <x>65</x>
            <y>60</y>
-           <width>75</width>
+           <width>95</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>75</width>
+           <width>95</width>
            <height>20</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>75</width>
+           <width>95</width>
            <height>20</height>
           </size>
          </property>
@@ -1707,7 +1708,7 @@ border:0px;
         <widget class="QToolButton" name="toolBarExpandBt_2">
          <property name="geometry">
           <rect>
-           <x>185</x>
+           <x>200</x>
            <y>20</y>
            <width>32</width>
            <height>32</height>
@@ -1739,15 +1740,15 @@ border:0px;
         <widget class="QLabel" name="label_24">
          <property name="geometry">
           <rect>
-           <x>160</x>
+           <x>170</x>
            <y>60</y>
-           <width>85</width>
+           <width>110</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>85</width>
+           <width>110</width>
            <height>20</height>
           </size>
          </property>
@@ -1765,9 +1766,9 @@ border:0px;
          <property name="geometry">
           <rect>
            <x>30</x>
-           <y>30</y>
+           <y>20</y>
            <width>20</width>
-           <height>41</height>
+           <height>55</height>
           </rect>
          </property>
          <property name="text">
@@ -1780,9 +1781,9 @@ border:0px;
        <widget class="QGroupBox" name="groupBox_23">
         <property name="geometry">
          <rect>
-          <x>600</x>
+          <x>680</x>
           <y>0</y>
-          <width>350</width>
+          <width>400</width>
           <height>90</height>
          </rect>
         </property>
@@ -1829,13 +1830,13 @@ border:0px;
           <rect>
            <x>70</x>
            <y>60</y>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </size>
          </property>
@@ -1852,15 +1853,15 @@ border:0px;
         <widget class="QLabel" name="label_26">
          <property name="geometry">
           <rect>
-           <x>140</x>
+           <x>150</x>
            <y>60</y>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </size>
          </property>
@@ -1877,7 +1878,7 @@ border:0px;
         <widget class="QToolButton" name="sysSettingBt_3">
          <property name="geometry">
           <rect>
-           <x>150</x>
+           <x>160</x>
            <y>20</y>
            <width>32</width>
            <height>32</height>
@@ -1909,15 +1910,15 @@ border:0px;
         <widget class="QLabel" name="label_27">
          <property name="geometry">
           <rect>
-           <x>210</x>
+           <x>230</x>
            <y>60</y>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>60</width>
            <height>20</height>
           </size>
          </property>
@@ -1934,7 +1935,7 @@ border:0px;
         <widget class="QToolButton" name="sysSettingBt_4">
          <property name="geometry">
           <rect>
-           <x>220</x>
+           <x>245</x>
            <y>20</y>
            <width>32</width>
            <height>32</height>
@@ -1966,15 +1967,15 @@ border:0px;
         <widget class="QLabel" name="label_28">
          <property name="geometry">
           <rect>
-           <x>275</x>
+           <x>310</x>
            <y>60</y>
-           <width>60</width>
+           <width>75</width>
            <height>20</height>
           </rect>
          </property>
          <property name="minimumSize">
           <size>
-           <width>60</width>
+           <width>75</width>
            <height>20</height>
           </size>
          </property>
@@ -1991,7 +1992,7 @@ border:0px;
         <widget class="QToolButton" name="sysSettingBt_5">
          <property name="geometry">
           <rect>
-           <x>290</x>
+           <x>330</x>
            <y>20</y>
            <width>32</width>
            <height>32</height>
@@ -2024,9 +2025,9 @@ border:0px;
          <property name="geometry">
           <rect>
            <x>25</x>
-           <y>30</y>
+           <y>20</y>
            <width>20</width>
-           <height>41</height>
+           <height>55</height>
           </rect>
          </property>
          <property name="text">
@@ -2300,7 +2301,7 @@ border:0px;
      <x>0</x>
      <y>0</y>
      <width>1495</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
