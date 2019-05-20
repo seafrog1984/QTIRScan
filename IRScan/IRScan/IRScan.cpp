@@ -1,23 +1,24 @@
 #include "IRScan.h"
 
 #include<QMessageBox>
+#include <qfiledialog.h>   
 
 #include <imgProcDll.h>
 
 #define IMAGE_WIDTH  384
 #define IMAGE_HEIGHT 288
 
-
-unsigned short* g_pDst = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];;
-unsigned char* g_pRgb = new unsigned char[IMAGE_WIDTH*IMAGE_HEIGHT * 3];;
-float   g_contranst;
-float   g_bright;
-int	PalType;
-int Pal;
 Frame g_frame;
 
 int g_picTotalNum = 0;//缩略图窗口数量
 int g_flag_play = 1;//视频暂停，播放标志位
+
+int g_picNum = 0;
+
+unsigned short *g_pData[12];
+QImage g_qImgShow[12];
+QString g_tempFolder;
+
 
 
 long FrameProc(long hFrame, long lParam)
@@ -29,22 +30,10 @@ long FrameProc(long hFrame, long lParam)
 
 	memcpy(&g_frame, pFrame, sizeof(Frame));
 
-	IRSDK_FrameConvert(&g_frame, g_pDst, g_contranst, g_bright, NULL, &sFull_Temp, 100);
-
-	//IRSDK_Gray2Rgb(g_pDst, g_pRgb, pFrame->width, pFrame->height, PalType, Pal);
-
-	//Mat img;
-	//img.create(pFrame->width, pFrame->height,CV_8UC3);
-
-	//memcpy(img.data, g_pRgb, pFrame->width* pFrame->height * 3);
-
-	//imshow("test", img);
-
 	Mat img;
 	img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
 
 	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2);
-
 
 	cv::resize(img, img, cv::Size(480, 640));
 	QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
@@ -70,19 +59,21 @@ IRScan::IRScan(QWidget *parent)
 
 	connect(ui.btn_scan, SIGNAL(clicked()), this, SLOT(btn_scan_Clicked()));
 
-	g_picTotalNum = 6;
+	int g_picTotalNum = 12;
 	int count = 0;
-	for (int x = 0; x < 2; x++)
+	for (int x = 0; x < (g_picTotalNum - 1) / 3 + 1; x++)
 	{
-		for (int y = 0; y < (g_picTotalNum - 1) / 2 + 1; y++)
+		for (int y = 0; y < 3; y++)
 		{
 			QLabel *lb = new QLabel;
 			lb->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 			//lb->setFixedSize(240, 320);
-			lb->setText(QString::number(x * ((g_picTotalNum - 1) / 2 + 1) + y));
+			lb->setText(QString::number(x * 3 + y + 1));
+			lb->setObjectName(QString::number(x * 3 + y));
 			lb->setFrameShape(QFrame::Box);
 			ui.gridLayout_2->addWidget(lb, x, y);
 			lb->setStyleSheet(QLatin1String("backgroud-color:rgb(255,255,255)"));
+			lb->setAlignment(Qt::AlignCenter);
 			count++;
 			if (count >= g_picTotalNum) break;
 		}
@@ -93,6 +84,18 @@ IRScan::IRScan(QWidget *parent)
 		"background-color: rgb(19, 35, 67);"));
 
 	ui.scanPicShow->installEventFilter(this);
+
+	std::string scanID = "test20190521";
+	QDir dir;
+	g_tempFolder = dir.currentPath() + "//Temp//" + QString::fromStdString(scanID);
+
+	// 检查目录是否存在，若不存在则新建
+
+	if (!dir.exists(g_tempFolder))
+	{
+		bool res = dir.mkpath(g_tempFolder);
+		//		qDebug() << "新建目录是否成功" << res;
+	}
 }
 
 
@@ -174,15 +177,45 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 		}
 		else
 		{
-			ofstream fout("E:\\tmp.dat");
+			g_pData[g_picNum] = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];
+			memcpy(g_pData[g_picNum], g_frame.buffer, IMAGE_HEIGHT*IMAGE_WIDTH*sizeof(short));
+
+			QString filePath = g_tempFolder + "\\" + QString::number(g_picNum) + ".dat";
+
+			char*  path;
+			QByteArray t = filePath.toLatin1(); // must
+			path = t.data();
+
+			ofstream fout(path);
 			for (int i = 0; i < IMAGE_WIDTH*IMAGE_HEIGHT; i++)
 			{
 				fout << *(g_frame.buffer + i) << ' ';
 			}
 
 			fout.close();
+
+			Mat img;
+			img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC3);
+
+			data2Img(g_pData[g_picNum], img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2);
+
+			QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
+
+			g_qImgShow[g_picNum] = image.copy();
+
+			QLabel *p = ui.widget_2->findChild<QLabel*>(QString::number(g_picNum));
+
+			QPixmap pixmap = QPixmap::fromImage(g_qImgShow[g_picNum]);
+
+			QPixmap fitpixmap = pixmap.scaled(p->width(), p->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
+
+			p->setPixmap(fitpixmap);
+
+			g_picNum = (g_picNum + 1) % 12;
+
 			IRSDK_Play(0);
 			g_flag_play = 1;
+
 		}
 		return true;
 	}
