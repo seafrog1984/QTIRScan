@@ -33,7 +33,7 @@ long FrameProc(long hFrame, long lParam)
 	Mat img;
 	img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
 
-	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2);
+	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2,25);
 
 	cv::resize(img, img, cv::Size(480, 640));
 	QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
@@ -197,7 +197,7 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 			Mat img;
 			img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC3);
 
-			data2Img(g_pData[g_picNum], img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2);
+			data2Img(g_pData[g_picNum], img, IMAGE_HEIGHT, IMAGE_WIDTH, 25, 16, 2, 2,25);
 
 			QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
 
