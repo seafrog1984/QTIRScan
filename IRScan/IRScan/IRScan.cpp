@@ -58,6 +58,8 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.imgSysAct, &QAction::triggered, this, &IRScan::sysSetting);
 
 	connect(ui.btn_scan, SIGNAL(clicked()), this, SLOT(btn_scan_Clicked()));
+	connect(ui.btn_focus_far, SIGNAL(clicked()), this, SLOT(btn_focusFar()));
+	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
 
 	int g_picTotalNum = 12;
 	int count = 0;
@@ -223,4 +225,14 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 		return false;
 		//return QMainWindow::eventFilter(obj, event);
 	}
+}
+
+void IRScan::btn_focusFar()
+{
+	IRSDK_NearFarFocus(0, AUTOFOCUS);  //AUTOFOCUS--×Ô¶¯
+}
+
+void IRScan::btn_focusNear()
+{
+	IRSDK_NearFarFocus(0, AUTOFOCUS);
 }

@@ -54,8 +54,8 @@ public:
     QToolButton *toolButton_52;
     QToolButton *toolButton_53;
     QToolButton *toolButton_54;
-    QToolButton *toolButton_55;
-    QToolButton *toolButton_56;
+    QToolButton *btn_focus_far;
+    QToolButton *btn_focus_near;
     QLabel *label_20;
     QLabel *label_21;
     QLabel *label_22;
@@ -302,30 +302,30 @@ public:
         toolButton_54->setIcon(icon9);
         toolButton_54->setIconSize(QSize(32, 32));
         toolButton_54->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_55 = new QToolButton(groupBox_20);
-        toolButton_55->setObjectName(QStringLiteral("toolButton_55"));
-        toolButton_55->setGeometry(QRect(245, 20, 32, 32));
-        toolButton_55->setMinimumSize(QSize(32, 32));
-        toolButton_55->setMaximumSize(QSize(32, 32));
-        toolButton_55->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_focus_far = new QToolButton(groupBox_20);
+        btn_focus_far->setObjectName(QStringLiteral("btn_focus_far"));
+        btn_focus_far->setGeometry(QRect(245, 20, 32, 32));
+        btn_focus_far->setMinimumSize(QSize(32, 32));
+        btn_focus_far->setMaximumSize(QSize(32, 32));
+        btn_focus_far->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon10;
         icon10.addFile(QStringLiteral(":/IRScan/Scan-Focus"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_55->setIcon(icon10);
-        toolButton_55->setIconSize(QSize(32, 32));
-        toolButton_55->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_56 = new QToolButton(groupBox_20);
-        toolButton_56->setObjectName(QStringLiteral("toolButton_56"));
-        toolButton_56->setGeometry(QRect(285, 20, 32, 32));
-        toolButton_56->setMinimumSize(QSize(32, 32));
-        toolButton_56->setMaximumSize(QSize(32, 32));
-        toolButton_56->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_focus_far->setIcon(icon10);
+        btn_focus_far->setIconSize(QSize(32, 32));
+        btn_focus_far->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_focus_near = new QToolButton(groupBox_20);
+        btn_focus_near->setObjectName(QStringLiteral("btn_focus_near"));
+        btn_focus_near->setGeometry(QRect(285, 20, 32, 32));
+        btn_focus_near->setMinimumSize(QSize(32, 32));
+        btn_focus_near->setMaximumSize(QSize(32, 32));
+        btn_focus_near->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon11;
         icon11.addFile(QStringLiteral(":/IRScan/Scan-Focus2"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_56->setIcon(icon11);
-        toolButton_56->setIconSize(QSize(32, 32));
-        toolButton_56->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_focus_near->setIcon(icon11);
+        btn_focus_near->setIconSize(QSize(32, 32));
+        btn_focus_near->setToolButtonStyle(Qt::ToolButtonIconOnly);
         label_20 = new QLabel(groupBox_20);
         label_20->setObjectName(QStringLiteral("label_20"));
         label_20->setGeometry(QRect(110, 60, 31, 16));
@@ -850,7 +850,7 @@ public:
         IRScanClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(IRScanClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1495, 26));
+        menuBar->setGeometry(QRect(0, 0, 1495, 23));
         IRScanClass->setMenuBar(menuBar);
         statusBar = new QStatusBar(IRScanClass);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -901,8 +901,8 @@ public:
         toolButton_52->setText(QApplication::translate("IRScanClass", "\351\200\206\346\227\266\351\222\210", 0));
         toolButton_53->setText(QApplication::translate("IRScanClass", "\344\270\212\345\215\207", 0));
         toolButton_54->setText(QApplication::translate("IRScanClass", "\344\270\213\351\231\215", 0));
-        toolButton_55->setText(QApplication::translate("IRScanClass", "\350\277\234", 0));
-        toolButton_56->setText(QApplication::translate("IRScanClass", "\350\277\221", 0));
+        btn_focus_far->setText(QApplication::translate("IRScanClass", "\350\277\234", 0));
+        btn_focus_near->setText(QApplication::translate("IRScanClass", "\350\277\221", 0));
         label_20->setText(QApplication::translate("IRScanClass", "\346\227\213\350\275\254", 0));
         label_21->setText(QApplication::translate("IRScanClass", "\351\253\230\345\272\246", 0));
         label_22->setText(QApplication::translate("IRScanClass", "\350\201\232\347\204\246", 0));

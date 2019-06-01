@@ -24,9 +24,12 @@ private:
 	void imgScan();//ÕºœÒ…®√Ë
 	void sysSetting();//œµÕ≥…Ë÷√
 
+
 private slots:
 
 	void btn_scan_Clicked();
+	void btn_focusFar();
+	void btn_focusNear();
 
 public:
 	QString ir_ip;
