@@ -4,6 +4,7 @@
 #include "ui_IRScan.h"
 
 #include "IRSDK.h"
+#include "SettingDlg.h"
 
 #include <opencv2\opencv.hpp>
 
@@ -27,11 +28,14 @@ private:
 
 private slots:
 
-	void btn_scan_Clicked();
-	void btn_focusFar();
-	void btn_focusNear();
+	void btn_scan_Clicked();//扫描函数
+	void btn_focusFar();//远焦
+	void btn_focusNear();//近焦
+	void btn_sysPar();//系统参数设置
 
 public:
 	QString ir_ip;
+
+	SettingDlg *dlg;
 
 };

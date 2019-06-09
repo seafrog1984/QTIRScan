@@ -1875,7 +1875,7 @@ border:0px;
           <string>系统参数</string>
          </property>
         </widget>
-        <widget class="QToolButton" name="sysSettingBt_3">
+        <widget class="QToolButton" name="btn_sys_par">
          <property name="geometry">
           <rect>
            <x>160</x>

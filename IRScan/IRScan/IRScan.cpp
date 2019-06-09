@@ -7,19 +7,22 @@
 
 #define IMAGE_WIDTH  384
 #define IMAGE_HEIGHT 288
+#define IMAGE_MAX_NUM 15
 
 Frame g_frame;
 
 int g_picTotalNum = 0;//缩略图窗口数量
 int g_flag_play = 1;//视频暂停，播放标志位
 
-int g_picNum = 0;
+int g_picNum = 0;//总的图像数
+int g_currentPic = 0; //当前图像下标
 
-unsigned short *g_pData[12];
-QImage g_qImgShow[12];
-QString g_tempFolder;
+unsigned short *g_pData[15];
+QImage g_qImgShow[15];
+QString g_tempFolder;//图像保存目录
+QString g_sysPath;//配置文件路径
 
-
+QString g_IP = "192.168.1.60";
 
 long FrameProc(long hFrame, long lParam)
 {
@@ -60,8 +63,9 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.btn_scan, SIGNAL(clicked()), this, SLOT(btn_scan_Clicked()));
 	connect(ui.btn_focus_far, SIGNAL(clicked()), this, SLOT(btn_focusFar()));
 	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
+	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
 
-	int g_picTotalNum = 12;
+	int g_picTotalNum = IMAGE_MAX_NUM;
 	int count = 0;
 	for (int x = 0; x < (g_picTotalNum - 1) / 3 + 1; x++)
 	{
@@ -90,6 +94,7 @@ IRScan::IRScan(QWidget *parent)
 	std::string scanID = "test20190521";
 	QDir dir;
 	g_tempFolder = dir.currentPath() + "//Temp//" + QString::fromStdString(scanID);
+	g_sysPath = dir.currentPath() + "//config.ini";
 
 	// 检查目录是否存在，若不存在则新建
 
@@ -98,6 +103,8 @@ IRScan::IRScan(QWidget *parent)
 		bool res = dir.mkpath(g_tempFolder);
 		//		qDebug() << "新建目录是否成功" << res;
 	}
+
+
 }
 
 
@@ -141,7 +148,7 @@ void IRScan::sysSetting()
 void IRScan::btn_scan_Clicked()
 {
 
-	QString str="192.168.1.60";
+	QString str=g_IP;
 
 	if (str.isEmpty())
 	{
@@ -182,7 +189,7 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 			g_pData[g_picNum] = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];
 			memcpy(g_pData[g_picNum], g_frame.buffer, IMAGE_HEIGHT*IMAGE_WIDTH*sizeof(short));
 
-			QString filePath = g_tempFolder + "\\" + QString::number(g_picNum) + ".dat";
+			QString filePath = g_tempFolder + "\\" + QString::number(g_currentPic) + ".dat";
 
 			char*  path;
 			QByteArray t = filePath.toLatin1(); // must
@@ -205,15 +212,22 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 
 			g_qImgShow[g_picNum] = image.copy();
 
-			QLabel *p = ui.widget_2->findChild<QLabel*>(QString::number(g_picNum));
 
-			QPixmap pixmap = QPixmap::fromImage(g_qImgShow[g_picNum]);
+			QLabel *p = ui.widget_2->findChild<QLabel*>(QString::number((g_currentPic-1+IMAGE_MAX_NUM)%IMAGE_MAX_NUM));
+			p->setStyleSheet("border-width: 1px;border-style: solid;border-color: rgb(255, 255, 255);");
+
+
+			p = ui.widget_2->findChild<QLabel*>(QString::number(g_currentPic));
+			QPixmap pixmap = QPixmap::fromImage(g_qImgShow[g_currentPic]);
 
 			QPixmap fitpixmap = pixmap.scaled(p->width(), p->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
 
 			p->setPixmap(fitpixmap);
+			p->setStyleSheet("border-width: 2px;border-style: solid;border-color: rgb(255, 0, 0);");
 
-			g_picNum = (g_picNum + 1) % 12;
+			g_currentPic = (g_currentPic + 1) % IMAGE_MAX_NUM;
+
+			if (g_picNum < IMAGE_MAX_NUM) g_picNum++;
 
 			IRSDK_Play(0);
 			g_flag_play = 1;
@@ -235,4 +249,11 @@ void IRScan::btn_focusFar()
 void IRScan::btn_focusNear()
 {
 	IRSDK_NearFarFocus(0, AUTOFOCUS);
+}
+
+void IRScan::btn_sysPar()
+{
+	dlg = new SettingDlg;
+
+	dlg->show();
 }
