@@ -36,7 +36,7 @@ long FrameProc(long hFrame, long lParam)
 	Mat img;
 	img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
 
-	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2,22);
+	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2,21.5);
 
 	cv::resize(img, img, cv::Size(480, 640));
 	QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
@@ -45,6 +45,7 @@ long FrameProc(long hFrame, long lParam)
 
 	pui->scanPicShow->setPixmap(QPixmap::fromImage(image));
 
+	img.release();
 	return 1;
 }
 
