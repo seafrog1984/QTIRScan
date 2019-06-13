@@ -37,9 +37,39 @@ long FrameProc(long hFrame, long lParam)
 	img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
 
 	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2,21.5);
-
 	cv::resize(img, img, cv::Size(480, 640));
-	QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
+
+	Mat g_dstImage3;
+	img.copyTo(g_dstImage3);
+
+	int thickness = 2;
+	int lineType = 8;
+	cv::line(g_dstImage3, Point(g_dstImage3.cols / 2, 0),
+		Point(g_dstImage3.cols / 2, g_dstImage3.rows - 1),
+		Scalar(255, 255, 255),
+		thickness,
+		lineType);
+	int step = g_dstImage3.rows / 4;
+
+	for (int i = 0; i<4; i++)
+	{
+		cv::line(g_dstImage3,
+			Point(g_dstImage3.cols / 2, 0 + i*step),
+			Point(0, g_dstImage3.cols / 2 * 1.73 + i*step),
+			Scalar(255, 255, 255),
+			thickness,
+			lineType);
+
+		cv::line(g_dstImage3,
+			Point(g_dstImage3.cols / 2, 0 + i*step),
+			Point(g_dstImage3.cols - 1, g_dstImage3.cols / 2 * 1.73 + i*step),
+			Scalar(255, 255, 255),
+			thickness,
+			lineType);
+	}
+	
+
+	QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
 
 	Ui::IRScanClass *pui = (Ui::IRScanClass*)lParam;
 
