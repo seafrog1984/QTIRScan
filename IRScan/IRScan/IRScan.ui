@@ -309,7 +309,7 @@ border:0px solid;</string>
         <property name="title">
          <string/>
         </property>
-        <widget class="QToolButton" name="toolButton_51">
+        <widget class="QToolButton" name="btn_clock">
          <property name="geometry">
           <rect>
            <x>85</x>
@@ -351,7 +351,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonIconOnly</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_52">
+        <widget class="QToolButton" name="btn_anticlock">
          <property name="geometry">
           <rect>
            <x>125</x>
@@ -393,7 +393,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonIconOnly</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_53">
+        <widget class="QToolButton" name="btn_cam_up">
          <property name="geometry">
           <rect>
            <x>165</x>
@@ -435,7 +435,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonIconOnly</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_54">
+        <widget class="QToolButton" name="btn_cam_down">
          <property name="geometry">
           <rect>
            <x>205</x>
@@ -629,7 +629,7 @@ background-image: url();
          <property name="title">
           <string/>
          </property>
-         <widget class="QToolButton" name="toolButton_57">
+         <widget class="QToolButton" name="btn_cam_ups">
           <property name="geometry">
            <rect>
             <x>25</x>
@@ -671,7 +671,7 @@ border:0px solid;</string>
            <enum>Qt::ToolButtonIconOnly</enum>
           </property>
          </widget>
-         <widget class="QToolButton" name="toolButton_58">
+         <widget class="QToolButton" name="btn_cam_downs">
           <property name="geometry">
            <rect>
             <x>25</x>
@@ -713,7 +713,7 @@ border:0px solid;</string>
            <enum>Qt::ToolButtonIconOnly</enum>
           </property>
          </widget>
-         <widget class="QToolButton" name="toolButton_59">
+         <widget class="QToolButton" name="btn_cam_left">
           <property name="geometry">
            <rect>
             <x>8</x>
@@ -755,7 +755,7 @@ border:0px solid;</string>
            <enum>Qt::ToolButtonIconOnly</enum>
           </property>
          </widget>
-         <widget class="QToolButton" name="toolButton_60">
+         <widget class="QToolButton" name="btn_cam_right">
           <property name="geometry">
            <rect>
             <x>43</x>

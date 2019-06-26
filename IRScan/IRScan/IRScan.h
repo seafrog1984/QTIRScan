@@ -32,6 +32,12 @@ private slots:
 	void btn_focusFar();//远焦
 	void btn_focusNear();//近焦
 	void btn_sysPar();//系统参数设置
+	void btn_clockWise();//转台顺时针旋转
+	void btn_antiClock();//转台逆时针旋转
+	void btn_camUp();//相机上
+	void btn_camDown();
+	void btn_camLeft();
+	void btn_camRight();
 
 public:
 	QString ir_ip;

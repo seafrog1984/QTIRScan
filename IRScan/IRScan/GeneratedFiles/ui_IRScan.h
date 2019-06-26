@@ -50,20 +50,20 @@ public:
     QToolButton *toolButton_32;
     QLabel *label_35;
     QGroupBox *groupBox_20;
-    QToolButton *toolButton_51;
-    QToolButton *toolButton_52;
-    QToolButton *toolButton_53;
-    QToolButton *toolButton_54;
+    QToolButton *btn_clock;
+    QToolButton *btn_anticlock;
+    QToolButton *btn_cam_up;
+    QToolButton *btn_cam_down;
     QToolButton *btn_focus_far;
     QToolButton *btn_focus_near;
     QLabel *label_20;
     QLabel *label_21;
     QLabel *label_22;
     QGroupBox *groupBox_19;
-    QToolButton *toolButton_57;
-    QToolButton *toolButton_58;
-    QToolButton *toolButton_59;
-    QToolButton *toolButton_60;
+    QToolButton *btn_cam_ups;
+    QToolButton *btn_cam_downs;
+    QToolButton *btn_cam_left;
+    QToolButton *btn_cam_right;
     QToolButton *toolButton_61;
     QLabel *label_33;
     QLabel *label_34;
@@ -254,54 +254,54 @@ public:
 "	background-image: url(:/IRScan/Bg3);\n"
 "\n"
 "}"));
-        toolButton_51 = new QToolButton(groupBox_20);
-        toolButton_51->setObjectName(QStringLiteral("toolButton_51"));
-        toolButton_51->setGeometry(QRect(85, 20, 32, 32));
-        toolButton_51->setMinimumSize(QSize(32, 32));
-        toolButton_51->setMaximumSize(QSize(32, 32));
-        toolButton_51->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_clock = new QToolButton(groupBox_20);
+        btn_clock->setObjectName(QStringLiteral("btn_clock"));
+        btn_clock->setGeometry(QRect(85, 20, 32, 32));
+        btn_clock->setMinimumSize(QSize(32, 32));
+        btn_clock->setMaximumSize(QSize(32, 32));
+        btn_clock->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon6;
         icon6.addFile(QStringLiteral(":/IRScan/Scan-Clock"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_51->setIcon(icon6);
-        toolButton_51->setIconSize(QSize(32, 32));
-        toolButton_51->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_52 = new QToolButton(groupBox_20);
-        toolButton_52->setObjectName(QStringLiteral("toolButton_52"));
-        toolButton_52->setGeometry(QRect(125, 20, 32, 32));
-        toolButton_52->setMinimumSize(QSize(32, 32));
-        toolButton_52->setMaximumSize(QSize(32, 32));
-        toolButton_52->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_clock->setIcon(icon6);
+        btn_clock->setIconSize(QSize(32, 32));
+        btn_clock->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_anticlock = new QToolButton(groupBox_20);
+        btn_anticlock->setObjectName(QStringLiteral("btn_anticlock"));
+        btn_anticlock->setGeometry(QRect(125, 20, 32, 32));
+        btn_anticlock->setMinimumSize(QSize(32, 32));
+        btn_anticlock->setMaximumSize(QSize(32, 32));
+        btn_anticlock->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon7;
         icon7.addFile(QStringLiteral(":/IRScan/Scan-AntiClock"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_52->setIcon(icon7);
-        toolButton_52->setIconSize(QSize(32, 32));
-        toolButton_52->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_53 = new QToolButton(groupBox_20);
-        toolButton_53->setObjectName(QStringLiteral("toolButton_53"));
-        toolButton_53->setGeometry(QRect(165, 20, 32, 32));
-        toolButton_53->setMinimumSize(QSize(32, 32));
-        toolButton_53->setMaximumSize(QSize(32, 32));
-        toolButton_53->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_anticlock->setIcon(icon7);
+        btn_anticlock->setIconSize(QSize(32, 32));
+        btn_anticlock->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_up = new QToolButton(groupBox_20);
+        btn_cam_up->setObjectName(QStringLiteral("btn_cam_up"));
+        btn_cam_up->setGeometry(QRect(165, 20, 32, 32));
+        btn_cam_up->setMinimumSize(QSize(32, 32));
+        btn_cam_up->setMaximumSize(QSize(32, 32));
+        btn_cam_up->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/IRScan/Scan-Up"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_53->setIcon(icon8);
-        toolButton_53->setIconSize(QSize(32, 32));
-        toolButton_53->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_54 = new QToolButton(groupBox_20);
-        toolButton_54->setObjectName(QStringLiteral("toolButton_54"));
-        toolButton_54->setGeometry(QRect(205, 20, 32, 32));
-        toolButton_54->setMinimumSize(QSize(32, 32));
-        toolButton_54->setMaximumSize(QSize(32, 32));
-        toolButton_54->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_cam_up->setIcon(icon8);
+        btn_cam_up->setIconSize(QSize(32, 32));
+        btn_cam_up->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_down = new QToolButton(groupBox_20);
+        btn_cam_down->setObjectName(QStringLiteral("btn_cam_down"));
+        btn_cam_down->setGeometry(QRect(205, 20, 32, 32));
+        btn_cam_down->setMinimumSize(QSize(32, 32));
+        btn_cam_down->setMaximumSize(QSize(32, 32));
+        btn_cam_down->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon9;
         icon9.addFile(QStringLiteral(":/IRScan/Scan-Down"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_54->setIcon(icon9);
-        toolButton_54->setIconSize(QSize(32, 32));
-        toolButton_54->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_down->setIcon(icon9);
+        btn_cam_down->setIconSize(QSize(32, 32));
+        btn_cam_down->setToolButtonStyle(Qt::ToolButtonIconOnly);
         btn_focus_far = new QToolButton(groupBox_20);
         btn_focus_far->setObjectName(QStringLiteral("btn_focus_far"));
         btn_focus_far->setGeometry(QRect(245, 20, 32, 32));
@@ -343,54 +343,54 @@ public:
         groupBox_19->setStyleSheet(QLatin1String("background-color: rgb(36,84,133);\n"
 "background-image: url();\n"
 ""));
-        toolButton_57 = new QToolButton(groupBox_19);
-        toolButton_57->setObjectName(QStringLiteral("toolButton_57"));
-        toolButton_57->setGeometry(QRect(25, 10, 16, 16));
-        toolButton_57->setMinimumSize(QSize(16, 16));
-        toolButton_57->setMaximumSize(QSize(16, 16));
-        toolButton_57->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_cam_ups = new QToolButton(groupBox_19);
+        btn_cam_ups->setObjectName(QStringLiteral("btn_cam_ups"));
+        btn_cam_ups->setGeometry(QRect(25, 10, 16, 16));
+        btn_cam_ups->setMinimumSize(QSize(16, 16));
+        btn_cam_ups->setMaximumSize(QSize(16, 16));
+        btn_cam_ups->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon12;
         icon12.addFile(QStringLiteral(":/IRScan/Scan-Ups"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_57->setIcon(icon12);
-        toolButton_57->setIconSize(QSize(32, 32));
-        toolButton_57->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_58 = new QToolButton(groupBox_19);
-        toolButton_58->setObjectName(QStringLiteral("toolButton_58"));
-        toolButton_58->setGeometry(QRect(25, 45, 16, 16));
-        toolButton_58->setMinimumSize(QSize(16, 16));
-        toolButton_58->setMaximumSize(QSize(16, 16));
-        toolButton_58->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_cam_ups->setIcon(icon12);
+        btn_cam_ups->setIconSize(QSize(32, 32));
+        btn_cam_ups->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_downs = new QToolButton(groupBox_19);
+        btn_cam_downs->setObjectName(QStringLiteral("btn_cam_downs"));
+        btn_cam_downs->setGeometry(QRect(25, 45, 16, 16));
+        btn_cam_downs->setMinimumSize(QSize(16, 16));
+        btn_cam_downs->setMaximumSize(QSize(16, 16));
+        btn_cam_downs->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon13;
         icon13.addFile(QStringLiteral(":/IRScan/Scan-Downs"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_58->setIcon(icon13);
-        toolButton_58->setIconSize(QSize(32, 32));
-        toolButton_58->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_59 = new QToolButton(groupBox_19);
-        toolButton_59->setObjectName(QStringLiteral("toolButton_59"));
-        toolButton_59->setGeometry(QRect(8, 28, 16, 16));
-        toolButton_59->setMinimumSize(QSize(16, 16));
-        toolButton_59->setMaximumSize(QSize(16, 16));
-        toolButton_59->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_cam_downs->setIcon(icon13);
+        btn_cam_downs->setIconSize(QSize(32, 32));
+        btn_cam_downs->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_left = new QToolButton(groupBox_19);
+        btn_cam_left->setObjectName(QStringLiteral("btn_cam_left"));
+        btn_cam_left->setGeometry(QRect(8, 28, 16, 16));
+        btn_cam_left->setMinimumSize(QSize(16, 16));
+        btn_cam_left->setMaximumSize(QSize(16, 16));
+        btn_cam_left->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon14;
         icon14.addFile(QStringLiteral(":/IRScan/Scan-Lefts"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_59->setIcon(icon14);
-        toolButton_59->setIconSize(QSize(32, 32));
-        toolButton_59->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton_60 = new QToolButton(groupBox_19);
-        toolButton_60->setObjectName(QStringLiteral("toolButton_60"));
-        toolButton_60->setGeometry(QRect(43, 28, 16, 16));
-        toolButton_60->setMinimumSize(QSize(16, 16));
-        toolButton_60->setMaximumSize(QSize(16, 16));
-        toolButton_60->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_cam_left->setIcon(icon14);
+        btn_cam_left->setIconSize(QSize(32, 32));
+        btn_cam_left->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_right = new QToolButton(groupBox_19);
+        btn_cam_right->setObjectName(QStringLiteral("btn_cam_right"));
+        btn_cam_right->setGeometry(QRect(43, 28, 16, 16));
+        btn_cam_right->setMinimumSize(QSize(16, 16));
+        btn_cam_right->setMaximumSize(QSize(16, 16));
+        btn_cam_right->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon15;
         icon15.addFile(QStringLiteral(":/IRScan/Scan-Rights"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_60->setIcon(icon15);
-        toolButton_60->setIconSize(QSize(32, 32));
-        toolButton_60->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        btn_cam_right->setIcon(icon15);
+        btn_cam_right->setIconSize(QSize(32, 32));
+        btn_cam_right->setToolButtonStyle(Qt::ToolButtonIconOnly);
         toolButton_61 = new QToolButton(groupBox_20);
         toolButton_61->setObjectName(QStringLiteral("toolButton_61"));
         toolButton_61->setGeometry(QRect(410, 30, 32, 32));
@@ -897,20 +897,20 @@ public:
 "\n"
 "\344\275\234", 0));
         groupBox_20->setTitle(QString());
-        toolButton_51->setText(QApplication::translate("IRScanClass", "\351\241\272\346\227\266\351\222\210", 0));
-        toolButton_52->setText(QApplication::translate("IRScanClass", "\351\200\206\346\227\266\351\222\210", 0));
-        toolButton_53->setText(QApplication::translate("IRScanClass", "\344\270\212\345\215\207", 0));
-        toolButton_54->setText(QApplication::translate("IRScanClass", "\344\270\213\351\231\215", 0));
+        btn_clock->setText(QApplication::translate("IRScanClass", "\351\241\272\346\227\266\351\222\210", 0));
+        btn_anticlock->setText(QApplication::translate("IRScanClass", "\351\200\206\346\227\266\351\222\210", 0));
+        btn_cam_up->setText(QApplication::translate("IRScanClass", "\344\270\212\345\215\207", 0));
+        btn_cam_down->setText(QApplication::translate("IRScanClass", "\344\270\213\351\231\215", 0));
         btn_focus_far->setText(QApplication::translate("IRScanClass", "\350\277\234", 0));
         btn_focus_near->setText(QApplication::translate("IRScanClass", "\350\277\221", 0));
         label_20->setText(QApplication::translate("IRScanClass", "\346\227\213\350\275\254", 0));
         label_21->setText(QApplication::translate("IRScanClass", "\351\253\230\345\272\246", 0));
         label_22->setText(QApplication::translate("IRScanClass", "\350\201\232\347\204\246", 0));
         groupBox_19->setTitle(QString());
-        toolButton_57->setText(QApplication::translate("IRScanClass", "\344\270\212", 0));
-        toolButton_58->setText(QApplication::translate("IRScanClass", "\344\270\213", 0));
-        toolButton_59->setText(QApplication::translate("IRScanClass", "\345\267\246", 0));
-        toolButton_60->setText(QApplication::translate("IRScanClass", "\345\217\263", 0));
+        btn_cam_ups->setText(QApplication::translate("IRScanClass", "\344\270\212", 0));
+        btn_cam_downs->setText(QApplication::translate("IRScanClass", "\344\270\213", 0));
+        btn_cam_left->setText(QApplication::translate("IRScanClass", "\345\267\246", 0));
+        btn_cam_right->setText(QApplication::translate("IRScanClass", "\345\217\263", 0));
         toolButton_61->setText(QApplication::translate("IRScanClass", "\351\241\272\346\227\266\351\222\210", 0));
         label_33->setText(QApplication::translate("IRScanClass", "\346\216\247\n"
 "\345\210\266\n"

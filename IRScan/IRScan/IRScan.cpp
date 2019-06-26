@@ -96,6 +96,16 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
 	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
 
+	connect(ui.btn_clock, SIGNAL(clicked()), this, SLOT(btn_clockWise()));
+	connect(ui.btn_anticlock, SIGNAL(clicked()), this, SLOT(btn_antiClock()));
+	connect(ui.btn_cam_up, SIGNAL(clicked()), this, SLOT(btn_camUp()));
+	connect(ui.btn_cam_ups, SIGNAL(clicked()), this, SLOT(btn_camUp()));
+	connect(ui.btn_cam_down, SIGNAL(clicked()), this, SLOT(btn_camDown()));
+	connect(ui.btn_cam_downs, SIGNAL(clicked()), this, SLOT(btn_camDown()));
+	connect(ui.btn_cam_left, SIGNAL(clicked()), this, SLOT(btn_camLeft()));
+	connect(ui.btn_cam_right, SIGNAL(clicked()), this, SLOT(btn_camRight()));
+
+
 	int g_picTotalNum = IMAGE_MAX_NUM;
 	int count = 0;
 	for (int x = 0; x < (g_picTotalNum - 1) / 3 + 1; x++)
@@ -137,6 +147,34 @@ IRScan::IRScan(QWidget *parent)
 
 
 }
+
+void IRScan::btn_clockWise()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("顺时针旋转！"));
+}
+void IRScan::btn_antiClock()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("逆时针旋转！"));
+}
+
+void IRScan::btn_camUp()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向上！"));
+}
+void IRScan::btn_camDown()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向下！"));
+}
+
+void IRScan::btn_camLeft()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向左！"));
+}
+void IRScan::btn_camRight()
+{
+	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向右！"));
+}
+
 
 
 void IRScan::closeEvent(QCloseEvent* event)
