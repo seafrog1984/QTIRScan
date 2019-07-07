@@ -133,7 +133,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_31">
+        <widget class="QToolButton" name="btn_del">
          <property name="geometry">
           <rect>
            <x>145</x>
@@ -175,7 +175,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_30">
+        <widget class="QToolButton" name="btn_reg">
          <property name="geometry">
           <rect>
            <x>65</x>
@@ -217,7 +217,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_32">
+        <widget class="QToolButton" name="btn_change">
          <property name="geometry">
           <rect>
            <x>185</x>
@@ -2065,7 +2065,8 @@ border:0px;
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(255,255,255);</string>
+           <string notr="true">background-color: rgb(255,255,255);
+color: rgb(0, 0, 0);</string>
           </property>
           <property name="sizeAdjustPolicy">
            <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -2089,7 +2090,7 @@ border:0px;
            <number>5</number>
           </property>
           <property name="columnCount">
-           <number>11</number>
+           <number>12</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>true</bool>
@@ -2123,6 +2124,11 @@ border:0px;
           <column>
            <property name="text">
             <string>序号</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>卡号</string>
            </property>
           </column>
           <column>

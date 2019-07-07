@@ -5,7 +5,8 @@
 
 #include "IRSDK.h"
 #include "SettingDlg.h"
-
+#include "RegDlg.h"
+#include "./incl/client.h"
 #include <opencv2\opencv.hpp>
 
 class IRScan : public QMainWindow
@@ -24,7 +25,9 @@ private:
 
 	void imgScan();//图像扫描
 	void sysSetting();//系统设置
-
+	void conDataBase();//连接数据库
+	void updateData();
+	void addData(int index,QString cardID,QString scanID,QString RegTime);
 
 private slots:
 
@@ -38,10 +41,17 @@ private slots:
 	void btn_camDown();
 	void btn_camLeft();
 	void btn_camRight();
+	void btn_reg();
+	void btn_del();
+	void btn_change();
+
 
 public:
 	QString ir_ip;
 
 	SettingDlg *dlg;
 
+	RegDlg *rdlg;
+
+//	client_t m_cli;
 };

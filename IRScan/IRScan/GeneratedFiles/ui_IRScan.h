@@ -45,9 +45,9 @@ public:
     QWidget *pageScan;
     QGroupBox *groupBox_10;
     QToolButton *btn_scan;
-    QToolButton *toolButton_31;
-    QToolButton *toolButton_30;
-    QToolButton *toolButton_32;
+    QToolButton *btn_del;
+    QToolButton *btn_reg;
+    QToolButton *btn_change;
     QLabel *label_35;
     QGroupBox *groupBox_20;
     QToolButton *btn_clock;
@@ -204,42 +204,42 @@ public:
         btn_scan->setIcon(icon2);
         btn_scan->setIconSize(QSize(20, 20));
         btn_scan->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        toolButton_31 = new QToolButton(groupBox_10);
-        toolButton_31->setObjectName(QStringLiteral("toolButton_31"));
-        toolButton_31->setGeometry(QRect(145, 20, 32, 50));
-        toolButton_31->setMinimumSize(QSize(32, 50));
-        toolButton_31->setMaximumSize(QSize(32, 50));
-        toolButton_31->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_del = new QToolButton(groupBox_10);
+        btn_del->setObjectName(QStringLiteral("btn_del"));
+        btn_del->setGeometry(QRect(145, 20, 32, 50));
+        btn_del->setMinimumSize(QSize(32, 50));
+        btn_del->setMaximumSize(QSize(32, 50));
+        btn_del->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/IRScan/Scan-Del"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_31->setIcon(icon3);
-        toolButton_31->setIconSize(QSize(20, 20));
-        toolButton_31->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        toolButton_30 = new QToolButton(groupBox_10);
-        toolButton_30->setObjectName(QStringLiteral("toolButton_30"));
-        toolButton_30->setGeometry(QRect(65, 20, 32, 50));
-        toolButton_30->setMinimumSize(QSize(32, 50));
-        toolButton_30->setMaximumSize(QSize(32, 50));
-        toolButton_30->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_del->setIcon(icon3);
+        btn_del->setIconSize(QSize(20, 20));
+        btn_del->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        btn_reg = new QToolButton(groupBox_10);
+        btn_reg->setObjectName(QStringLiteral("btn_reg"));
+        btn_reg->setGeometry(QRect(65, 20, 32, 50));
+        btn_reg->setMinimumSize(QSize(32, 50));
+        btn_reg->setMaximumSize(QSize(32, 50));
+        btn_reg->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/IRScan/Scan-Log"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_30->setIcon(icon4);
-        toolButton_30->setIconSize(QSize(20, 20));
-        toolButton_30->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
-        toolButton_32 = new QToolButton(groupBox_10);
-        toolButton_32->setObjectName(QStringLiteral("toolButton_32"));
-        toolButton_32->setGeometry(QRect(185, 20, 32, 50));
-        toolButton_32->setMinimumSize(QSize(32, 50));
-        toolButton_32->setMaximumSize(QSize(32, 50));
-        toolButton_32->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
+        btn_reg->setIcon(icon4);
+        btn_reg->setIconSize(QSize(20, 20));
+        btn_reg->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        btn_change = new QToolButton(groupBox_10);
+        btn_change->setObjectName(QStringLiteral("btn_change"));
+        btn_change->setGeometry(QRect(185, 20, 32, 50));
+        btn_change->setMinimumSize(QSize(32, 50));
+        btn_change->setMaximumSize(QSize(32, 50));
+        btn_change->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
 "border:0px solid;"));
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/IRScan/Scan-Change"), QSize(), QIcon::Normal, QIcon::Off);
-        toolButton_32->setIcon(icon5);
-        toolButton_32->setIconSize(QSize(20, 20));
-        toolButton_32->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+        btn_change->setIcon(icon5);
+        btn_change->setIconSize(QSize(20, 20));
+        btn_change->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
         label_35 = new QLabel(groupBox_10);
         label_35->setObjectName(QStringLiteral("label_35"));
         label_35->setGeometry(QRect(30, 20, 16, 50));
@@ -732,14 +732,14 @@ public:
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tableWidget = new QTableWidget(page_3);
-        if (tableWidget->columnCount() < 11)
-            tableWidget->setColumnCount(11);
+        if (tableWidget->columnCount() < 12)
+            tableWidget->setColumnCount(12);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        __qtablewidgetitem1->setBackground(QColor(22, 84, 141));
         tableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
         QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        __qtablewidgetitem2->setBackground(QColor(22, 84, 141));
         tableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
         QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
@@ -757,6 +757,8 @@ public:
         tableWidget->setHorizontalHeaderItem(9, __qtablewidgetitem9);
         QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
         tableWidget->setHorizontalHeaderItem(10, __qtablewidgetitem10);
+        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
+        tableWidget->setHorizontalHeaderItem(11, __qtablewidgetitem11);
         if (tableWidget->rowCount() < 5)
             tableWidget->setRowCount(5);
         tableWidget->setObjectName(QStringLiteral("tableWidget"));
@@ -767,7 +769,8 @@ public:
         tableWidget->setSizePolicy(sizePolicy);
         tableWidget->setMinimumSize(QSize(200, 0));
         tableWidget->setMaximumSize(QSize(200, 16777215));
-        tableWidget->setStyleSheet(QStringLiteral("background-color: rgb(255,255,255);"));
+        tableWidget->setStyleSheet(QLatin1String("background-color: rgb(255,255,255);\n"
+"color: rgb(0, 0, 0);"));
         tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         tableWidget->setAutoScrollMargin(15);
         tableWidget->setEditTriggers(QAbstractItemView::DoubleClicked);
@@ -775,7 +778,7 @@ public:
         tableWidget->setDragDropOverwriteMode(true);
         tableWidget->setAlternatingRowColors(false);
         tableWidget->setRowCount(5);
-        tableWidget->setColumnCount(11);
+        tableWidget->setColumnCount(12);
         tableWidget->horizontalHeader()->setVisible(true);
         tableWidget->horizontalHeader()->setCascadingSectionResizes(true);
         tableWidget->horizontalHeader()->setDefaultSectionSize(50);
@@ -890,9 +893,9 @@ public:
 #endif // QT_NO_STATUSTIP
         groupBox_10->setTitle(QString());
         btn_scan->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217", 0));
-        toolButton_31->setText(QApplication::translate("IRScanClass", "\345\210\240\351\231\244", 0));
-        toolButton_30->setText(QApplication::translate("IRScanClass", "\347\231\273\350\256\260", 0));
-        toolButton_32->setText(QApplication::translate("IRScanClass", "\344\277\256\346\224\271", 0));
+        btn_del->setText(QApplication::translate("IRScanClass", "\345\210\240\351\231\244", 0));
+        btn_reg->setText(QApplication::translate("IRScanClass", "\347\231\273\350\256\260", 0));
+        btn_change->setText(QApplication::translate("IRScanClass", "\344\277\256\346\224\271", 0));
         label_35->setText(QApplication::translate("IRScanClass", "\346\223\215\n"
 "\n"
 "\344\275\234", 0));
@@ -977,25 +980,27 @@ public:
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("IRScanClass", "\345\272\217\345\217\267", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("IRScanClass", "\347\274\226\345\217\267", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("IRScanClass", "\345\215\241\345\217\267", 0));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("IRScanClass", "\345\247\223\345\220\215", 0));
+        ___qtablewidgetitem2->setText(QApplication::translate("IRScanClass", "\347\274\226\345\217\267", 0));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("IRScanClass", "\346\200\247\345\210\253", 0));
+        ___qtablewidgetitem3->setText(QApplication::translate("IRScanClass", "\345\247\223\345\220\215", 0));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("IRScanClass", "\347\224\237\346\227\245", 0));
+        ___qtablewidgetitem4->setText(QApplication::translate("IRScanClass", "\346\200\247\345\210\253", 0));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("IRScanClass", "\345\271\264\351\276\204", 0));
+        ___qtablewidgetitem5->setText(QApplication::translate("IRScanClass", "\347\224\237\346\227\245", 0));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("IRScanClass", "\347\231\273\350\256\260\346\227\245\346\234\237", 0));
+        ___qtablewidgetitem6->setText(QApplication::translate("IRScanClass", "\345\271\264\351\276\204", 0));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
-        ___qtablewidgetitem7->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217\346\227\245\346\234\237", 0));
+        ___qtablewidgetitem7->setText(QApplication::translate("IRScanClass", "\347\231\273\350\256\260\346\227\245\346\234\237", 0));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget->horizontalHeaderItem(8);
-        ___qtablewidgetitem8->setText(QApplication::translate("IRScanClass", "\345\257\274\345\205\245\346\227\245\346\234\237", 0));
+        ___qtablewidgetitem8->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217\346\227\245\346\234\237", 0));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidget->horizontalHeaderItem(9);
-        ___qtablewidgetitem9->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217\346\254\241\346\225\260", 0));
+        ___qtablewidgetitem9->setText(QApplication::translate("IRScanClass", "\345\257\274\345\205\245\346\227\245\346\234\237", 0));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidget->horizontalHeaderItem(10);
-        ___qtablewidgetitem10->setText(QApplication::translate("IRScanClass", "\345\214\273\351\231\242\345\220\215\347\247\260", 0));
+        ___qtablewidgetitem10->setText(QApplication::translate("IRScanClass", "\346\211\253\346\217\217\346\254\241\346\225\260", 0));
+        QTableWidgetItem *___qtablewidgetitem11 = tableWidget->horizontalHeaderItem(11);
+        ___qtablewidgetitem11->setText(QApplication::translate("IRScanClass", "\345\214\273\351\231\242\345\220\215\347\247\260", 0));
         scanPicShow->setText(QString());
         toolBar->setWindowTitle(QApplication::translate("IRScanClass", "toolBar", 0));
     } // retranslateUi

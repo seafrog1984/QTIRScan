@@ -66,9 +66,7 @@ LogDlg::LogDlg(QWidget *parent)
 	ui.lineEdit_pw->setText(m_passwd);
 
 	iTestFlag = 1;
-
-
-
+	
 
 }
 
@@ -115,7 +113,7 @@ void LogDlg::log()
 			m_msg.append(QString::fromLocal8Bit("测试环境: "));
 
 		}
-		m_msg.append(sAuth);
+	//	m_msg.append(sAuth);
 
 		int iPermissions = atoi(sPermissions.c_str());
 		permissions_t pt;
@@ -132,11 +130,39 @@ void LogDlg::log()
 			pt.p3 = true;
 		}
 
-		//	m_msg.Append("\n权限: ");
-		//	m_msg.Append("图像扫描");
+		m_msg.append(QString::fromLocal8Bit("\n权限: "));
+		m_msg.append(QString::fromLocal8Bit("图像扫描"));
+		if (pt.p1)
+		{
+			m_msg.append(QString::fromLocal8Bit("(√)"));
+		}
+		else
+		{
+			m_msg.append(QString::fromLocal8Bit("(×)"));
+		}
+		m_msg.append(QString::fromLocal8Bit(",图像分析"));
+		if (pt.p2)
+		{
+			m_msg.append(QString::fromLocal8Bit("(√)"));
+		}
+		else
+		{
+			m_msg.append(QString::fromLocal8Bit("(×)"));
+		}
+		m_msg.append(QString::fromLocal8Bit(",系统设置"));
+		if (pt.p3)
+		{
+			m_msg.append(QString::fromLocal8Bit("(√)"));
+		}
+		else
+		{
+			m_msg.append(QString::fromLocal8Bit("(×)"));
+		}
+
 		if (pt.p1 || pt.p3)
 		{
 			g_log_flag = 1;
+			QMessageBox::information(NULL, "Title", m_msg);
 
 		}
 		else

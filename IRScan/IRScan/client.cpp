@@ -1535,3 +1535,142 @@ bool _client_t::get_result(const std::string &scan_id, std::string &pic_id, unsi
 	delete[] respData;
 	return true;
 }
+
+
+//获取用户卡信息
+int _client_t::get_listdata(std::string &params, std::string &listdata)
+{
+	if (!bConnection)
+	{
+		sMsg = "no init connection";
+		return -1;
+	}
+
+	if ("" == sAuth)
+	{
+		sMsg = "invalid auth";
+		return -1;
+	}
+
+	if ("" == params)
+	{
+		sMsg = "params is blank";
+		return -1;
+	}
+
+	//验证授权请求串实现
+	req_head_t tHead;
+	set_req_head(tHead, REQ_CMD_GET_LISTCARD);
+
+	//验证授权请求数据
+	//头部+客户端标识数据大小(int)+客户端标识数据
+	tHead.length = sizeof(int)+params.length();
+	//请求数据拷贝
+	char data[MAX_DATA] = { 0 };
+	int pos = 0;
+	memcpy(&data[pos], &tHead, sizeof(req_head_t));
+	pos += sizeof(req_head_t);
+	//scan
+	int len = params.length();
+	memcpy(&data[pos], &len, sizeof(int));
+	pos += sizeof(int);
+	memcpy(&data[pos], params.c_str(), len);
+	pos += len;
+	//若服务端未授权则返回错误信息
+	if (!sock.Send(data, pos))
+	{
+		sMsg = "get listdata msg fail";
+		return -1;
+	}
+	char resp[MAX_DATA] = { 0 };
+	int ret = recv_resp(resp);
+	if (0 > ret)
+	{
+		return -1;
+	}
+
+	//解析body
+	int data_len;
+	memcpy(&data_len, resp, sizeof(int));
+	pos = sizeof(int);
+	std::string msg(&resp[pos], data_len);
+	pos += data_len;
+
+	if (0 == ret)
+	{
+		sMsg = "get listdata fail, " + msg;
+		return -1;
+	}
+
+	listdata = msg;
+	return 1;
+}
+
+
+
+
+int _client_t::del_scanid(const std::string &scan_id)
+{
+	if (!bConnection)
+	{
+		sMsg = "no init connection";
+		return -1;
+	}
+
+	if ("" == sAuth)
+	{
+		sMsg = "invalid auth";
+		return -1;
+	}
+
+	if ("" == scan_id)
+	{
+		sMsg = "scan_id is blank";
+		return -1;
+	}
+
+	//验证授权请求串实现
+	req_head_t tHead;
+	set_req_head(tHead, REQ_CMD_GET_DELSCAN);
+
+	//验证授权请求数据
+	//头部+客户端标识数据大小(int)+客户端标识数据
+	tHead.length = 3 * sizeof(int)+scan_id.length();
+	//请求数据拷贝
+	char data[MAX_DATA] = { 0 };
+	int pos = 0;
+	memcpy(&data[pos], &tHead, sizeof(req_head_t));
+	pos += sizeof(req_head_t);
+	//scan
+	int len = scan_id.length();
+	memcpy(&data[pos], &len, sizeof(int));
+	pos += sizeof(int);
+	memcpy(&data[pos], scan_id.c_str(), len);
+	pos += len;
+	//若服务端未授权则返回错误信息
+	if (!sock.Send(data, pos))
+	{
+		sMsg = "del scanid msg fail";
+		return -1;
+	}
+	char resp[MAX_DATA] = { 0 };
+	int ret = recv_resp(resp);
+	if (0 > ret)
+	{
+		return -1;
+	}
+
+	//解析body
+	int data_len;
+	memcpy(&data_len, resp, sizeof(int));
+	pos = sizeof(int);
+	std::string msg(&resp[pos], data_len);
+	pos += data_len;
+
+	if (0 == ret)
+	{
+		sMsg = "del scanid fail, " + msg;
+		return -1;
+	}
+	return 1;
+}

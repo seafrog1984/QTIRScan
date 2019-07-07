@@ -8,7 +8,7 @@
 #include "../utils/string/string_utils.h"
 
 
-#define  PIC_SIZE  320*240
+#define  PIC_SIZE  384*288
 #define  MAX_DATA  1024*10
 
 using namespace std;
@@ -73,6 +73,11 @@ public:
 	bool del_user(string &user, string &loginuser, string &loginpasswd);
 	//修改用户
 	bool update_user(string &user, string &passwd, int &permissions, string &loginuser, string &loginpasswd);
+
+	//获取列表
+	int get_listdata(std::string &params, std::string &data);
+	//删除扫描ID
+	int del_scanid(const std::string &scan_id);
 
 private:
 	//设置请求头
