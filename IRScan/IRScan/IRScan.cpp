@@ -24,17 +24,17 @@ QImage g_qImgShow[15];
 QString g_tempFolder;//图像保存目录
 QString g_sysPath;//配置文件路径
 
-QString g_IP = "192.168.1.60";
+QString g_camIP = "192.168.1.60";
 
-extern QString m_ip;
-extern QString m_port;
+extern QString g_ip;
+extern QString g_port;
 extern QString g_uport;
 
 extern int g_control_port;
 extern int g_card_port;
 
-extern QString m_user;
-extern QString m_passwd;
+extern QString g_user;
+extern QString g_passwd;
 
 extern int iTestFlag;
 extern client_t m_cli;
@@ -50,6 +50,9 @@ QString g_ID="id003";
 QString g_scanID="SCAN0016";
 QString g_cardID="CARD100000000003";
 
+int g_pageSize = 10;
+int g_maxPage = 2;
+int g_curPage = 1;
 
 long FrameProc(long hFrame, long lParam)
 {
@@ -128,6 +131,8 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.btn_focus_far, SIGNAL(clicked()), this, SLOT(btn_focusFar()));
 	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
 	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
+	connect(ui.btn_set_auth, SIGNAL(clicked()), this, SLOT(btn_setAuth()));
+
 
 	connect(ui.btn_clock, SIGNAL(clicked()), this, SLOT(btn_clockWise()));
 	connect(ui.btn_anticlock, SIGNAL(clicked()), this, SLOT(btn_antiClock()));
@@ -141,7 +146,13 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.btn_reg, SIGNAL(clicked()), this, SLOT(btn_reg()));
 	connect(ui.btn_del, SIGNAL(clicked()), this, SLOT(btn_del()));
 	connect(ui.btn_change, SIGNAL(clicked()), this, SLOT(btn_change()));
-
+	connect(ui.btn_pre, SIGNAL(clicked()), this, SLOT(btn_pre()));
+	connect(ui.btn_next, SIGNAL(clicked()), this, SLOT(btn_next()));
+	connect(ui.btn_start, SIGNAL(clicked()), this, SLOT(btn_start()));
+	connect(ui.btn_end, SIGNAL(clicked()), this, SLOT(btn_end()));
+	connect(ui.btn_date_sel, SIGNAL(clicked()), this, SLOT(btn_dateSel()));
+	connect(ui.btn_name_sel, SIGNAL(clicked()), this, SLOT(btn_nameSel()));
+	connect(ui.btn_show_all, SIGNAL(clicked()), this, SLOT(btn_showAll()));
 
 	int g_picTotalNum = IMAGE_MAX_NUM;
 	int count = 0;
@@ -182,7 +193,219 @@ IRScan::IRScan(QWidget *parent)
 		//		qDebug() << "新建目录是否成功" << res;
 	}
 
+	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+	ui.lineEdit_page_size->setText(QString::number(g_pageSize));
+
 	updateData();
+
+}
+
+
+void IRScan::btn_showAll()
+{
+	std::map <std::string, std::string> mapParams;
+	mapParams["data_type"] = "4";
+	//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	//mapParams["page_num"] = QString::number(g_curPage).toStdString();
+
+	//mapParams["name"] = ui.lineEdit_name->text().toStdString();
+	////mapParams["cardid"] = "CARD100000000001";
+	//mapParams["scanid"] = ui.lineEdit_scanID->text().toStdString();
+	//mapParams["begin"] = ui.dateEdit_start->text().toStdString();
+	//mapParams["end"] = ui.dateEdit_end->text().toStdString();
+	std::string sParams = map_join(mapParams, '&', '=');
+
+	std::string sData;
+	QString m_msg;
+	int iRet = m_cli.get_listdata(sParams, sData);
+
+	if (0 < iRet)
+	{
+		//m_msg = "结果:\n";
+		m_msg.append(QString::fromLocal8Bit(sData.c_str()));
+		//QMessageBox::information(NULL, "Title", m_msg);
+		QList<QString> lst;
+		lst = m_msg.split(';');
+
+		QString temp = lst[0].section('&', 0, 0);
+		int dataNum = temp.section('=', -1, -1).toInt();
+
+		g_maxPage = (dataNum - 1) / g_pageSize + 1;
+
+
+		lst[0] = lst[0].section('=', -1, -1);
+		ui.tableWidget->setRowCount(lst.size());
+		for (int i = 0; i != lst.size(); ++i)
+		{
+			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
+
+			addData(i, lst[i].section(',', 0, 0), lst[i].section(',', 1, 1), lst[i].section(',', -1, -1));
+		}
+
+	}
+	else
+	{
+		m_msg = QString::fromLocal8Bit("失败\n");
+		m_msg.append(QString::fromLocal8Bit(m_cli.get_msg().c_str()));
+		QMessageBox::information(NULL, "Title", m_msg);
+		m_cli.close();
+		conDataBase();
+	}
+
+}
+
+
+void IRScan::btn_nameSel()
+{
+	std::map <std::string, std::string> mapParams;
+	mapParams["data_type"] = "4";
+	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	mapParams["page_num"] = QString::number(g_curPage).toStdString();
+
+	if (ui.lineEdit_name->text()!="")
+		mapParams["name"] = ui.lineEdit_name->text().toStdString();
+	//mapParams["cardid"] = "CARD100000000001";
+	if (ui.lineEdit_scanID->text()!="")
+		mapParams["scanid"] = ui.lineEdit_scanID->text().toStdString();
+	//mapParams["begin"] = ui.dateEdit_start->text().toStdString();
+	//mapParams["end"] = ui.dateEdit_end->text().toStdString();
+	std::string sParams = map_join(mapParams, '&', '=');
+
+	std::string sData;
+	QString m_msg;
+	int iRet = m_cli.get_listdata(sParams, sData);
+
+	if (0 < iRet)
+	{
+		//m_msg = "结果:\n";
+		m_msg.append(QString::fromLocal8Bit(sData.c_str()));
+		//QMessageBox::information(NULL, "Title", m_msg);
+		QList<QString> lst;
+		lst = m_msg.split(';');
+
+		QString temp = lst[0].section('&', 0, 0);
+		int dataNum = temp.section('=', -1, -1).toInt();
+
+		g_maxPage = (dataNum - 1) / g_pageSize + 1;
+
+
+		lst[0] = lst[0].section('=', -1, -1);
+		ui.tableWidget->setRowCount(lst.size());
+		for (int i = 0; i != lst.size(); ++i)
+		{
+			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
+
+			addData(i, lst[i].section(',', 0, 0), lst[i].section(',', 1, 1), lst[i].section(',', -1, -1));
+		}
+
+	}
+	else
+	{
+		m_msg = QString::fromLocal8Bit("失败\n");
+		m_msg.append(QString::fromLocal8Bit(m_cli.get_msg().c_str()));
+		QMessageBox::information(NULL, "Title", m_msg);
+		m_cli.close();
+		conDataBase();
+	}
+
+}
+
+
+void IRScan::btn_dateSel()
+{
+	std::map <std::string, std::string> mapParams;
+	mapParams["data_type"] = "4";
+	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	//mapParams["name"] = "张三";
+	//mapParams["cardid"] = "CARD100000000001";
+	//mapParams["scanid"] = "SCAN001";
+	mapParams["begin"] = ui.dateEdit_start->text().toStdString();
+	mapParams["end"] = ui.dateEdit_end->text().toStdString();
+	std::string sParams = map_join(mapParams, '&', '=');
+
+	std::string sData;
+	QString m_msg;
+	int iRet = m_cli.get_listdata(sParams, sData);
+
+	if (0 < iRet)
+	{
+		//m_msg = "结果:\n";
+		m_msg.append(QString::fromLocal8Bit(sData.c_str()));
+		//QMessageBox::information(NULL, "Title", m_msg);
+		QList<QString> lst;
+		lst = m_msg.split(';');
+
+		QString temp = lst[0].section('&', 0, 0);
+		int dataNum = temp.section('=', -1, -1).toInt();
+
+		g_maxPage = (dataNum - 1) / g_pageSize + 1;
+
+
+		lst[0] = lst[0].section('=', -1, -1);
+		ui.tableWidget->setRowCount(lst.size());
+		for (int i = 0; i != lst.size(); ++i)
+		{
+			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
+
+			addData(i, lst[i].section(',', 0, 0), lst[i].section(',', 1, 1), lst[i].section(',', -1, -1));
+		}
+
+	}
+	else
+	{
+		m_msg = QString::fromLocal8Bit("失败\n");
+		m_msg.append(QString::fromLocal8Bit(m_cli.get_msg().c_str()));
+		QMessageBox::information(NULL, "Title", m_msg);
+		m_cli.close();
+		conDataBase();
+	}
+
+}
+
+
+void IRScan::btn_start()
+{
+	g_curPage = 1;
+	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+	g_pageSize = ui.lineEdit_page_size->text().toInt();
+
+	updateData();
+
+}
+
+void IRScan::btn_end()
+{
+	g_curPage = g_maxPage;
+	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+//	g_pageSize = ui.lineEdit_page_size->text().toInt();
+
+	updateData();
+
+}
+
+
+
+void IRScan::btn_pre()
+{
+	g_curPage--;
+	if (g_curPage < 1) g_curPage = 1;
+	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+	g_pageSize = ui.lineEdit_page_size->text().toInt();
+
+	updateData();
+
+}
+
+void IRScan::btn_next()
+{
+	g_curPage++;
+	if (g_curPage > g_maxPage) g_curPage = g_maxPage;
+	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+//	g_pageSize = ui.lineEdit_page_size->text().toInt();
+
+	updateData();
+
 
 }
 
@@ -239,7 +462,7 @@ void IRScan::btn_change()
 	m_msg.append(g_cardID);
 	QMessageBox::information(NULL, "Title", m_msg);
 
-	int iRet = m_cli.set_cardid(mapCardInfo, m_user.toStdString());
+	int iRet = m_cli.set_cardid(mapCardInfo, g_user.toStdString());
 	if (0 < iRet)
 	{
 		m_msg = QString::fromLocal8Bit("注册卡信息成功\nID:");
@@ -251,6 +474,7 @@ void IRScan::btn_change()
 		m_msg = QString::fromLocal8Bit("注册卡信息失败\n");
 		m_msg.append(m_cli.get_msg().c_str());
 		m_cli.close();
+		conDataBase();
 
 	}
 	QMessageBox::information(NULL, "Title", m_msg);
@@ -260,13 +484,14 @@ void IRScan::btn_change()
 	mapUserInfo["scan_id"] = g_scanID.toStdString();
 	//mapUserInfo["card_id"] = sCardID;
 	mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
-	mapUserInfo["user"] = m_user.toStdString();
+	mapUserInfo["user"] = g_user.toStdString();
 
 	if (!m_cli.send_info(mapUserInfo))
 	{
 		m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
 		m_msg.append(m_cli.get_msg().c_str());
 		m_cli.close();
+		conDataBase();
 
 	}
 	else
@@ -302,6 +527,7 @@ void IRScan::btn_del()
 		m_msg = QString::fromLocal8Bit( "删除扫描ID失败\n");
 		m_msg.append(m_cli.get_msg().c_str());
 		m_cli.close();
+		conDataBase();
 
 	}
 	QMessageBox::information(NULL, "Title", m_msg);
@@ -317,8 +543,8 @@ void IRScan::updateData()
 
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
-	mapParams["page_size"] = "20";
-	mapParams["page_num"] = "1";
+	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	mapParams["page_num"] = QString::number(g_curPage).toStdString();
 	//mapParams["name"] = "张三";
 	//mapParams["cardid"] = "CARD100000000001";
 	//mapParams["scanid"] = "SCAN001";
@@ -329,6 +555,7 @@ void IRScan::updateData()
 	std::string sData;
 	QString m_msg;
 	int iRet = m_cli.get_listdata(sParams, sData);
+	
 	if (0 < iRet)
 	{
 		//m_msg = "结果:\n";
@@ -337,8 +564,14 @@ void IRScan::updateData()
 		QList<QString> lst;
 		lst = m_msg.split(';');
 
+		QString temp = lst[0].section('&', 0, 0);
+		int dataNum = temp.section('=', -1, -1).toInt();
+		
+		g_maxPage = (dataNum-1) / g_pageSize + 1;
+
+
 		lst[0] = lst[0].section('=', -1, -1);
-		ui.tableWidget->setRowCount(lst.size() + 1);
+		ui.tableWidget->setRowCount(lst.size());
 		for (int i = 0; i != lst.size(); ++i)
 		{
 			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
@@ -353,7 +586,7 @@ void IRScan::updateData()
 		m_msg.append(QString::fromLocal8Bit(m_cli.get_msg().c_str()));
 		QMessageBox::information(NULL, "Title", m_msg);
 		m_cli.close();
-
+		conDataBase();
 	}
 }
 
@@ -398,7 +631,7 @@ void IRScan::btn_reg()
 		m_msg.append(g_cardID);
 		QMessageBox::information(NULL, "Title", m_msg);
 
-		int iRet = m_cli.set_cardid(mapCardInfo, m_user.toStdString());
+		int iRet = m_cli.set_cardid(mapCardInfo, g_user.toStdString());
 		if (0 < iRet)
 		{
 			m_msg = QString::fromLocal8Bit("注册卡信息成功\nID:");
@@ -412,15 +645,15 @@ void IRScan::btn_reg()
 			m_cli.close();
 
 		}
-		QMessageBox::information(NULL, "Title", m_msg);
+	//	QMessageBox::information(NULL, "Title", m_msg);
 
 		m_msg = QString::fromLocal8Bit("卡号: ");
 		m_msg.append(g_cardID);
 		m_msg.append(QString::fromLocal8Bit("\n扫描ID: "));
 		m_msg.append(g_scanID);
-		QMessageBox::information(NULL, "Title", m_msg);
+	//	QMessageBox::information(NULL, "Title", m_msg);
 
-		iRet = m_cli.set_scanid(g_cardID.toStdString(), g_scanID.toStdString(), m_user.toStdString());
+		iRet = m_cli.set_scanid(g_cardID.toStdString(), g_scanID.toStdString(), g_user.toStdString());
 		if (0 < iRet)
 		{
 			m_msg = QString::fromLocal8Bit("设置扫描ID成功\nID:");
@@ -433,13 +666,13 @@ void IRScan::btn_reg()
 			m_cli.close();
 
 		}
-		QMessageBox::information(NULL, "Title", m_msg);
+	//	QMessageBox::information(NULL, "Title", m_msg);
 
 		std::map<std::string, std::string> mapUserInfo;
 		mapUserInfo["scan_id"] = g_scanID.toStdString();
 		//mapUserInfo["card_id"] = sCardID;
 		mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
-		mapUserInfo["user"] = m_user.toStdString();
+		mapUserInfo["user"] = g_user.toStdString();
 
 		if (!m_cli.send_info(mapUserInfo))
 		{
@@ -450,7 +683,7 @@ void IRScan::btn_reg()
 		}
 		else
 		{
-			m_msg = QString::fromLocal8Bit("发送用户信息成功");
+			m_msg = QString::fromLocal8Bit("注册成功");
 		}
 
 		QMessageBox::information(NULL, "Title", m_msg);
@@ -542,11 +775,11 @@ void IRScan::addData(int index,QString cardID,QString scanID,QString RegTime)
 void IRScan::conDataBase()
 {
 	QString m_msg;
-	if (m_cli.init(m_ip.toStdString(), atoi(m_port.toStdString().c_str())))
+	if (m_cli.init(g_ip.toStdString(), atoi(g_port.toStdString().c_str())))
 	{
 		m_msg = QString::fromLocal8Bit("连接成功");
 
-		QMessageBox::information(NULL, "Title", m_msg);
+		//QMessageBox::information(NULL, "Title", m_msg);
 	}
 	else
 	{
@@ -557,7 +790,7 @@ void IRScan::conDataBase()
 	//2-
 	std::string sPermissions;
 	// 注意： 0表示测试客户端， 1表示正式客户端
-	int iRet = m_cli.login_auth(m_user.toStdString().c_str(), m_passwd.toStdString().c_str(), sPermissions, iTestFlag);
+	int iRet = m_cli.login_auth(g_user.toStdString().c_str(), g_passwd.toStdString().c_str(), sPermissions, iTestFlag);
 	if (0 > iRet)
 	{
 		m_msg = QString::fromLocal8Bit("获取授权码失败\n");
@@ -594,39 +827,39 @@ void IRScan::conDataBase()
 			pt.p3 = true;
 		}
 
-		m_msg.append(QString::fromLocal8Bit("\n权限: "));
-		m_msg.append(QString::fromLocal8Bit("图像扫描"));
-		if (pt.p1)
-		{
-			m_msg.append(QString::fromLocal8Bit("(√)"));
-		}
-		else
-		{
-			m_msg.append(QString::fromLocal8Bit("(×)"));
-		}
-		m_msg.append(QString::fromLocal8Bit(",图像分析"));
-		if (pt.p2)
-		{
-			m_msg.append(QString::fromLocal8Bit("(√)"));
-		}
-		else
-		{
-			m_msg.append(QString::fromLocal8Bit("(×)"));
-		}
-		m_msg.append(QString::fromLocal8Bit(",系统设置"));
-		if (pt.p3)
-		{
-			m_msg.append(QString::fromLocal8Bit("(√)"));
-		}
-		else
-		{
-			m_msg.append(QString::fromLocal8Bit("(×)"));
-		}
+		//m_msg.append(QString::fromLocal8Bit("\n权限: "));
+		//m_msg.append(QString::fromLocal8Bit("图像扫描"));
+		//if (pt.p1)
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(√)"));
+		//}
+		//else
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(×)"));
+		//}
+		//m_msg.append(QString::fromLocal8Bit(",图像分析"));
+		//if (pt.p2)
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(√)"));
+		//}
+		//else
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(×)"));
+		//}
+		//m_msg.append(QString::fromLocal8Bit(",系统设置"));
+		//if (pt.p3)
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(√)"));
+		//}
+		//else
+		//{
+		//	m_msg.append(QString::fromLocal8Bit("(×)"));
+		//}
 
 		if (pt.p1 || pt.p3)
 		{
 			g_log_flag = 1;
-			QMessageBox::information(NULL, "Title", m_msg);
+		//	QMessageBox::information(NULL, "Title", m_msg);
 
 		}
 		else
@@ -708,7 +941,7 @@ void IRScan::sysSetting()
 void IRScan::btn_scan_Clicked()
 {
 
-	QString str=g_IP;
+	QString str=g_camIP;
 
 	if (str.isEmpty())
 	{
@@ -816,4 +1049,11 @@ void IRScan::btn_sysPar()
 	dlg = new SettingDlg;
 
 	dlg->show();
+}
+
+void IRScan::btn_setAuth()
+{
+	adlg = new SetAuthDlg;
+
+	adlg->show();
 }

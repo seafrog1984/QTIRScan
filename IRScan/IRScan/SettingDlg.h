@@ -15,6 +15,6 @@ private:
 	Ui::SettingDlg ui;
 
 public slots:
-	void btn_setCamIP();//设置相机IP
+	void btn_setPar();//设置相机IP
 
 };

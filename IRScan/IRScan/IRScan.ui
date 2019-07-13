@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1495</width>
+    <width>1559</width>
     <height>878</height>
    </rect>
   </property>
@@ -67,7 +67,7 @@ background-color: rgb(18, 59, 101);
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>225</width>
+          <width>271</width>
           <height>90</height>
          </rect>
         </property>
@@ -277,11 +277,53 @@ border:0px solid;</string>
 作</string>
          </property>
         </widget>
+        <widget class="QToolButton" name="btn_change_3">
+         <property name="geometry">
+          <rect>
+           <x>230</x>
+           <y>20</y>
+           <width>32</width>
+           <height>50</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>32</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>32</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(18, 59, 101);
+border:0px solid;</string>
+         </property>
+         <property name="text">
+          <string>完成</string>
+         </property>
+         <property name="icon">
+          <iconset resource="IRScan.qrc">
+           <normaloff>:/IRScan/Scan-Change</normaloff>:/IRScan/Scan-Change</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonTextUnderIcon</enum>
+         </property>
+        </widget>
        </widget>
        <widget class="QGroupBox" name="groupBox_20">
         <property name="geometry">
          <rect>
-          <x>920</x>
+          <x>980</x>
           <y>0</y>
           <width>450</width>
           <height>90</height>
@@ -879,7 +921,7 @@ border:0px solid;</string>
        <widget class="QGroupBox" name="groupBox_11">
         <property name="geometry">
          <rect>
-          <x>230</x>
+          <x>280</x>
           <y>0</y>
           <width>185</width>
           <height>90</height>
@@ -908,7 +950,7 @@ QToolButton{
         <property name="title">
          <string/>
         </property>
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="lineEdit_cur_page">
          <property name="geometry">
           <rect>
            <x>115</x>
@@ -933,7 +975,7 @@ QToolButton{
           <string notr="true"/>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_33">
+        <widget class="QToolButton" name="btn_pre">
          <property name="geometry">
           <rect>
            <x>100</x>
@@ -965,7 +1007,7 @@ QToolButton{
            <normaloff>:/IRScan/Scan-Left</normaloff>:/IRScan/Scan-Left</iconset>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_34">
+        <widget class="QToolButton" name="btn_start">
          <property name="geometry">
           <rect>
            <x>85</x>
@@ -997,7 +1039,7 @@ QToolButton{
            <normaloff>:/IRScan/Scan-DLeft</normaloff>:/IRScan/Scan-DLeft</iconset>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_35">
+        <widget class="QToolButton" name="btn_next">
          <property name="geometry">
           <rect>
            <x>145</x>
@@ -1029,7 +1071,7 @@ QToolButton{
            <normaloff>:/IRScan/Scan-Right</normaloff>:/IRScan/Scan-Right</iconset>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_36">
+        <widget class="QToolButton" name="btn_end">
          <property name="geometry">
           <rect>
            <x>160</x>
@@ -1061,26 +1103,13 @@ QToolButton{
            <normaloff>:/IRScan/Scan-DightR</normaloff>:/IRScan/Scan-DightR</iconset>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_2">
+        <widget class="QLineEdit" name="lineEdit_page_size">
          <property name="geometry">
           <rect>
-           <x>90</x>
+           <x>100</x>
            <y>60</y>
-           <width>40</width>
-           <height>15</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="lineEdit_3">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>60</y>
-           <width>40</width>
-           <height>15</height>
+           <width>51</width>
+           <height>16</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1126,7 +1155,7 @@ QToolButton{
        <widget class="QGroupBox" name="groupBox_13">
         <property name="geometry">
          <rect>
-          <x>420</x>
+          <x>470</x>
           <y>0</y>
           <width>500</width>
           <height>90</height>
@@ -1154,7 +1183,7 @@ QToolButton{
         <property name="title">
          <string/>
         </property>
-        <widget class="QDateEdit" name="dateEdit_3">
+        <widget class="QDateEdit" name="dateEdit_start">
          <property name="geometry">
           <rect>
            <x>130</x>
@@ -1201,7 +1230,7 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
           <string>结束：</string>
          </property>
         </widget>
-        <widget class="QDateEdit" name="dateEdit_4">
+        <widget class="QDateEdit" name="dateEdit_end">
          <property name="geometry">
           <rect>
            <x>130</x>
@@ -1216,7 +1245,7 @@ background-color: rgb(12,40,70);
 border-image: url(:/IRProc/Pro-Rect1);</string>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_38">
+        <widget class="QToolButton" name="btn_date_sel">
          <property name="geometry">
           <rect>
            <x>250</x>
@@ -1294,7 +1323,7 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
 找</string>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_49">
+        <widget class="QToolButton" name="btn_name_sel">
          <property name="geometry">
           <rect>
            <x>400</x>
@@ -1349,7 +1378,7 @@ border:0px solid;</string>
           <string>编号：</string>
          </property>
         </widget>
-        <widget class="QToolButton" name="toolButton_50">
+        <widget class="QToolButton" name="btn_show_all">
          <property name="geometry">
           <rect>
            <x>440</x>
@@ -1392,7 +1421,7 @@ border:0px solid;</string>
           <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_9">
+        <widget class="QLineEdit" name="lineEdit_name">
          <property name="geometry">
           <rect>
            <x>325</x>
@@ -1415,7 +1444,7 @@ border:0px solid;</string>
           <string>姓名：</string>
          </property>
         </widget>
-        <widget class="QLineEdit" name="lineEdit_10">
+        <widget class="QLineEdit" name="lineEdit_scanID">
          <property name="geometry">
           <rect>
            <x>325</x>
@@ -1793,7 +1822,7 @@ border:0px;
         <property name="title">
          <string/>
         </property>
-        <widget class="QToolButton" name="sysSettingBt_2">
+        <widget class="QToolButton" name="btn_set_auth">
          <property name="geometry">
           <rect>
            <x>80</x>
@@ -2306,7 +2335,7 @@ color: rgb(0, 0, 0);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1495</width>
+     <width>1559</width>
      <height>23</height>
     </rect>
    </property>

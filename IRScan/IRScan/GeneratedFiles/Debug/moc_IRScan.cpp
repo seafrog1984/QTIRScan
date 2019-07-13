@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_IRScan_t {
-    QByteArrayData data[15];
-    char stringdata0[165];
+    QByteArrayData data[23];
+    char stringdata0[248];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,22 +35,32 @@ QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 12), // "btn_focusFar"
 QT_MOC_LITERAL(4, 38, 13), // "btn_focusNear"
 QT_MOC_LITERAL(5, 52, 10), // "btn_sysPar"
-QT_MOC_LITERAL(6, 63, 13), // "btn_clockWise"
-QT_MOC_LITERAL(7, 77, 13), // "btn_antiClock"
-QT_MOC_LITERAL(8, 91, 9), // "btn_camUp"
-QT_MOC_LITERAL(9, 101, 11), // "btn_camDown"
-QT_MOC_LITERAL(10, 113, 11), // "btn_camLeft"
-QT_MOC_LITERAL(11, 125, 12), // "btn_camRight"
-QT_MOC_LITERAL(12, 138, 7), // "btn_reg"
-QT_MOC_LITERAL(13, 146, 7), // "btn_del"
-QT_MOC_LITERAL(14, 154, 10) // "btn_change"
+QT_MOC_LITERAL(6, 63, 11), // "btn_setAuth"
+QT_MOC_LITERAL(7, 75, 13), // "btn_clockWise"
+QT_MOC_LITERAL(8, 89, 13), // "btn_antiClock"
+QT_MOC_LITERAL(9, 103, 9), // "btn_camUp"
+QT_MOC_LITERAL(10, 113, 11), // "btn_camDown"
+QT_MOC_LITERAL(11, 125, 11), // "btn_camLeft"
+QT_MOC_LITERAL(12, 137, 12), // "btn_camRight"
+QT_MOC_LITERAL(13, 150, 7), // "btn_reg"
+QT_MOC_LITERAL(14, 158, 7), // "btn_del"
+QT_MOC_LITERAL(15, 166, 10), // "btn_change"
+QT_MOC_LITERAL(16, 177, 7), // "btn_pre"
+QT_MOC_LITERAL(17, 185, 8), // "btn_next"
+QT_MOC_LITERAL(18, 194, 9), // "btn_start"
+QT_MOC_LITERAL(19, 204, 7), // "btn_end"
+QT_MOC_LITERAL(20, 212, 11), // "btn_dateSel"
+QT_MOC_LITERAL(21, 224, 11), // "btn_nameSel"
+QT_MOC_LITERAL(22, 236, 11) // "btn_showAll"
 
     },
     "IRScan\0btn_scan_Clicked\0\0btn_focusFar\0"
-    "btn_focusNear\0btn_sysPar\0btn_clockWise\0"
-    "btn_antiClock\0btn_camUp\0btn_camDown\0"
-    "btn_camLeft\0btn_camRight\0btn_reg\0"
-    "btn_del\0btn_change"
+    "btn_focusNear\0btn_sysPar\0btn_setAuth\0"
+    "btn_clockWise\0btn_antiClock\0btn_camUp\0"
+    "btn_camDown\0btn_camLeft\0btn_camRight\0"
+    "btn_reg\0btn_del\0btn_change\0btn_pre\0"
+    "btn_next\0btn_start\0btn_end\0btn_dateSel\0"
+    "btn_nameSel\0btn_showAll"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +70,7 @@ static const uint qt_meta_data_IRScan[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,21 +78,37 @@ static const uint qt_meta_data_IRScan[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x08 /* Private */,
-       3,    0,   80,    2, 0x08 /* Private */,
-       4,    0,   81,    2, 0x08 /* Private */,
-       5,    0,   82,    2, 0x08 /* Private */,
-       6,    0,   83,    2, 0x08 /* Private */,
-       7,    0,   84,    2, 0x08 /* Private */,
-       8,    0,   85,    2, 0x08 /* Private */,
-       9,    0,   86,    2, 0x08 /* Private */,
-      10,    0,   87,    2, 0x08 /* Private */,
-      11,    0,   88,    2, 0x08 /* Private */,
-      12,    0,   89,    2, 0x08 /* Private */,
-      13,    0,   90,    2, 0x08 /* Private */,
-      14,    0,   91,    2, 0x08 /* Private */,
+       1,    0,  119,    2, 0x08 /* Private */,
+       3,    0,  120,    2, 0x08 /* Private */,
+       4,    0,  121,    2, 0x08 /* Private */,
+       5,    0,  122,    2, 0x08 /* Private */,
+       6,    0,  123,    2, 0x08 /* Private */,
+       7,    0,  124,    2, 0x08 /* Private */,
+       8,    0,  125,    2, 0x08 /* Private */,
+       9,    0,  126,    2, 0x08 /* Private */,
+      10,    0,  127,    2, 0x08 /* Private */,
+      11,    0,  128,    2, 0x08 /* Private */,
+      12,    0,  129,    2, 0x08 /* Private */,
+      13,    0,  130,    2, 0x08 /* Private */,
+      14,    0,  131,    2, 0x08 /* Private */,
+      15,    0,  132,    2, 0x08 /* Private */,
+      16,    0,  133,    2, 0x08 /* Private */,
+      17,    0,  134,    2, 0x08 /* Private */,
+      18,    0,  135,    2, 0x08 /* Private */,
+      19,    0,  136,    2, 0x08 /* Private */,
+      20,    0,  137,    2, 0x08 /* Private */,
+      21,    0,  138,    2, 0x08 /* Private */,
+      22,    0,  139,    2, 0x08 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -110,15 +136,23 @@ void IRScan::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 1: _t->btn_focusFar(); break;
         case 2: _t->btn_focusNear(); break;
         case 3: _t->btn_sysPar(); break;
-        case 4: _t->btn_clockWise(); break;
-        case 5: _t->btn_antiClock(); break;
-        case 6: _t->btn_camUp(); break;
-        case 7: _t->btn_camDown(); break;
-        case 8: _t->btn_camLeft(); break;
-        case 9: _t->btn_camRight(); break;
-        case 10: _t->btn_reg(); break;
-        case 11: _t->btn_del(); break;
-        case 12: _t->btn_change(); break;
+        case 4: _t->btn_setAuth(); break;
+        case 5: _t->btn_clockWise(); break;
+        case 6: _t->btn_antiClock(); break;
+        case 7: _t->btn_camUp(); break;
+        case 8: _t->btn_camDown(); break;
+        case 9: _t->btn_camLeft(); break;
+        case 10: _t->btn_camRight(); break;
+        case 11: _t->btn_reg(); break;
+        case 12: _t->btn_del(); break;
+        case 13: _t->btn_change(); break;
+        case 14: _t->btn_pre(); break;
+        case 15: _t->btn_next(); break;
+        case 16: _t->btn_start(); break;
+        case 17: _t->btn_end(); break;
+        case 18: _t->btn_dateSel(); break;
+        case 19: _t->btn_nameSel(); break;
+        case 20: _t->btn_showAll(); break;
         default: ;
         }
     }
@@ -150,13 +184,13 @@ int IRScan::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 21)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 21;
     }
     return _id;
 }

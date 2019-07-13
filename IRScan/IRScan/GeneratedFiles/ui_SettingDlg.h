@@ -24,9 +24,15 @@ QT_BEGIN_NAMESPACE
 class Ui_SettingDlg
 {
 public:
-    QLineEdit *lineEdit_IP;
+    QLineEdit *lineEdit_camIP;
     QLabel *label;
-    QPushButton *btn_set_IP;
+    QPushButton *btn_set_Par;
+    QLabel *label_2;
+    QLineEdit *lineEdit_servIP;
+    QLabel *label_3;
+    QLineEdit *lineEdit_port;
+    QLabel *label_4;
+    QLineEdit *lineEdit_uport;
 
     void setupUi(QWidget *SettingDlg)
     {
@@ -44,15 +50,33 @@ public:
 "background-color: rgb(18, 59, 101);\n"
 "border:0px;\n"
 "}"));
-        lineEdit_IP = new QLineEdit(SettingDlg);
-        lineEdit_IP->setObjectName(QStringLiteral("lineEdit_IP"));
-        lineEdit_IP->setGeometry(QRect(80, 20, 113, 20));
+        lineEdit_camIP = new QLineEdit(SettingDlg);
+        lineEdit_camIP->setObjectName(QStringLiteral("lineEdit_camIP"));
+        lineEdit_camIP->setGeometry(QRect(130, 20, 113, 20));
         label = new QLabel(SettingDlg);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(20, 20, 54, 12));
-        btn_set_IP = new QPushButton(SettingDlg);
-        btn_set_IP->setObjectName(QStringLiteral("btn_set_IP"));
-        btn_set_IP->setGeometry(QRect(220, 20, 75, 23));
+        btn_set_Par = new QPushButton(SettingDlg);
+        btn_set_Par->setObjectName(QStringLiteral("btn_set_Par"));
+        btn_set_Par->setGeometry(QRect(150, 220, 75, 23));
+        label_2 = new QLabel(SettingDlg);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setGeometry(QRect(20, 70, 54, 12));
+        lineEdit_servIP = new QLineEdit(SettingDlg);
+        lineEdit_servIP->setObjectName(QStringLiteral("lineEdit_servIP"));
+        lineEdit_servIP->setGeometry(QRect(130, 70, 113, 20));
+        label_3 = new QLabel(SettingDlg);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setGeometry(QRect(20, 120, 54, 12));
+        lineEdit_port = new QLineEdit(SettingDlg);
+        lineEdit_port->setObjectName(QStringLiteral("lineEdit_port"));
+        lineEdit_port->setGeometry(QRect(130, 110, 113, 20));
+        label_4 = new QLabel(SettingDlg);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setGeometry(QRect(20, 160, 54, 12));
+        lineEdit_uport = new QLineEdit(SettingDlg);
+        lineEdit_uport->setObjectName(QStringLiteral("lineEdit_uport"));
+        lineEdit_uport->setGeometry(QRect(130, 160, 113, 20));
 
         retranslateUi(SettingDlg);
 
@@ -63,7 +87,10 @@ public:
     {
         SettingDlg->setWindowTitle(QApplication::translate("SettingDlg", "SettingDlg", 0));
         label->setText(QApplication::translate("SettingDlg", "\347\233\270\346\234\272IP:", 0));
-        btn_set_IP->setText(QApplication::translate("SettingDlg", "\344\277\256\346\224\271", 0));
+        btn_set_Par->setText(QApplication::translate("SettingDlg", "\344\277\256\346\224\271", 0));
+        label_2->setText(QApplication::translate("SettingDlg", "\346\234\215\345\212\241\345\231\250IP:", 0));
+        label_3->setText(QApplication::translate("SettingDlg", "\346\225\260\346\215\256\347\253\257\345\217\243:", 0));
+        label_4->setText(QApplication::translate("SettingDlg", "\347\224\250\346\210\267\347\253\257\345\217\243\357\274\232", 0));
     } // retranslateUi
 
 };

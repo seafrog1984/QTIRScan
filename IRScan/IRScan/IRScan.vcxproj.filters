@@ -121,6 +121,15 @@
     <ClCompile Include="RegDlg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_SetAuthDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_SetAuthDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="SetAuthDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="IRScan.h">
@@ -148,6 +157,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="RegDlg.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SetAuthDlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SetAuthDlg.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -189,6 +204,9 @@
       <Filter>utils\pc</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_RegDlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_SetAuthDlg.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

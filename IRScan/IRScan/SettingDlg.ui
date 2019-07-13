@@ -26,10 +26,10 @@ background-color: rgb(18, 59, 101);
 border:0px;
 }</string>
   </property>
-  <widget class="QLineEdit" name="lineEdit_IP">
+  <widget class="QLineEdit" name="lineEdit_camIP">
    <property name="geometry">
     <rect>
-     <x>80</x>
+     <x>130</x>
      <y>20</y>
      <width>113</width>
      <height>20</height>
@@ -49,17 +49,86 @@ border:0px;
     <string>相机IP:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_set_IP">
+  <widget class="QPushButton" name="btn_set_Par">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>20</y>
+     <x>150</x>
+     <y>220</y>
      <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>修改</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>服务器IP:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_servIP">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>70</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>120</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>数据端口:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_port">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>110</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>用户端口：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_uport">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>160</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
    </property>
   </widget>
  </widget>

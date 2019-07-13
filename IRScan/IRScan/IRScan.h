@@ -6,6 +6,7 @@
 #include "IRSDK.h"
 #include "SettingDlg.h"
 #include "RegDlg.h"
+#include "SetAuthDlg.h"
 #include "./incl/client.h"
 #include <opencv2\opencv.hpp>
 
@@ -35,6 +36,7 @@ private slots:
 	void btn_focusFar();//远焦
 	void btn_focusNear();//近焦
 	void btn_sysPar();//系统参数设置
+	void btn_setAuth();//权限设置
 	void btn_clockWise();//转台顺时针旋转
 	void btn_antiClock();//转台逆时针旋转
 	void btn_camUp();//相机上
@@ -44,6 +46,13 @@ private slots:
 	void btn_reg();
 	void btn_del();
 	void btn_change();
+	void btn_pre();
+	void btn_next();
+	void btn_start();
+	void btn_end();
+	void btn_dateSel();
+	void btn_nameSel();
+	void btn_showAll();
 
 
 public:
@@ -52,6 +61,8 @@ public:
 	SettingDlg *dlg;
 
 	RegDlg *rdlg;
+
+	SetAuthDlg *adlg;
 
 //	client_t m_cli;
 };

@@ -5,15 +5,13 @@
 #include "./incl/client.h"
 #include <QMessageBox>
 
-QString m_ip;
-QString m_port;
+QString g_ip;
+QString g_port;
 QString g_uport;
 
-int g_control_port;
-int g_card_port;
-
-QString m_user = "test";
-QString m_passwd = "test@1234";
+extern QString g_camIP;
+QString g_user = "test";
+QString g_passwd = "test@1234";
 
 int iTestFlag = 0;
 client_t m_cli;
@@ -40,17 +38,15 @@ LogDlg::LogDlg(QWidget *parent)
 		exit(-1);
 	}
 
-	string str1, str2, str3;
+	string str1, str2, str3,str4;
 
-	int i_control_port, i_card_port;
 
-	fin >> str1 >> str2 >> str3 >> i_control_port >> i_card_port;
-	m_ip = QString::fromStdString(str1);
-	m_port = QString::fromStdString(str2);
-	g_uport = QString::fromStdString(str3);;
+	fin >> str1 >> str2 >> str3>>str4;
+	g_ip = QString::fromStdString(str1);
+	g_port = QString::fromStdString(str2);
+	g_uport = QString::fromStdString(str3);
+	g_camIP = QString::fromStdString(str4);
 
-	g_control_port = i_control_port;
-	g_card_port = i_card_port;
 
 	fin.close();
 
@@ -59,11 +55,11 @@ LogDlg::LogDlg(QWidget *parent)
 	//m_ip = "10.70.77.81";
 	//m_ip="192.168.31.157";
 
-	m_user = "test";
-	m_passwd = "test@1234";
+	g_user = "admin";
+	g_passwd = "test@1234";
 
-	ui.lineEdit_user->setText(m_user);
-	ui.lineEdit_pw->setText(m_passwd);
+	ui.lineEdit_user->setText(g_user);
+	ui.lineEdit_pw->setText(g_passwd);
 
 	iTestFlag = 1;
 	
@@ -78,7 +74,10 @@ LogDlg::~LogDlg()
 void LogDlg::log()
 {
 
-	if (m_cli.init(m_ip.toStdString(), atoi(m_port.toStdString().c_str())))
+	g_user = ui.lineEdit_user->text();
+	g_passwd = ui.lineEdit_pw->text();
+
+	if (m_cli.init(g_ip.toStdString(), atoi(g_port.toStdString().c_str())))
 	{
 		m_msg = QString::fromLocal8Bit("连接成功");
 
@@ -93,7 +92,7 @@ void LogDlg::log()
 	//2-
 	std::string sPermissions;
 	// 注意： 0表示测试客户端， 1表示正式客户端
-	int iRet = m_cli.login_auth(m_user.toStdString().c_str(), m_passwd.toStdString().c_str(), sPermissions, iTestFlag);
+	int iRet = m_cli.login_auth(g_user.toStdString().c_str(), g_passwd.toStdString().c_str(), sPermissions, iTestFlag);
 	if (0 > iRet)
 	{
 		m_msg = QString::fromLocal8Bit("获取授权码失败\n");
