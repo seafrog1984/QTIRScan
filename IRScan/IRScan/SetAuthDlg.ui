@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
-    <height>368</height>
+    <width>668</width>
+    <height>389</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -66,15 +66,15 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>30</y>
+     <y>20</y>
      <width>371</width>
-     <height>221</height>
+     <height>231</height>
     </rect>
    </property>
    <property name="title">
     <string>新增用户</string>
    </property>
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="radioButton_nor">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -87,7 +87,7 @@ border:0px;
      <string>普通用户</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_2">
+   <widget class="QRadioButton" name="radioButton_adm">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -113,7 +113,7 @@ border:0px;
      <string>用户名：</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_user">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -136,7 +136,7 @@ border:0px;
      <string>密码：</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="lineEdit_pw">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -146,7 +146,7 @@ border:0px;
      </rect>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox">
+   <widget class="QCheckBox" name="checkBox_scan">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -159,7 +159,7 @@ border:0px;
      <string>图像扫描</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_2">
+   <widget class="QCheckBox" name="checkBox_an">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -172,7 +172,7 @@ border:0px;
      <string>图像分析</string>
     </property>
    </widget>
-   <widget class="QCheckBox" name="checkBox_3">
+   <widget class="QCheckBox" name="checkBox_adm">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -185,8 +185,21 @@ border:0px;
      <string>管理员</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="btn_process">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>200</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>新增</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QRadioButton" name="radioButton_3">
+  <widget class="QRadioButton" name="radioButton_add">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -198,11 +211,14 @@ border:0px;
    <property name="text">
     <string>新增</string>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <attribute name="buttonGroup">
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QRadioButton" name="radioButton_4">
+  <widget class="QRadioButton" name="radioButton_del">
    <property name="geometry">
     <rect>
      <x>310</x>
@@ -218,7 +234,7 @@ border:0px;
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QRadioButton" name="radioButton_5">
+  <widget class="QRadioButton" name="radioButton_mod">
    <property name="geometry">
     <rect>
      <x>430</x>

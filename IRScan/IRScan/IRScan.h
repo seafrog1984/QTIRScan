@@ -53,7 +53,7 @@ private slots:
 	void btn_dateSel();
 	void btn_nameSel();
 	void btn_showAll();
-
+	void btn_sendData();
 
 public:
 	QString ir_ip;

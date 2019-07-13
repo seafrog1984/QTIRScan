@@ -315,6 +315,9 @@ border:0px solid;</string>
            <height>20</height>
           </size>
          </property>
+         <property name="shortcut">
+          <string>Ctrl+S</string>
+         </property>
          <property name="toolButtonStyle">
           <enum>Qt::ToolButtonTextUnderIcon</enum>
          </property>

@@ -21,103 +21,26 @@ SetAuthDlg::SetAuthDlg(QWidget *parent)
 	ui.setupUi(this);
 
 	connect(ui.btn_get_user, SIGNAL(clicked()), this, SLOT(btn_getUser()));
+	connect(ui.radioButton_add, SIGNAL(clicked()), this, SLOT(addUser()));
+	connect(ui.radioButton_del, SIGNAL(clicked()), this, SLOT(delUser()));
+	connect(ui.radioButton_mod, SIGNAL(clicked()), this, SLOT(changeUser()));
+	connect(ui.btn_process, SIGNAL(clicked()), this, SLOT(btn_process()));
+	connect(ui.listView, SIGNAL(clicked(QModelIndex)), this, SLOT(selUser(QModelIndex)));
 
 	m_level = 0;
 	m_opt_level = 0;
+	m_opt = 0;
 
-	//if (m_cli.init(g_ip.toStdString(), atoi(g_port.toStdString().c_str())))
-	//{
-	//	m_msg = QString::fromLocal8Bit("连接成功");
+	if (m_cli.init(g_ip.toStdString(), g_uport.toInt()))
+	{
+		m_msg = QString::fromLocal8Bit("连接成功");
 
-	//	QMessageBox::information(NULL, "Title", m_msg);
-	//}
-	//else
-	//{
-	//	m_msg = QString::fromLocal8Bit("连接失败\n请确认IP或端口号");
-	//	QMessageBox::information(NULL, "Title", m_msg);
-	//	return;
-	//}
-	////2-
-	//std::string sPermissions;
-	//// 注意： 0表示测试客户端， 1表示正式客户端
-	//int iRet = m_cli.login_auth(g_user.toStdString().c_str(), g_passwd.toStdString().c_str(), sPermissions, iTestFlag);
-	//if (0 > iRet)
-	//{
-	//	m_msg = QString::fromLocal8Bit("获取授权码失败\n");
-	//	m_msg.append(m_cli.get_msg().c_str());
-	//	m_cli.close();
-	//	QMessageBox::information(NULL, "Title", m_msg);
-	//}
-	//else
-	//{
-	//	m_msg = QString::fromLocal8Bit("获取授权码成功\n");
-	//	QString sAuth = QString::fromStdString(m_cli.get_auth().c_str());
-	//	QString sRep1 = sAuth.mid(8, 16);
-	//	QString sRep2('*', sRep1.length());
-	//	sAuth.replace(sRep1, sRep2);
-	//	if (0 == iRet)
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("测试环境: "));
-
-	//	}
-	//	//	m_msg.append(sAuth);
-
-	//	int iPermissions = atoi(sPermissions.c_str());
-	//	permissions_t pt;
-	//	if (iPermissions & 0x01)
-	//	{
-	//		pt.p1 = true;
-	//	}
-	//	if (iPermissions & 0x02)
-	//	{
-	//		pt.p2 = true;
-	//	}
-	//	if (iPermissions & 0x04)
-	//	{
-	//		pt.p3 = true;
-	//	}
-
-	//	m_msg.append(QString::fromLocal8Bit("\n权限: "));
-	//	m_msg.append(QString::fromLocal8Bit("图像扫描"));
-	//	if (pt.p1)
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(√)"));
-	//	}
-	//	else
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(×)"));
-	//	}
-	//	m_msg.append(QString::fromLocal8Bit(",图像分析"));
-	//	if (pt.p2)
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(√)"));
-	//	}
-	//	else
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(×)"));
-	//	}
-	//	m_msg.append(QString::fromLocal8Bit(",系统设置"));
-	//	if (pt.p3)
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(√)"));
-	//	}
-	//	else
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("(×)"));
-	//	}
-
-	//	if (pt.p1 || pt.p3)
-	//	{
-	//		QMessageBox::information(NULL, "Title", m_msg);
-
-	//	}
-	//	else
-	//	{
-	//		m_msg.append(QString::fromLocal8Bit("没有权限"));
-	//		QMessageBox::information(NULL, "Title", m_msg);
-	//	}
-
-	//}
+	}
+	else
+	{
+		m_msg = QString::fromLocal8Bit("连接失败\n请确认IP或端口号");
+	}
+	
 
 }
 
@@ -126,21 +49,244 @@ SetAuthDlg::~SetAuthDlg()
 }
 
 
+void SetAuthDlg::set_permissions()
+{
+	if (!m_cli.get_users(g_user.toStdString(), g_passwd.toStdString(), m_userinfo, m_level))
+	{
+		m_msg = QString::fromLocal8Bit("获取用户列表失败\n");
+		m_msg.append(m_cli.get_msg().c_str());
+		m_cli.close();
+	}
+
+
+	if (ui.listView->model()->rowCount()==0)
+	{
+		return;
+	}
+
+	if (m_userinfo.end() != m_userinfo.find(m_list.toStdString()))
+	{
+		//MessageBox(m_userinfo[m_list.GetBuffer()].c_str());
+		int permissions = atoi(m_userinfo[m_list.toStdString()].c_str());
+		if (permissions & 0x01)
+		{
+			ui.checkBox_scan->setChecked(true);
+		}
+		else
+		{
+			ui.checkBox_scan->setChecked(false);
+		}
+		if (permissions & 0x02)
+		{
+			ui.checkBox_an->setChecked(true);
+		}
+		else
+		{
+			ui.checkBox_an->setChecked(false);
+		}
+		if (permissions & 0x04)
+		{
+			ui.checkBox_adm->setChecked(true);
+			ui.radioButton_adm->setChecked(true);
+		}
+		else
+		{
+			ui.checkBox_adm->setChecked(false);
+			ui.radioButton_nor->setChecked(true);
+		}
+	}
+	else
+	{
+		m_msg = QString::fromLocal8Bit("not find permissions for ") + m_list;
+		QMessageBox::information(NULL, "Title", m_msg);
+	}
+}
+
+
+int SetAuthDlg::get_permissions()
+{
+	int permissions = 0;
+	int state = ui.checkBox_scan->isChecked();
+	if (1 == state)
+	{
+		permissions |= 1;
+	}
+
+	state = ui.checkBox_an->isChecked();
+	if (1 == state)
+	{
+		permissions |= (1 << 1);
+
+	}
+	state = ui.checkBox_adm->isChecked();
+	if (1 == state)
+	{
+		permissions |= (1 << 2);
+	}
+
+
+	return permissions;
+}
+
+
+
+void SetAuthDlg::selUser(QModelIndex index)
+{
+	m_list = ui.listView->model()->data(index).toString();
+	//MessageBox(m_list);
+	if (0 != m_opt)
+	{
+		ui.lineEdit_user->setText(m_list);
+		if (2 == m_opt)
+		{
+			set_permissions();
+			ui.lineEdit_pw->setText("");
+		}
+	}
+
+}
+
+
+
+void SetAuthDlg::addUser()
+{
+	m_opt = 0;
+	ui.groupBox->setTitle(QString::fromLocal8Bit("新增用户"));
+	ui.btn_process->setText(QString::fromLocal8Bit("新增"));
+
+	ui.lineEdit_user->setDisabled(false);
+	ui.lineEdit_pw->setDisabled(false);
+}
+
+void SetAuthDlg::delUser()
+{
+	m_opt = 1;
+	ui.groupBox->setTitle(QString::fromLocal8Bit("删除用户"));
+	ui.btn_process->setText(QString::fromLocal8Bit("删除"));
+	ui.lineEdit_user->setDisabled(true);
+	ui.lineEdit_pw->setDisabled(true);
+
+}
+
+void SetAuthDlg::changeUser()
+{
+	m_opt = 2;
+	ui.groupBox->setTitle(QString::fromLocal8Bit("修改用户"));
+	ui.btn_process->setText(QString::fromLocal8Bit("修改"));
+	ui.lineEdit_pw->setDisabled(false);
+	ui.lineEdit_user->setDisabled(true);
+}
+
+void SetAuthDlg::btn_process()
+{
+	
+	if (0 == m_opt)
+	{
+		QString sUser;
+		sUser=ui.lineEdit_user->text();
+		if (sUser=="")
+		{
+			m_msg = QString::fromLocal8Bit("用户名不能为空");
+			QMessageBox::information(NULL, "Title", m_msg);
+			return;
+		}
+		QString sPasswd;
+		sPasswd=ui.lineEdit_pw->text();
+		if (sPasswd=="")
+		{
+			m_msg = QString::fromLocal8Bit("密码不能为空");
+			QMessageBox::information(NULL, "Title", m_msg);
+			return;
+		}
+
+		int permissions = get_permissions();
+		if (m_cli.new_user(sUser.toStdString(), sPasswd.toStdString(), m_opt_level, permissions, g_user.toStdString(), g_passwd.toStdString()))
+		{
+			QStandardItem *item = new QStandardItem(sUser);
+			QStandardItemModel *model = dynamic_cast<QStandardItemModel*>(ui.listView->model());
+			model->appendRow(item);
+
+			m_msg = QString::fromLocal8Bit("新增用户成功");
+		}
+		else
+		{
+			m_msg = QString::fromLocal8Bit("新增用户失败\n");
+			m_msg.append(m_cli.get_msg().c_str());
+		}
+		QMessageBox::information(NULL, "Title", m_msg);
+	}
+	else if (1 == m_opt)
+	{
+		QString sUser;
+		sUser=ui.lineEdit_user->text();
+		if (sUser=="")
+		{
+			m_msg = QString::fromLocal8Bit("请选择要删除的用户");
+			return;
+		}
+
+		if (m_cli.del_user(sUser.toStdString(), g_user.toStdString(), g_passwd.toStdString()))
+		{
+			QStandardItemModel *model = dynamic_cast<QStandardItemModel*>(ui.listView->model());
+			model->removeRow(ui.listView->currentIndex().row());
+			m_msg = QString::fromLocal8Bit("删除用户成功");
+		}
+		else
+		{
+			m_msg = QString::fromLocal8Bit("删除用户失败\n");
+			m_msg.append(m_cli.get_msg().c_str());
+		}
+		QMessageBox::information(NULL, "Title", m_msg);
+
+	}
+	else
+	{
+		QString sUser;
+		sUser = ui.lineEdit_user->text();
+		if (sUser == "")
+		{
+			m_msg = QString::fromLocal8Bit("请选择要修改的用户");
+			return;
+		}
+
+		int permissions = get_permissions();
+
+		QString sPasswd;
+		sPasswd = ui.lineEdit_pw->text();
+		if (sPasswd=="")
+		{
+			if (atoi(m_userinfo[m_list.toStdString()].c_str()) == permissions)
+			{
+				m_msg = QString::fromLocal8Bit("未修改任何信息");
+				QMessageBox::information(NULL, "Title", m_msg);
+				return;
+			}
+			sPasswd = "*";
+		}
+
+		if (m_cli.update_user(sUser.toStdString(), sPasswd.toStdString(), permissions, g_user.toStdString(), g_passwd.toStdString()))
+		{
+			m_msg = QString::fromLocal8Bit("修改用户成功");
+		}
+		else
+		{
+			m_msg = QString::fromLocal8Bit("修改用户失败\n");
+			m_msg.append(m_cli.get_msg().c_str());
+		}
+		QMessageBox::information(NULL, "Title", m_msg);
+	}
+
+}
+
+
+
 void SetAuthDlg::btn_getUser()
 {
 	QStandardItemModel *ItemModel = new QStandardItemModel(this);
 
 	QStringList strList;
 
-	if (m_cli.init(g_ip.toStdString(), g_uport.toInt()))
-	{
-		m_msg = "连接成功";
-
-	}
-	else
-	{
-		m_msg = "连接失败\n请确认IP或端口号";
-	}
+	
 
 	if (!m_cli.get_users(g_user.toStdString(), g_passwd.toStdString(), m_userinfo, m_level))
 	{

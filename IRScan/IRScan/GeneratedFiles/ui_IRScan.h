@@ -906,6 +906,7 @@ public:
 "\n"
 "\344\275\234", 0));
         btn_change_3->setText(QApplication::translate("IRScanClass", "\345\256\214\346\210\220", 0));
+        btn_change_3->setShortcut(QApplication::translate("IRScanClass", "Ctrl+S", 0));
         groupBox_20->setTitle(QString());
         btn_clock->setText(QApplication::translate("IRScanClass", "\351\241\272\346\227\266\351\222\210", 0));
         btn_anticlock->setText(QApplication::translate("IRScanClass", "\351\200\206\346\227\266\351\222\210", 0));

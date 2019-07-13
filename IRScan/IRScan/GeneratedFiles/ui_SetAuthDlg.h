@@ -32,24 +32,26 @@ public:
     QLabel *label;
     QPushButton *btn_get_user;
     QGroupBox *groupBox;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
+    QRadioButton *radioButton_nor;
+    QRadioButton *radioButton_adm;
     QLabel *label_2;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEdit_user;
     QLabel *label_3;
-    QLineEdit *lineEdit_2;
-    QCheckBox *checkBox;
-    QCheckBox *checkBox_2;
-    QCheckBox *checkBox_3;
-    QRadioButton *radioButton_3;
-    QRadioButton *radioButton_4;
-    QRadioButton *radioButton_5;
+    QLineEdit *lineEdit_pw;
+    QCheckBox *checkBox_scan;
+    QCheckBox *checkBox_an;
+    QCheckBox *checkBox_adm;
+    QPushButton *btn_process;
+    QRadioButton *radioButton_add;
+    QRadioButton *radioButton_del;
+    QRadioButton *radioButton_mod;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QWidget *SetAuthDlg)
     {
         if (SetAuthDlg->objectName().isEmpty())
             SetAuthDlg->setObjectName(QStringLiteral("SetAuthDlg"));
-        SetAuthDlg->resize(660, 368);
+        SetAuthDlg->resize(668, 389);
         SetAuthDlg->setStyleSheet(QLatin1String("QWidget{color: rgb(255, 255, 255);\n"
 "background-color: rgb(15, 21, 42);\n"
 "}\n"
@@ -72,43 +74,52 @@ public:
         btn_get_user->setGeometry(QRect(50, 270, 75, 23));
         groupBox = new QGroupBox(SetAuthDlg);
         groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(170, 30, 371, 221));
-        radioButton = new QRadioButton(groupBox);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-        radioButton->setGeometry(QRect(50, 30, 89, 16));
-        radioButton_2 = new QRadioButton(groupBox);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-        radioButton_2->setGeometry(QRect(200, 30, 89, 16));
+        groupBox->setGeometry(QRect(170, 20, 371, 231));
+        radioButton_nor = new QRadioButton(groupBox);
+        radioButton_nor->setObjectName(QStringLiteral("radioButton_nor"));
+        radioButton_nor->setGeometry(QRect(50, 30, 89, 16));
+        radioButton_adm = new QRadioButton(groupBox);
+        radioButton_adm->setObjectName(QStringLiteral("radioButton_adm"));
+        radioButton_adm->setGeometry(QRect(200, 30, 89, 16));
         label_2 = new QLabel(groupBox);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(40, 70, 54, 12));
-        lineEdit = new QLineEdit(groupBox);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(120, 70, 113, 20));
+        lineEdit_user = new QLineEdit(groupBox);
+        lineEdit_user->setObjectName(QStringLiteral("lineEdit_user"));
+        lineEdit_user->setGeometry(QRect(120, 70, 113, 20));
         label_3 = new QLabel(groupBox);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setGeometry(QRect(40, 110, 54, 12));
-        lineEdit_2 = new QLineEdit(groupBox);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(120, 110, 113, 20));
-        checkBox = new QCheckBox(groupBox);
-        checkBox->setObjectName(QStringLiteral("checkBox"));
-        checkBox->setGeometry(QRect(30, 170, 71, 16));
-        checkBox_2 = new QCheckBox(groupBox);
-        checkBox_2->setObjectName(QStringLiteral("checkBox_2"));
-        checkBox_2->setGeometry(QRect(140, 170, 71, 16));
-        checkBox_3 = new QCheckBox(groupBox);
-        checkBox_3->setObjectName(QStringLiteral("checkBox_3"));
-        checkBox_3->setGeometry(QRect(250, 170, 71, 16));
-        radioButton_3 = new QRadioButton(SetAuthDlg);
-        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
-        radioButton_3->setGeometry(QRect(190, 280, 89, 16));
-        radioButton_4 = new QRadioButton(SetAuthDlg);
-        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
-        radioButton_4->setGeometry(QRect(310, 280, 89, 16));
-        radioButton_5 = new QRadioButton(SetAuthDlg);
-        radioButton_5->setObjectName(QStringLiteral("radioButton_5"));
-        radioButton_5->setGeometry(QRect(430, 280, 89, 16));
+        lineEdit_pw = new QLineEdit(groupBox);
+        lineEdit_pw->setObjectName(QStringLiteral("lineEdit_pw"));
+        lineEdit_pw->setGeometry(QRect(120, 110, 113, 20));
+        checkBox_scan = new QCheckBox(groupBox);
+        checkBox_scan->setObjectName(QStringLiteral("checkBox_scan"));
+        checkBox_scan->setGeometry(QRect(30, 170, 71, 16));
+        checkBox_an = new QCheckBox(groupBox);
+        checkBox_an->setObjectName(QStringLiteral("checkBox_an"));
+        checkBox_an->setGeometry(QRect(140, 170, 71, 16));
+        checkBox_adm = new QCheckBox(groupBox);
+        checkBox_adm->setObjectName(QStringLiteral("checkBox_adm"));
+        checkBox_adm->setGeometry(QRect(250, 170, 71, 16));
+        btn_process = new QPushButton(groupBox);
+        btn_process->setObjectName(QStringLiteral("btn_process"));
+        btn_process->setGeometry(QRect(140, 200, 75, 23));
+        radioButton_add = new QRadioButton(SetAuthDlg);
+        buttonGroup = new QButtonGroup(SetAuthDlg);
+        buttonGroup->setObjectName(QStringLiteral("buttonGroup"));
+        buttonGroup->addButton(radioButton_add);
+        radioButton_add->setObjectName(QStringLiteral("radioButton_add"));
+        radioButton_add->setGeometry(QRect(190, 280, 89, 16));
+        radioButton_add->setChecked(true);
+        radioButton_del = new QRadioButton(SetAuthDlg);
+        buttonGroup->addButton(radioButton_del);
+        radioButton_del->setObjectName(QStringLiteral("radioButton_del"));
+        radioButton_del->setGeometry(QRect(310, 280, 89, 16));
+        radioButton_mod = new QRadioButton(SetAuthDlg);
+        buttonGroup->addButton(radioButton_mod);
+        radioButton_mod->setObjectName(QStringLiteral("radioButton_mod"));
+        radioButton_mod->setGeometry(QRect(430, 280, 89, 16));
 
         retranslateUi(SetAuthDlg);
 
@@ -121,16 +132,17 @@ public:
         label->setText(QApplication::translate("SetAuthDlg", "\347\224\250\346\210\267\345\210\227\350\241\250\357\274\232", 0));
         btn_get_user->setText(QApplication::translate("SetAuthDlg", "\350\216\267\345\217\226", 0));
         groupBox->setTitle(QApplication::translate("SetAuthDlg", "\346\226\260\345\242\236\347\224\250\346\210\267", 0));
-        radioButton->setText(QApplication::translate("SetAuthDlg", "\346\231\256\351\200\232\347\224\250\346\210\267", 0));
-        radioButton_2->setText(QApplication::translate("SetAuthDlg", "\347\256\241\347\220\206\345\221\230", 0));
+        radioButton_nor->setText(QApplication::translate("SetAuthDlg", "\346\231\256\351\200\232\347\224\250\346\210\267", 0));
+        radioButton_adm->setText(QApplication::translate("SetAuthDlg", "\347\256\241\347\220\206\345\221\230", 0));
         label_2->setText(QApplication::translate("SetAuthDlg", "\347\224\250\346\210\267\345\220\215\357\274\232", 0));
         label_3->setText(QApplication::translate("SetAuthDlg", "\345\257\206\347\240\201\357\274\232", 0));
-        checkBox->setText(QApplication::translate("SetAuthDlg", "\345\233\276\345\203\217\346\211\253\346\217\217", 0));
-        checkBox_2->setText(QApplication::translate("SetAuthDlg", "\345\233\276\345\203\217\345\210\206\346\236\220", 0));
-        checkBox_3->setText(QApplication::translate("SetAuthDlg", "\347\256\241\347\220\206\345\221\230", 0));
-        radioButton_3->setText(QApplication::translate("SetAuthDlg", "\346\226\260\345\242\236", 0));
-        radioButton_4->setText(QApplication::translate("SetAuthDlg", "\345\210\240\351\231\244", 0));
-        radioButton_5->setText(QApplication::translate("SetAuthDlg", "\344\277\256\346\224\271", 0));
+        checkBox_scan->setText(QApplication::translate("SetAuthDlg", "\345\233\276\345\203\217\346\211\253\346\217\217", 0));
+        checkBox_an->setText(QApplication::translate("SetAuthDlg", "\345\233\276\345\203\217\345\210\206\346\236\220", 0));
+        checkBox_adm->setText(QApplication::translate("SetAuthDlg", "\347\256\241\347\220\206\345\221\230", 0));
+        btn_process->setText(QApplication::translate("SetAuthDlg", "\346\226\260\345\242\236", 0));
+        radioButton_add->setText(QApplication::translate("SetAuthDlg", "\346\226\260\345\242\236", 0));
+        radioButton_del->setText(QApplication::translate("SetAuthDlg", "\345\210\240\351\231\244", 0));
+        radioButton_mod->setText(QApplication::translate("SetAuthDlg", "\344\277\256\346\224\271", 0));
     } // retranslateUi
 
 };

@@ -132,6 +132,7 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
 	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
 	connect(ui.btn_set_auth, SIGNAL(clicked()), this, SLOT(btn_setAuth()));
+	connect(ui.btn_change_3, SIGNAL(clicked()), this, SLOT(btn_sendData()));
 
 
 	connect(ui.btn_clock, SIGNAL(clicked()), this, SLOT(btn_clockWise()));
@@ -199,6 +200,92 @@ IRScan::IRScan(QWidget *parent)
 	updateData();
 
 }
+
+
+void IRScan::btn_sendData()
+{
+	QString m_msg;
+	std::vector<string> vecFiles;
+	QDir *dir = new QDir(g_tempFolder);
+	QStringList filter;
+	filter<<"*.dat";
+	dir->setNameFilters(filter);
+	QList<QFileInfo> *fileInfo = new QList<QFileInfo>(dir->entryInfoList(filter));
+
+	for (int i = 0; i < fileInfo->size(); i++)
+	{
+		vecFiles.push_back(fileInfo->at(i).filePath().toStdString());
+	}
+
+	int size = vecFiles.size();
+	if (0 == size)
+	{
+		return;
+	}
+
+	unsigned short sPicData[PIC_SIZE]; // = (unsigned short*)malloc(PIC_SIZE * sizeof(short));
+	for (int i = 0; i<size; ++i)
+	{
+		memset(sPicData, 0, PIC_SIZE*sizeof(short));
+
+		std::ifstream fin(vecFiles[i]);
+		for (int j = 0; j<PIC_SIZE; ++j)
+		{
+			fin >> *(sPicData + j);
+			if (*(sPicData + j) == ' ')
+				j--;
+		}
+
+		m_msg = QString::fromLocal8Bit("发送图片 ");
+		m_msg.append(fileInfo->at(i).filePath());
+
+		if (!m_cli.send_png(g_scanID.toStdString(), sPicData, PIC_SIZE, vecPngIDReq))
+		{
+			m_msg.append(QString::fromLocal8Bit(" 失败\n原因是："));
+			m_msg.append(m_cli.get_msg().c_str());
+			QMessageBox::information(NULL, "Title", m_msg);
+			m_cli.close();
+
+			break;
+		}
+		else
+		{
+			m_msg.append(QString::fromLocal8Bit(" 成功"));
+		}
+		QMessageBox::information(NULL, "Title", m_msg);
+	}
+
+	if (0 == vecPngIDReq.size())
+	{
+		m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
+	}
+	else
+	{
+		std::map<std::string, std::string> mapUserInfo;
+		mapUserInfo["scan_id"] = g_scanID.toStdString();
+		//mapUserInfo["card_id"] = sCardID;
+		mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
+		mapUserInfo["user"] = g_user.toStdString();
+
+		if (!m_cli.send_info(mapUserInfo))
+		{
+			m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
+			m_msg.append(m_cli.get_msg().c_str());
+			m_cli.close();
+		}
+		else
+		{
+			m_msg = QString::fromLocal8Bit("发送用户信息成功");
+		}
+	}
+	QMessageBox::information(NULL, "Title", m_msg);
+
+	for (int i = 0; i < fileInfo->size(); i++)
+	{
+		QFile::remove(fileInfo->at(i).filePath());
+	}
+}
+
 
 
 void IRScan::btn_showAll()
@@ -501,7 +588,11 @@ void IRScan::btn_change()
 
 	QMessageBox::information(NULL, "Title", m_msg);
 
-	updateData();
+	ui.tableWidget->item(row, 1)->setText(g_cardID);
+	ui.tableWidget->item(row, 2)->setText(g_scanID);
+	ui.tableWidget->item(row, 6)->setText(g_age);
+	ui.tableWidget->item(row, 3)->setText(g_name);
+	ui.tableWidget->item(row, 4)->setText(g_gender);
 
 
 
@@ -532,8 +623,9 @@ void IRScan::btn_del()
 	}
 	QMessageBox::information(NULL, "Title", m_msg);
 
-	ui.tableWidget->setRowCount(0);
-	updateData();
+	ui.tableWidget->removeRow(row);
+	//ui.tableWidget->setRowCount(0);
+	//updateData();
 }
 
 
@@ -940,6 +1032,25 @@ void IRScan::sysSetting()
 
 void IRScan::btn_scan_Clicked()
 {
+	int row = ui.tableWidget->currentIndex().row();
+
+	g_cardID = ui.tableWidget->item(row, 1)->text();
+	g_scanID = ui.tableWidget->item(row, 2)->text();
+	g_age = ui.tableWidget->item(row, 6)->text();
+	g_name = ui.tableWidget->item(row, 3)->text();
+	g_gender = ui.tableWidget->item(row, 4)->text();
+
+	std::string scanID = g_scanID.toStdString();
+	QDir dir;
+	g_tempFolder = dir.currentPath() + "//Temp//" + QString::fromStdString(scanID);
+
+	// 检查目录是否存在，若不存在则新建
+	if (!dir.exists(g_tempFolder))
+	{
+		bool res = dir.mkpath(g_tempFolder);
+		//		qDebug() << "新建目录是否成功" << res;
+	}
+
 
 	QString str=g_camIP;
 
