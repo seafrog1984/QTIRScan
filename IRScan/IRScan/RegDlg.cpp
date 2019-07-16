@@ -24,6 +24,8 @@ extern QString g_ID;
 extern QString g_scanID;
 extern QString g_cardID;
 
+extern int g_reg_flag;
+
 
 RegDlg::RegDlg(QWidget *parent)
 	: QWidget(parent)
@@ -56,6 +58,8 @@ void RegDlg::btn_reg()
 	g_name = ui.lineEdit_name->text();
 	g_cardID = ui.lineEdit_card->text();
 	g_scanID = ui.lineEdit_5->text();
+
+	g_reg_flag = 1;
 
 	close();
 }
