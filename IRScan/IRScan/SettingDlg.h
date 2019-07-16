@@ -15,6 +15,6 @@ private:
 	Ui::SettingDlg ui;
 
 public slots:
-	void btn_setPar();//ÉèÖÃÏà»úIP
+	void btn_setPar();
 
 };

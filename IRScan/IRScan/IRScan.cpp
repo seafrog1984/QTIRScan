@@ -237,7 +237,7 @@ void IRScan::btn_sendData()
 		}
 
 		m_msg = QString::fromLocal8Bit("发送图片 ");
-		m_msg.append(fileInfo->at(i).filePath());
+		//m_msg.append(fileInfo->at(i).filePath());
 
 		if (!m_cli.send_png(g_scanID.toStdString(), sPicData, PIC_SIZE, vecPngIDReq))
 		{
@@ -245,16 +245,15 @@ void IRScan::btn_sendData()
 			m_msg.append(m_cli.get_msg().c_str());
 			QMessageBox::information(NULL, "Title", m_msg);
 			m_cli.close();
-
+			return;
 			break;
 		}
 		else
 		{
 			m_msg.append(QString::fromLocal8Bit(" 成功"));
 		}
-		QMessageBox::information(NULL, "Title", m_msg);
 	}
-
+	QMessageBox::information(NULL, "Title", m_msg);
 	if (0 == vecPngIDReq.size())
 	{
 		m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
@@ -547,7 +546,7 @@ void IRScan::btn_change()
 
 	QString m_msg = QString::fromLocal8Bit("卡号: ");
 	m_msg.append(g_cardID);
-	QMessageBox::information(NULL, "Title", m_msg);
+	//QMessageBox::information(NULL, "Title", m_msg);
 
 	int iRet = m_cli.set_cardid(mapCardInfo, g_user.toStdString());
 	if (0 < iRet)
@@ -564,7 +563,7 @@ void IRScan::btn_change()
 		conDataBase();
 
 	}
-	QMessageBox::information(NULL, "Title", m_msg);
+	//QMessageBox::information(NULL, "Title", m_msg);
 
 
 	std::map<std::string, std::string> mapUserInfo;
@@ -583,7 +582,7 @@ void IRScan::btn_change()
 	}
 	else
 	{
-		m_msg = QString::fromLocal8Bit("发送用户信息成功");
+		m_msg = QString::fromLocal8Bit("修改成功");
 	}
 
 	QMessageBox::information(NULL, "Title", m_msg);
@@ -780,7 +779,33 @@ void IRScan::btn_reg()
 
 		QMessageBox::information(NULL, "Title", m_msg);
 
-		updateData();
+		int row = ui.tableWidget->rowCount();
+
+		if (row >=g_pageSize) 
+		{
+			row = 0;
+			ui.tableWidget->setRowCount(0);
+			ui.tableWidget->clearContents();
+			g_curPage++;
+			ui.lineEdit_cur_page->setText(QString::number(g_curPage));
+		}
+		ui.tableWidget->insertRow(row);
+
+		int index = row;
+
+		ui.tableWidget->setItem(index, 0, new QTableWidgetItem(QString::number(index + 1)));
+		ui.tableWidget->setItem(index, 1, new QTableWidgetItem(g_cardID));
+		ui.tableWidget->setItem(index, 2, new QTableWidgetItem(g_scanID));
+		ui.tableWidget->setItem(index, 3, new QTableWidgetItem(g_name));
+		ui.tableWidget->setItem(index, 4, new QTableWidgetItem(g_gender));
+		ui.tableWidget->setItem(index, 6, new QTableWidgetItem(g_age));
+
+		QDateTime current_date_time = QDateTime::currentDateTime();
+		QString current_date = current_date_time.toString("yyyy-MM-dd hh:mm:ss");
+
+		ui.tableWidget->setItem(index, 7, new QTableWidgetItem(current_date));
+
+		//updateData();
 
 }
 
@@ -1032,7 +1057,15 @@ void IRScan::sysSetting()
 
 void IRScan::btn_scan_Clicked()
 {
+	QString m_msg;
 	int row = ui.tableWidget->currentIndex().row();
+
+	if (row == -1)
+	{
+		m_msg=QString::fromLocal8Bit("请选择扫描用户");
+		QMessageBox::information(NULL, "Title", m_msg);
+		return;
+	}
 
 	g_cardID = ui.tableWidget->item(row, 1)->text();
 	g_scanID = ui.tableWidget->item(row, 2)->text();

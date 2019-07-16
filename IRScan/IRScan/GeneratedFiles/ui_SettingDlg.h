@@ -85,7 +85,7 @@ public:
 
     void retranslateUi(QWidget *SettingDlg)
     {
-        SettingDlg->setWindowTitle(QApplication::translate("SettingDlg", "SettingDlg", 0));
+        SettingDlg->setWindowTitle(QApplication::translate("SettingDlg", "\345\217\202\346\225\260\350\256\276\347\275\256", 0));
         label->setText(QApplication::translate("SettingDlg", "\347\233\270\346\234\272IP:", 0));
         btn_set_Par->setText(QApplication::translate("SettingDlg", "\344\277\256\346\224\271", 0));
         label_2->setText(QApplication::translate("SettingDlg", "\346\234\215\345\212\241\345\231\250IP:", 0));
