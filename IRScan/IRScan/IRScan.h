@@ -64,5 +64,7 @@ public:
 
 	SetAuthDlg *adlg;
 
+	QString m_msg;
+
 //	client_t m_cli;
 };

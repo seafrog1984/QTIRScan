@@ -36,7 +36,7 @@ void ThumLabel::mousePressEvent(QMouseEvent *ev)
 	if (ev->button() == Qt::RightButton)
 	{
 	
-		int nRet = QMessageBox::question(NULL, QString::fromLocal8Bit("重新采集"), QString::fromLocal8Bit("是否重新采集？"), QMessageBox::Yes, QMessageBox::No);
+		int nRet = QMessageBox::question(NULL, QString::fromLocal8Bit("删除图像"), QString::fromLocal8Bit("是否删除图像？"), QMessageBox::Yes, QMessageBox::No);
 		// 选择是
 		if (QMessageBox::Yes == nRet)
 		{

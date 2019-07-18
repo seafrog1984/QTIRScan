@@ -1378,7 +1378,7 @@ border:0px solid;</string>
           </rect>
          </property>
          <property name="text">
-          <string>编号：</string>
+          <string>卡号：</string>
          </property>
         </widget>
         <widget class="QToolButton" name="btn_show_all">

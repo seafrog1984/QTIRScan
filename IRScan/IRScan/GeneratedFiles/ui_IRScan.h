@@ -950,7 +950,7 @@ public:
 "\346\237\245\n"
 "\346\211\276", 0));
         btn_name_sel->setText(QApplication::translate("IRScanClass", "\347\255\233\351\200\211", 0));
-        label_19->setText(QApplication::translate("IRScanClass", "\347\274\226\345\217\267\357\274\232", 0));
+        label_19->setText(QApplication::translate("IRScanClass", "\345\215\241\345\217\267\357\274\232", 0));
         btn_show_all->setText(QApplication::translate("IRScanClass", "\346\230\276\347\244\272\345\205\250\351\203\250", 0));
         label_18->setText(QApplication::translate("IRScanClass", "\345\247\223\345\220\215\357\274\232", 0));
         groupBox_21->setTitle(QString());

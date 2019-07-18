@@ -703,7 +703,7 @@ int _client_t::get_info(const std::string &scan_id, std::map<std::string, std::s
 	int len = scan_id.length();
 	//图片请求数据
 	//头部+客户端标识数据大小(int)+客户端标识数据
-	tHead.length = sizeof(int)+len;
+	tHead.length = 2 * sizeof(int)+len + 1;
 	//请求数据拷贝
 	char data[MAX_DATA] = { 0 };
 	int pos = 0;
@@ -713,6 +713,13 @@ int _client_t::get_info(const std::string &scan_id, std::map<std::string, std::s
 	pos += sizeof(int);
 	memcpy(&data[pos], scan_id.c_str(), len);
 	pos += len;
+	//获取用户信息标识
+	len = 1;
+	memcpy(&data[pos], &len, sizeof(int));
+	pos += sizeof(int);
+	memcpy(&data[pos], "1", len);
+	pos += len;
+
 	//若服务端未授权则返回错误信息
 	if (!sock.Send(data, pos))
 	{
@@ -1672,5 +1679,79 @@ int _client_t::del_scanid(const std::string &scan_id)
 		sMsg = "del scanid fail, " + msg;
 		return -1;
 	}
+	return 1;
+}
+
+int _client_t::get_png_id(const std::string &scan_id, std::map<std::string, std::string> &mapInfo)
+{
+	if (!bConnection)
+	{
+		sMsg = "no init connection";
+		return -1;
+	}
+
+	if ("" == sAuth)
+	{
+		sMsg = "invalid auth";
+		return -1;
+	}
+
+	//个人信息请求串实现
+	req_head_t tHead;
+	set_req_head(tHead, REQ_CMD_GET_DATA);
+
+	int len = scan_id.length();
+	//图片请求数据
+	//头部+客户端标识数据大小(int)+客户端标识数据
+	tHead.length = sizeof(int)+len;
+	//请求数据拷贝
+	char data[MAX_DATA] = { 0 };
+	int pos = 0;
+	memcpy(&data[pos], &tHead, sizeof(req_head_t));
+	pos += sizeof(req_head_t);
+	memcpy(&data[pos], &len, sizeof(int));
+	pos += sizeof(int);
+	memcpy(&data[pos], scan_id.c_str(), len);
+	pos += len;
+
+	//获取用户信息标识
+	len = 1;
+	memcpy(&data[pos], &len, sizeof(int));
+	pos += sizeof(int);
+	memcpy(&data[pos], "0", len);
+	pos += len;
+
+	//若服务端未授权则返回错误信息
+	if (!sock.Send(data, pos))
+	{
+		sMsg = "get user msg fail";
+		return -1;
+	}
+	char resp[MAX_DATA] = { 0 };
+
+	int ret = recv_resp(resp);
+	if (0 > ret)
+	{
+		return -1;
+	}
+	if (2 == ret)
+	{
+		return 0;
+	}
+
+	//解析body
+	int data_len;
+	memcpy(&data_len, resp, sizeof(int));
+	pos = sizeof(int);
+	std::string msg(&resp[pos], data_len);
+	pos += data_len;
+
+	if (0 == ret)
+	{
+		sMsg = "get png id send fail, " + msg;
+		return -1;
+	}
+	split_map(msg.c_str(), mapInfo, '=', '&');
+
 	return 1;
 }
