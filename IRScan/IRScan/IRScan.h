@@ -9,6 +9,7 @@
 #include "SetAuthDlg.h"
 #include "./incl/client.h"
 #include <opencv2\opencv.hpp>
+#include <QTimer>
 
 class IRScan : public QMainWindow
 {
@@ -55,6 +56,10 @@ private slots:
 	void btn_showAll();
 	void btn_sendData();
 
+	void time_update();
+	void customize();//系统设置-定制
+
+
 public:
 	QString ir_ip;
 
@@ -65,6 +70,8 @@ public:
 	SetAuthDlg *adlg;
 
 	QString m_msg;
+
+	QLabel *currentTimeLabel;//显示系统时间
 
 //	client_t m_cli;
 };

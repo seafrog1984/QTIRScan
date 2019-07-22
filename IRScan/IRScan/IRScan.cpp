@@ -128,6 +128,12 @@ IRScan::IRScan(QWidget *parent)
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);	//设置每行内容不可编辑
 	ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);	//设置只能选择一行，不能选择多行
 
+	connect(ui.checkBox_13, SIGNAL(clicked()), this, SLOT(customize()));
+	connect(ui.checkBox_15, SIGNAL(clicked()), this, SLOT(customize()));
+	connect(ui.checkBox_17, SIGNAL(clicked()), this, SLOT(customize()));
+	connect(ui.checkBox_18, SIGNAL(clicked()), this, SLOT(customize()));
+	connect(ui.checkBox_19, SIGNAL(clicked()), this, SLOT(customize()));
+
 
 	connect(ui.imgScanAct, &QAction::triggered, this, &IRScan::imgScan);
 	connect(ui.imgSysAct, &QAction::triggered, this, &IRScan::sysSetting);
@@ -202,10 +208,51 @@ IRScan::IRScan(QWidget *parent)
 	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
 	ui.lineEdit_page_size->setText(QString::number(g_pageSize));
 
+	ui.checkBox_13->setChecked(true);
 	updateData();
+
+	statusBar();
+	currentTimeLabel = new QLabel; // 创建QLabel控件
+	currentTimeLabel->setStyleSheet("color:rgb(255,255,255);");
+	//ui.statusBar->addWidget(currentTimeLabel); //在状态栏添加此控件
+	ui.statusBar->addPermanentWidget(currentTimeLabel); //在状态栏添加此控件
+	QTimer *timer = new QTimer(this);
+	timer->start(1000); //每隔1000ms发送timeout的信号
+	connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
 
 }
 
+void IRScan::customize()
+{
+
+	QCheckBox *chbox = (QCheckBox*)this->sender();
+	QString text = chbox->text();
+
+	if (text == QString::fromLocal8Bit("显示状态栏"))
+	{
+		if (chbox->isChecked())
+		{
+			ui.statusBar->show();
+		}
+		else
+		{
+			ui.statusBar->hide();
+		}
+
+	}
+
+	//	QMessageBox::information(this, tr("Information"), text);
+}
+
+
+void IRScan::time_update()
+{
+	QDateTime current_time = QDateTime::currentDateTime();
+	QString timestr = current_time.toString("yyyy-MM-dd hh:mm:ss  ") + QString::fromLocal8Bit("温度30; 湿度60   "); //设置显示的格式
+
+	currentTimeLabel->setText(timestr); //设置label的文本内容为时间
+
+}
 
 void IRScan::btn_sendData()
 {
@@ -250,7 +297,7 @@ void IRScan::btn_sendData()
 			m_msg.append(QString::fromLocal8Bit(" 失败\n原因是："));
 			m_msg.append(m_cli.get_msg().c_str());
 			QMessageBox::information(NULL, "Title", m_msg);
-			m_cli.close();
+			//m_cli.close();
 			ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 			return;
 			break;
