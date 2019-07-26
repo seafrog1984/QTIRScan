@@ -38,6 +38,8 @@ private slots:
 	void btn_focusNear();//近焦
 	void btn_sysPar();//系统参数设置
 	void btn_setAuth();//权限设置
+	void btn_show_func();//显示功能区
+
 	void btn_clockWise();//转台顺时针旋转
 	void btn_antiClock();//转台逆时针旋转
 	void btn_camUp();//相机上
@@ -58,6 +60,7 @@ private slots:
 
 	void time_update();
 	void customize();//系统设置-定制
+
 
 
 public:

@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_SettingDlg.h"
+#include <QEventLoop>
 
 class SettingDlg : public QWidget
 {
@@ -10,6 +11,9 @@ class SettingDlg : public QWidget
 public:
 	SettingDlg(QWidget *parent = Q_NULLPTR);
 	~SettingDlg();
+
+	void exec();
+	QEventLoop *m_eventLoop;
 
 private:
 	Ui::SettingDlg ui;

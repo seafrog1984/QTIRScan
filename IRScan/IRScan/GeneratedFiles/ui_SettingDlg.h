@@ -33,6 +33,8 @@ public:
     QLineEdit *lineEdit_port;
     QLabel *label_4;
     QLineEdit *lineEdit_uport;
+    QLabel *label_5;
+    QLineEdit *lineEdit_hosCode;
 
     void setupUi(QWidget *SettingDlg)
     {
@@ -58,7 +60,7 @@ public:
         label->setGeometry(QRect(20, 20, 54, 12));
         btn_set_Par = new QPushButton(SettingDlg);
         btn_set_Par->setObjectName(QStringLiteral("btn_set_Par"));
-        btn_set_Par->setGeometry(QRect(150, 220, 75, 23));
+        btn_set_Par->setGeometry(QRect(140, 260, 75, 23));
         label_2 = new QLabel(SettingDlg);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(20, 70, 54, 12));
@@ -77,6 +79,12 @@ public:
         lineEdit_uport = new QLineEdit(SettingDlg);
         lineEdit_uport->setObjectName(QStringLiteral("lineEdit_uport"));
         lineEdit_uport->setGeometry(QRect(130, 160, 113, 20));
+        label_5 = new QLabel(SettingDlg);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(20, 210, 54, 12));
+        lineEdit_hosCode = new QLineEdit(SettingDlg);
+        lineEdit_hosCode->setObjectName(QStringLiteral("lineEdit_hosCode"));
+        lineEdit_hosCode->setGeometry(QRect(130, 210, 113, 20));
 
         retranslateUi(SettingDlg);
 
@@ -91,6 +99,7 @@ public:
         label_2->setText(QApplication::translate("SettingDlg", "\346\234\215\345\212\241\345\231\250IP:", 0));
         label_3->setText(QApplication::translate("SettingDlg", "\346\225\260\346\215\256\347\253\257\345\217\243:", 0));
         label_4->setText(QApplication::translate("SettingDlg", "\347\224\250\346\210\267\347\253\257\345\217\243\357\274\232", 0));
+        label_5->setText(QApplication::translate("SettingDlg", "\345\215\225\344\275\215\347\274\226\345\217\267\357\274\232", 0));
     } // retranslateUi
 
 };

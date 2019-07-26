@@ -3,7 +3,7 @@
 #include <QWidget>
 #include "ui_SetAuthDlg.h"
 #include "./incl/client.h"
-
+#include <QEventLoop>
 
 class SetAuthDlg : public QWidget
 {
@@ -12,6 +12,10 @@ class SetAuthDlg : public QWidget
 public:
 	SetAuthDlg(QWidget *parent = Q_NULLPTR);
 	~SetAuthDlg();
+
+	void exec();
+
+	QEventLoop *m_eventLoop;
 
 	int get_permissions();
 	void set_permissions();

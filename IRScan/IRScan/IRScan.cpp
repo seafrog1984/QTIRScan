@@ -15,6 +15,7 @@ Frame g_frame;
 
 int g_picTotalNum = 0;//缩略图窗口数量
 int g_flag_play = 1;//视频暂停，播放标志位
+int g_cam_flag = 0;//采集图像标识
 
 int g_picNum = 0;//总的图像数
 int g_currentPic = 0; //当前图像下标
@@ -26,6 +27,7 @@ QString g_tempFolder;//图像保存目录
 QString g_sysPath;//配置文件路径
 
 QString g_camIP = "192.168.1.60";
+QString g_hos_code;
 
 extern QString g_ip;
 extern QString g_port;
@@ -43,7 +45,7 @@ extern int g_log_flag;
 
 int g_reg_flag = 0;
 int g_recap_flag = 0;
-
+int g_remember_flag;//记住密码标志
 
 std::vector<std::string> vecPngIDReq;
 std::vector<std::string> vecPngIDResp;
@@ -138,11 +140,13 @@ IRScan::IRScan(QWidget *parent)
 	connect(ui.imgScanAct, &QAction::triggered, this, &IRScan::imgScan);
 	connect(ui.imgSysAct, &QAction::triggered, this, &IRScan::sysSetting);
 
+	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
+	connect(ui.btn_set_auth, SIGNAL(clicked()), this, SLOT(btn_setAuth()));
+	connect(ui.btn_show_func, SIGNAL(clicked()), this, SLOT(btn_show_func()));
+
 	connect(ui.btn_scan, SIGNAL(clicked()), this, SLOT(btn_scan_Clicked()));
 	connect(ui.btn_focus_far, SIGNAL(clicked()), this, SLOT(btn_focusFar()));
 	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
-	connect(ui.btn_sys_par, SIGNAL(clicked()), this, SLOT(btn_sysPar()));
-	connect(ui.btn_set_auth, SIGNAL(clicked()), this, SLOT(btn_setAuth()));
 	connect(ui.btn_change_3, SIGNAL(clicked()), this, SLOT(btn_sendData()));
 
 
@@ -209,6 +213,13 @@ IRScan::IRScan(QWidget *parent)
 	ui.lineEdit_page_size->setText(QString::number(g_pageSize));
 
 	ui.checkBox_13->setChecked(true);
+	ui.checkBox_15->setChecked(true);
+	if (g_remember_flag) ui.checkBox_18->setChecked(true);
+
+	ui.checkBox_17->hide();
+	ui.groupBox_22->hide();
+	ui.btn_set_hos->hide();
+	ui.label_27->hide();
 	updateData();
 
 	statusBar();
@@ -220,6 +231,20 @@ IRScan::IRScan(QWidget *parent)
 	timer->start(1000); //每隔1000ms发送timeout的信号
 	connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
 
+}
+
+void IRScan::btn_show_func()
+{
+	if (ui.checkBox_15->isChecked())
+	{
+		ui.checkBox_15->setChecked(false);
+		ui.stackedWidget->hide();
+	}
+	else
+	{
+		ui.checkBox_15->setChecked(true);
+		ui.stackedWidget->show();
+	}
 }
 
 void IRScan::customize()
@@ -240,6 +265,49 @@ void IRScan::customize()
 		}
 
 	}
+	if (text == QString::fromLocal8Bit("黑色背景"))
+	{
+		if (chbox->isChecked())
+		{
+			ui.page_3->setStyleSheet("backgroud-color:rgb(255,255,255);");
+		}
+		else
+		{
+			ui.page_3->setStyleSheet("");
+
+		}
+
+	}
+	if (text == QString::fromLocal8Bit("显示功能区"))
+	{
+		if (chbox->isChecked())
+		{
+			ui.stackedWidget->show();
+		}
+		else
+		{
+			ui.stackedWidget->hide();
+		}
+
+	}
+	if (text == QString::fromLocal8Bit("记住密码"))
+	{
+		if (chbox->isChecked())
+		{
+			g_remember_flag = 1;
+		}
+		else
+		{
+			g_remember_flag = 0;
+		}
+		ofstream fout("config.ini");
+
+		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << g_passwd.toStdString() << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
+
+		fout.close();
+
+	}
+
 
 	//	QMessageBox::information(this, tr("Information"), text);
 }
@@ -309,30 +377,32 @@ void IRScan::btn_sendData()
 	}
 	
 	QMessageBox::information(NULL, "Title", m_msg+"("+QString::number(size)+")");
-	if (0 == vecPngIDReq.size())
-	{
-		m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
-	}
-	else
-	{
-		std::map<std::string, std::string> mapUserInfo;
-		mapUserInfo["scan_id"] = g_scanID.toStdString();
-		//mapUserInfo["card_id"] = sCardID;
-		mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
-		mapUserInfo["user"] = g_user.toStdString();
+	//if (0 == vecPngIDReq.size())
+	//{
+	//	m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
+	//}
+	//else
+	//{
+	//	std::map<std::string, std::string> mapUserInfo;
+	//	mapUserInfo["scan_id"] = g_scanID.toStdString();
+	//	//mapUserInfo["card_id"] = sCardID;
+	//	mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
+	//	mapUserInfo["user"] = g_user.toStdString();
 
-		if (!m_cli.send_info(mapUserInfo))
-		{
-			m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
-			m_msg.append(m_cli.get_msg().c_str());
-			m_cli.close();
-		}
-		else
-		{
-			m_msg = QString::fromLocal8Bit("发送用户信息成功");
-		}
-	}
-	QMessageBox::information(NULL, "Title", m_msg);
+	//	if (!m_cli.send_info(mapUserInfo))
+	//	{
+	//		m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
+	//		m_msg.append(m_cli.get_msg().c_str());
+	//		QMessageBox::information(NULL, "Title", m_msg);
+	//		m_cli.close();
+	//		conDataBase();
+	//	}
+	//	else
+	//	{
+	//		m_msg = QString::fromLocal8Bit("发送用户信息成功");
+	//	}
+	//}
+	//QMessageBox::information(NULL, "Title", m_msg);
 
 	for (int i = 0; i < fileInfo->size(); i++)
 	{
@@ -351,6 +421,11 @@ void IRScan::btn_sendData()
 	}
 
 	ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+
+	g_currentPic = 0;
+
+	g_picNum = 0;
+	g_cam_flag = 0;
 }
 
 
@@ -652,12 +727,14 @@ void IRScan::btn_change()
 	g_name = ui.tableWidget->item(row, 3)->text();
 	g_gender = ui.tableWidget->item(row, 4)->text();
 
+	g_reg_flag = 0;
+
 	rdlg = new RegDlg;
 
 	rdlg->setWindowTitle(QString::fromLocal8Bit("修改"));
 	rdlg->setWindowModality(Qt::ApplicationModal);
-	rdlg->ui.lineEdit_card->setDisabled(false);
-	rdlg->ui.lineEdit_5->setDisabled(false);
+	rdlg->ui.lineEdit_card->setDisabled(true);
+	rdlg->ui.lineEdit_5->setDisabled(true);
 	rdlg->ui.btn_reg->setText(QString::fromLocal8Bit("修改"));
 	rdlg->exec();
 
@@ -708,9 +785,10 @@ void IRScan::btn_change()
 		{
 			m_msg = QString::fromLocal8Bit("注册卡信息失败\n");
 			m_msg.append(m_cli.get_msg().c_str());
+			QMessageBox::information(NULL, "Title", m_msg);
 			m_cli.close();
 			conDataBase();
-
+			return;
 		}
 		//QMessageBox::information(NULL, "Title", m_msg);
 
@@ -725,8 +803,10 @@ void IRScan::btn_change()
 		{
 			m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
 			m_msg.append(m_cli.get_msg().c_str());
+			QMessageBox::information(NULL, "Title", m_msg);
 			m_cli.close();
 			conDataBase();
+			return;
 
 		}
 		else
@@ -762,16 +842,17 @@ void IRScan::btn_del()
 	{
 		m_msg = QString::fromLocal8Bit("删除扫描ID成功\nID:");
 		m_msg.append(g_scanID);
+		QMessageBox::information(NULL, "Title", m_msg);
 	}
 	else
 	{
 		m_msg = QString::fromLocal8Bit( "删除扫描ID失败\n");
 		m_msg.append(m_cli.get_msg().c_str());
+		QMessageBox::information(NULL, "Title", m_msg);
 		m_cli.close();
 		conDataBase();
-
 	}
-	QMessageBox::information(NULL, "Title", m_msg);
+
 
 	ui.tableWidget->removeRow(row);
 	//ui.tableWidget->setRowCount(0);
@@ -801,7 +882,7 @@ void IRScan::updateData()
 	if (0 < iRet)
 	{
 		//m_msg = "结果:\n";
-		m_msg.append(QString::fromLocal8Bit(sData.c_str()));
+		m_msg=QString::fromLocal8Bit(sData.c_str());
 		//QMessageBox::information(NULL, "Title", m_msg);
 		QList<QString> lst;
 		lst = m_msg.split(';');
@@ -835,6 +916,8 @@ void IRScan::updateData()
 
 void IRScan::btn_reg()
 {
+	g_reg_flag = 0;
+
 	rdlg = new RegDlg;
 
 	rdlg->setWindowModality(Qt::ApplicationModal);
@@ -885,6 +968,8 @@ void IRScan::btn_reg()
 			m_msg = QString::fromLocal8Bit("注册卡信息失败\n");
 			m_msg.append(m_cli.get_msg().c_str());
 			m_cli.close();
+			conDataBase();
+			return;
 
 		}
 		//	QMessageBox::information(NULL, "Title", m_msg);
@@ -906,6 +991,8 @@ void IRScan::btn_reg()
 			m_msg = QString::fromLocal8Bit("设置扫描ID失败\n");
 			m_msg.append(m_cli.get_msg().c_str());
 			m_cli.close();
+			conDataBase();
+			return;
 
 		}
 		//	QMessageBox::information(NULL, "Title", m_msg);
@@ -921,6 +1008,8 @@ void IRScan::btn_reg()
 			m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
 			m_msg.append(m_cli.get_msg().c_str());
 			m_cli.close();
+			conDataBase();
+			return;
 
 		}
 		else
@@ -978,7 +1067,7 @@ void IRScan::addData(int index,QString cardID,QString scanID,QString RegTime)
 		m_msg.append(QString::fromLocal8Bit(m_cli.get_msg().c_str()));
 		QMessageBox::information(NULL, "Title", m_msg);
 		m_cli.close();
-
+		conDataBase();
 		return;
 	}
 	else if (0 == ret)
@@ -1045,6 +1134,8 @@ void IRScan::conDataBase()
 	{
 		m_msg = QString::fromLocal8Bit("连接失败\n请确认IP或端口号");
 		QMessageBox::information(NULL, "Title", m_msg);
+		m_cli.close();
+	//	conDataBase();
 		return;
 	}
 	//2-
@@ -1055,8 +1146,9 @@ void IRScan::conDataBase()
 	{
 		m_msg = QString::fromLocal8Bit("获取授权码失败\n");
 		m_msg.append(m_cli.get_msg().c_str());
-		m_cli.close();
 		QMessageBox::information(NULL, "Title", m_msg);
+		m_cli.close();
+//		conDataBase();
 	}
 	else
 	{
@@ -1172,9 +1264,6 @@ void IRScan::sysSetting()
 
 void IRScan::btn_scan_Clicked()
 {
-	
-
-	
 	int row = ui.tableWidget->currentIndex().row();
 
 	if (row == -1)
@@ -1192,7 +1281,7 @@ void IRScan::btn_scan_Clicked()
 
 	std::string scanID = g_scanID.toStdString();
 	QDir dir;
-	g_tempFolder = dir.currentPath() + "//Temp//" + QString::fromStdString(scanID);
+	g_tempFolder = dir.currentPath() + "//Temp//"+g_scanID;
 
 	// 检查目录是否存在，若不存在则新建
 	if (!dir.exists(g_tempFolder))
@@ -1229,9 +1318,9 @@ void IRScan::btn_scan_Clicked()
 
 	g_picNum = 0;
 
-
-
 	ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
+	g_cam_flag = 1;
+	
 
 }
 
@@ -1243,58 +1332,69 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 		{
 			IRSDK_Stop(0);
 			g_flag_play = 0;
+			if (g_currentPic==0)
+				ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
 		}
 		else
 		{
-			g_pData[g_currentPic] = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];
-			memcpy(g_pData[g_currentPic], g_frame.buffer, IMAGE_HEIGHT*IMAGE_WIDTH*sizeof(short));
-
-			QString filePath = g_tempFolder + "\\" + QString::number(g_currentPic) + ".dat";
-
-			char*  path;
-			QByteArray t = filePath.toLatin1(); // must
-			path = t.data();
-
-			ofstream fout(path);
-			for (int i = 0; i < IMAGE_WIDTH*IMAGE_HEIGHT; i++)
+			if (g_cam_flag == 0)
 			{
-				fout << *(g_frame.buffer + i) << ' ';
-			}
-
-			fout.close();
-
-			Mat img;
-			img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC3);
-
-			data2Img(g_pData[g_currentPic], img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2, 22);
-
-			QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
-
-			g_qImgShow[g_currentPic] = image.copy();
-
-
-			QLabel *p = ui.widget_2->findChild<QLabel*>(QString::number((g_currentPic-1+IMAGE_MAX_NUM)%IMAGE_MAX_NUM));
-			p->setStyleSheet("border-width: 1px;border-style: solid;border-color: rgb(255, 255, 255);");
-
-
-			p = ui.widget_2->findChild<QLabel*>(QString::number(g_currentPic));
-			QPixmap pixmap = QPixmap::fromImage(g_qImgShow[g_currentPic]);
-
-			QPixmap fitpixmap = pixmap.scaled(p->width(), p->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
-
-			p->setPixmap(fitpixmap);
-			p->setStyleSheet("border-width: 2px;border-style: solid;border-color: rgb(255, 0, 0);");
-
-			if (g_recap_flag)
-			{
-				g_recap_flag = 0;
-				g_currentPic = g_picNum;
+				m_msg = QString::fromLocal8Bit("请点击扫描按钮\n");
+				QMessageBox::information(NULL, "Title", m_msg);
+				ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
 			}
 			else
 			{
-				g_currentPic = (g_currentPic + 1) % IMAGE_MAX_NUM;
+				g_pData[g_currentPic] = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];
+				memcpy(g_pData[g_currentPic], g_frame.buffer, IMAGE_HEIGHT*IMAGE_WIDTH*sizeof(short));
 
-				if (g_picNum < IMAGE_MAX_NUM) g_picNum++;
+				QString filePath = g_tempFolder + "\\" + QString::number(g_currentPic) + ".dat";
+
+				char*  path;
+				QByteArray t = filePath.toLatin1(); // must
+				path = t.data();
+
+				ofstream fout(path);
+				for (int i = 0; i < IMAGE_WIDTH*IMAGE_HEIGHT; i++)
+				{
+					fout << *(g_frame.buffer + i) << ' ';
+				}
+
+				fout.close();
+
+				Mat img;
+				img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC3);
+
+				data2Img(g_pData[g_currentPic], img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2, 22);
+
+				QImage image = QImage((const unsigned char*)(img.data), img.cols, img.rows, QImage::Format_RGB888);
+
+				g_qImgShow[g_currentPic] = image.copy();
+
+
+				QLabel *p = ui.widget_2->findChild<QLabel*>(QString::number((g_currentPic - 1 + IMAGE_MAX_NUM) % IMAGE_MAX_NUM));
+				p->setStyleSheet("border-width: 1px;border-style: solid;border-color: rgb(255, 255, 255);");
+
+
+				p = ui.widget_2->findChild<QLabel*>(QString::number(g_currentPic));
+				QPixmap pixmap = QPixmap::fromImage(g_qImgShow[g_currentPic]);
+
+				QPixmap fitpixmap = pixmap.scaled(p->width(), p->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
+
+				p->setPixmap(fitpixmap);
+				p->setStyleSheet("border-width: 2px;border-style: solid;border-color: rgb(255, 0, 0);");
+
+				if (g_recap_flag)
+				{
+					g_recap_flag = 0;
+					g_currentPic = g_picNum;
+				}
+				else
+				{
+					g_currentPic = (g_currentPic + 1) % IMAGE_MAX_NUM;
+
+					if (g_picNum < IMAGE_MAX_NUM) g_picNum++;
+				}
 			}
 
 			IRSDK_Play(0);
@@ -1323,12 +1423,12 @@ void IRScan::btn_sysPar()
 {
 	dlg = new SettingDlg;
 
-	dlg->show();
+	dlg->exec();
 }
 
 void IRScan::btn_setAuth()
 {
 	adlg = new SetAuthDlg;
 
-	adlg->show();
+	adlg->exec();
 }

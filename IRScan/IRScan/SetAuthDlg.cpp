@@ -48,6 +48,17 @@ SetAuthDlg::~SetAuthDlg()
 {
 }
 
+void SetAuthDlg::exec()
+{
+	// 设置为模态;
+	this->setWindowModality(Qt::ApplicationModal);
+	show();
+	// 使用事件循环QEventLoop ,不让exec()方法结束，在用户选择确定或者取消后，关闭窗口结束事件循环，并返回最后用户选择的结果;
+	// 根据返回结果得到用户按下了确定还是取消，采取相应的操作。从而模拟出QDialog类的exec()方法;
+	m_eventLoop = new QEventLoop(this);
+	m_eventLoop->exec();
+
+}
 
 void SetAuthDlg::set_permissions()
 {

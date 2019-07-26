@@ -111,9 +111,7 @@ public:
     QLabel *label_26;
     QToolButton *btn_sys_par;
     QLabel *label_27;
-    QToolButton *sysSettingBt_4;
-    QLabel *label_28;
-    QToolButton *sysSettingBt_5;
+    QToolButton *btn_set_hos;
     QLabel *label_41;
     QStackedWidget *stackedWidget_2;
     QWidget *page_3;
@@ -126,6 +124,7 @@ public:
     QLabel *scanPicShow;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer_2;
+    QToolButton *btn_show_func;
     QWidget *widget_2;
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout_2;
@@ -162,8 +161,7 @@ public:
         stackedWidget->setObjectName(QStringLiteral("stackedWidget"));
         stackedWidget->setMinimumSize(QSize(0, 100));
         stackedWidget->setMaximumSize(QSize(16777215, 100));
-        stackedWidget->setStyleSheet(QLatin1String("color: rgb(255, 255, 255);\n"
-"background-color: rgb(15, 21, 42);"));
+        stackedWidget->setStyleSheet(QStringLiteral(""));
         pageScan = new QWidget();
         pageScan->setObjectName(QStringLiteral("pageScan"));
         pageScan->setStyleSheet(QLatin1String("QGroupBox{background-color: rgb(15, 21, 42);\n"
@@ -592,7 +590,7 @@ public:
 "}"));
         groupBox_21 = new QGroupBox(page_sys);
         groupBox_21->setObjectName(QStringLiteral("groupBox_21"));
-        groupBox_21->setGeometry(QRect(280, 0, 400, 90));
+        groupBox_21->setGeometry(QRect(0, 0, 400, 90));
         groupBox_21->setMinimumSize(QSize(0, 90));
         groupBox_21->setMaximumSize(QSize(16777215, 90));
         groupBox_21->setStyleSheet(QStringLiteral(""));
@@ -608,12 +606,12 @@ public:
         checkBox_15->setMaximumSize(QSize(85, 16777215));
         checkBox_17 = new QCheckBox(groupBox_21);
         checkBox_17->setObjectName(QStringLiteral("checkBox_17"));
-        checkBox_17->setGeometry(QRect(80, 55, 100, 16));
+        checkBox_17->setGeometry(QRect(190, 60, 100, 16));
         checkBox_17->setMinimumSize(QSize(100, 0));
         checkBox_17->setMaximumSize(QSize(85, 16777215));
         checkBox_18 = new QCheckBox(groupBox_21);
         checkBox_18->setObjectName(QStringLiteral("checkBox_18"));
-        checkBox_18->setGeometry(QRect(190, 55, 85, 16));
+        checkBox_18->setGeometry(QRect(80, 60, 85, 16));
         checkBox_18->setMinimumSize(QSize(85, 0));
         checkBox_18->setMaximumSize(QSize(85, 16777215));
         checkBox_19 = new QCheckBox(groupBox_21);
@@ -626,7 +624,7 @@ public:
         label_40->setGeometry(QRect(25, 20, 20, 55));
         groupBox_22 = new QGroupBox(page_sys);
         groupBox_22->setObjectName(QStringLiteral("groupBox_22"));
-        groupBox_22->setGeometry(QRect(0, 0, 280, 90));
+        groupBox_22->setGeometry(QRect(730, 0, 280, 90));
         groupBox_22->setMinimumSize(QSize(0, 90));
         groupBox_22->setMaximumSize(QSize(16777215, 90));
         groupBox_22->setStyleSheet(QStringLiteral(""));
@@ -664,7 +662,7 @@ public:
         label_39->setGeometry(QRect(30, 20, 20, 55));
         groupBox_23 = new QGroupBox(page_sys);
         groupBox_23->setObjectName(QStringLiteral("groupBox_23"));
-        groupBox_23->setGeometry(QRect(680, 0, 400, 90));
+        groupBox_23->setGeometry(QRect(400, 0, 311, 90));
         groupBox_23->setStyleSheet(QStringLiteral(""));
         btn_set_auth = new QToolButton(groupBox_23);
         btn_set_auth->setObjectName(QStringLiteral("btn_set_auth"));
@@ -696,32 +694,18 @@ public:
         btn_sys_par->setIcon(icon26);
         label_27 = new QLabel(groupBox_23);
         label_27->setObjectName(QStringLiteral("label_27"));
-        label_27->setGeometry(QRect(230, 60, 60, 20));
+        label_27->setGeometry(QRect(235, 60, 60, 20));
         label_27->setMinimumSize(QSize(60, 20));
         label_27->setMaximumSize(QSize(50, 20));
-        sysSettingBt_4 = new QToolButton(groupBox_23);
-        sysSettingBt_4->setObjectName(QStringLiteral("sysSettingBt_4"));
-        sysSettingBt_4->setGeometry(QRect(245, 20, 32, 32));
-        sysSettingBt_4->setMinimumSize(QSize(32, 32));
-        sysSettingBt_4->setMaximumSize(QSize(32, 32));
-        sysSettingBt_4->setStyleSheet(QStringLiteral(""));
+        btn_set_hos = new QToolButton(groupBox_23);
+        btn_set_hos->setObjectName(QStringLiteral("btn_set_hos"));
+        btn_set_hos->setGeometry(QRect(245, 20, 32, 32));
+        btn_set_hos->setMinimumSize(QSize(32, 32));
+        btn_set_hos->setMaximumSize(QSize(32, 32));
+        btn_set_hos->setStyleSheet(QStringLiteral(""));
         QIcon icon27;
         icon27.addFile(QStringLiteral(":/IRScan/Sys-Hos"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_4->setIcon(icon27);
-        label_28 = new QLabel(groupBox_23);
-        label_28->setObjectName(QStringLiteral("label_28"));
-        label_28->setGeometry(QRect(310, 60, 75, 20));
-        label_28->setMinimumSize(QSize(75, 20));
-        label_28->setMaximumSize(QSize(60, 20));
-        sysSettingBt_5 = new QToolButton(groupBox_23);
-        sysSettingBt_5->setObjectName(QStringLiteral("sysSettingBt_5"));
-        sysSettingBt_5->setGeometry(QRect(330, 20, 32, 32));
-        sysSettingBt_5->setMinimumSize(QSize(32, 32));
-        sysSettingBt_5->setMaximumSize(QSize(32, 32));
-        sysSettingBt_5->setStyleSheet(QStringLiteral(""));
-        QIcon icon28;
-        icon28.addFile(QStringLiteral(":/IRScan/Sys-Cor"), QSize(), QIcon::Normal, QIcon::Off);
-        sysSettingBt_5->setIcon(icon28);
+        btn_set_hos->setIcon(icon27);
         label_41 = new QLabel(groupBox_23);
         label_41->setObjectName(QStringLiteral("label_41"));
         label_41->setGeometry(QRect(25, 20, 20, 55));
@@ -733,6 +717,7 @@ public:
         stackedWidget_2->setObjectName(QStringLiteral("stackedWidget_2"));
         page_3 = new QWidget();
         page_3->setObjectName(QStringLiteral("page_3"));
+        page_3->setStyleSheet(QStringLiteral(""));
         horizontalLayout = new QHBoxLayout(page_3);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
@@ -798,6 +783,7 @@ public:
 
         widget = new QWidget(page_3);
         widget->setObjectName(QStringLiteral("widget"));
+        widget->setStyleSheet(QStringLiteral(""));
         gridLayout = new QGridLayout(widget);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
@@ -830,6 +816,13 @@ public:
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
 
         gridLayout->addItem(verticalSpacer_2, 2, 1, 1, 1);
+
+        btn_show_func = new QToolButton(widget);
+        btn_show_func->setObjectName(QStringLiteral("btn_show_func"));
+        btn_show_func->setMinimumSize(QSize(1, 1));
+        btn_show_func->setMaximumSize(QSize(1, 1));
+
+        gridLayout->addWidget(btn_show_func, 2, 2, 1, 1);
 
 
         horizontalLayout->addWidget(widget);
@@ -923,11 +916,11 @@ public:
         btn_cam_left->setText(QApplication::translate("IRScanClass", "\345\267\246", 0));
         btn_cam_right->setText(QApplication::translate("IRScanClass", "\345\217\263", 0));
         toolButton_61->setText(QApplication::translate("IRScanClass", "\351\241\272\346\227\266\351\222\210", 0));
-        label_33->setText(QApplication::translate("IRScanClass", "\346\216\247\n"
-"\345\210\266\n"
+        label_33->setText(QApplication::translate("IRScanClass", "\346\211\253\n"
+"\346\217\217\n"
 "\345\217\260", 0));
-        label_34->setText(QApplication::translate("IRScanClass", "\346\211\253\n"
-"\346\217\217", 0));
+        label_34->setText(QApplication::translate("IRScanClass", "\346\216\247\n"
+"\345\210\266", 0));
         groupBox_11->setTitle(QString());
         btn_pre->setText(QApplication::translate("IRScanClass", "...", 0));
         btn_start->setText(QApplication::translate("IRScanClass", "...", 0));
@@ -979,9 +972,7 @@ public:
         label_26->setText(QApplication::translate("IRScanClass", "\347\263\273\347\273\237\345\217\202\346\225\260", 0));
         btn_sys_par->setText(QApplication::translate("IRScanClass", "\347\263\273\347\273\237\345\217\202\346\225\260", 0));
         label_27->setText(QApplication::translate("IRScanClass", "\345\215\225\344\275\215\344\277\241\346\201\257", 0));
-        sysSettingBt_4->setText(QApplication::translate("IRScanClass", "\345\215\225\344\275\215\344\277\241\346\201\257", 0));
-        label_28->setText(QApplication::translate("IRScanClass", "\344\270\215\345\235\207\345\214\200\346\240\241\346\255\243", 0));
-        sysSettingBt_5->setText(QApplication::translate("IRScanClass", "\344\270\215\345\235\207\345\214\200\346\240\241\346\255\243", 0));
+        btn_set_hos->setText(QApplication::translate("IRScanClass", "\345\215\225\344\275\215\344\277\241\346\201\257", 0));
         label_41->setText(QApplication::translate("IRScanClass", "\350\256\276\n"
 "\n"
 "\347\275\256", 0));
@@ -1010,6 +1001,8 @@ public:
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget->horizontalHeaderItem(11);
         ___qtablewidgetitem11->setText(QApplication::translate("IRScanClass", "\345\214\273\351\231\242\345\220\215\347\247\260", 0));
         scanPicShow->setText(QString());
+        btn_show_func->setText(QString());
+        btn_show_func->setShortcut(QApplication::translate("IRScanClass", "Ctrl+F", 0));
         toolBar->setWindowTitle(QApplication::translate("IRScanClass", "toolBar", 0));
     } // retranslateUi
 
