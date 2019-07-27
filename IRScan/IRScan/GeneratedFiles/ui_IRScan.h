@@ -759,7 +759,7 @@ public:
         sizePolicy.setHeightForWidth(tableWidget->sizePolicy().hasHeightForWidth());
         tableWidget->setSizePolicy(sizePolicy);
         tableWidget->setMinimumSize(QSize(200, 0));
-        tableWidget->setMaximumSize(QSize(200, 16777215));
+        tableWidget->setMaximumSize(QSize(400, 16777215));
         tableWidget->setStyleSheet(QLatin1String("background-color: rgb(255,255,255);\n"
 "color: rgb(0, 0, 0);"));
         tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -804,6 +804,7 @@ public:
         sizePolicy1.setHeightForWidth(scanPicShow->sizePolicy().hasHeightForWidth());
         scanPicShow->setSizePolicy(sizePolicy1);
         scanPicShow->setMinimumSize(QSize(480, 640));
+        scanPicShow->setMaximumSize(QSize(480, 640));
         scanPicShow->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         scanPicShow->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
@@ -829,6 +830,7 @@ public:
 
         widget_2 = new QWidget(page_3);
         widget_2->setObjectName(QStringLiteral("widget_2"));
+        widget_2->setMinimumSize(QSize(420, 0));
         gridLayout_3 = new QGridLayout(widget_2);
         gridLayout_3->setSpacing(6);
         gridLayout_3->setContentsMargins(11, 11, 11, 11);

@@ -57,7 +57,7 @@ QString g_ID="id003";
 QString g_scanID="SCAN0016";
 QString g_cardID="CARD100000000003";
 
-int g_pageSize = 10;
+int g_pageSize = 20;
 int g_maxPage = 2;
 int g_curPage = 1;
 
@@ -377,32 +377,32 @@ void IRScan::btn_sendData()
 	}
 	
 	QMessageBox::information(NULL, "Title", m_msg+"("+QString::number(size)+")");
-	//if (0 == vecPngIDReq.size())
-	//{
-	//	m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
-	//}
-	//else
-	//{
-	//	std::map<std::string, std::string> mapUserInfo;
-	//	mapUserInfo["scan_id"] = g_scanID.toStdString();
-	//	//mapUserInfo["card_id"] = sCardID;
-	//	mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
-	//	mapUserInfo["user"] = g_user.toStdString();
+	if (0 == vecPngIDReq.size())
+	{
+		m_msg = QString::fromLocal8Bit("图片index列表为空\n请先调用「发送图片」接口");
+	}
+	else
+	{
+		std::map<std::string, std::string> mapUserInfo;
+		mapUserInfo["scan_id"] = g_scanID.toStdString();
+		//mapUserInfo["card_id"] = sCardID;
+		mapUserInfo["pic"] = vec_join(vecPngIDReq, ',');
+		mapUserInfo["user"] = g_user.toStdString();
 
-	//	if (!m_cli.send_info(mapUserInfo))
-	//	{
-	//		m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
-	//		m_msg.append(m_cli.get_msg().c_str());
-	//		QMessageBox::information(NULL, "Title", m_msg);
-	//		m_cli.close();
-	//		conDataBase();
-	//	}
-	//	else
-	//	{
-	//		m_msg = QString::fromLocal8Bit("发送用户信息成功");
-	//	}
-	//}
-	//QMessageBox::information(NULL, "Title", m_msg);
+		if (!m_cli.send_info(mapUserInfo))
+		{
+			m_msg = QString::fromLocal8Bit("发送用户信息失败\n");
+			m_msg.append(m_cli.get_msg().c_str());
+			QMessageBox::information(NULL, "Title", m_msg);
+			m_cli.close();
+			conDataBase();
+		}
+		else
+		{
+			m_msg = QString::fromLocal8Bit("发送用户信息成功");
+		}
+	}
+//	QMessageBox::information(NULL, "Title", m_msg);
 
 	for (int i = 0; i < fileInfo->size(); i++)
 	{

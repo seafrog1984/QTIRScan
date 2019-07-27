@@ -2037,7 +2037,7 @@ border:0px;
           </property>
           <property name="maximumSize">
            <size>
-            <width>200</width>
+            <width>400</width>
             <height>16777215</height>
            </size>
           </property>
@@ -2219,6 +2219,12 @@ color: rgb(0, 0, 0);</string>
                <height>640</height>
               </size>
              </property>
+             <property name="maximumSize">
+              <size>
+               <width>480</width>
+               <height>640</height>
+              </size>
+             </property>
              <property name="styleSheet">
               <string notr="true">background-color: rgb(255, 255, 255);</string>
              </property>
@@ -2289,6 +2295,12 @@ color: rgb(0, 0, 0);</string>
         </item>
         <item>
          <widget class="QWidget" name="widget_2" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>420</width>
+            <height>0</height>
+           </size>
+          </property>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_2"/>
