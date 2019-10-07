@@ -344,6 +344,9 @@ void IRScan::btn_sendData()
 		return;
 	}
 
+
+	vecPngIDReq.clear();//–Ë“™≤‚ ‘
+
 	unsigned short sPicData[PIC_SIZE]; // = (unsigned short*)malloc(PIC_SIZE * sizeof(short));
 	for (int i = 0; i<size; ++i)
 	{
@@ -359,6 +362,7 @@ void IRScan::btn_sendData()
 
 		m_msg = QString::fromLocal8Bit("∑¢ÀÕÕº∆¨ ");
 		//m_msg.append(fileInfo->at(i).filePath());
+
 
 		if (!m_cli.send_png(g_scanID.toStdString(), sPicData, PIC_SIZE, vecPngIDReq))
 		{
