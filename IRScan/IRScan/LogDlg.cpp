@@ -21,7 +21,17 @@ QString m_msg;
 
 using namespace std;
 extern int g_remember_flag;
+extern int g_code[7];
 
+void decode(string& c, int a[]){
+
+	for (int i = 0, j = 0; c[j]; j++, i = (i + 1) % 7){
+
+		c[j] -= a[i];
+
+		if (c[j] < 32) c[j] += 90;
+	}
+}
 
 
 LogDlg::LogDlg(QWidget *parent)
@@ -49,6 +59,8 @@ LogDlg::LogDlg(QWidget *parent)
 	g_camIP = QString::fromStdString(str4);
 //	g_remember_flag = atoi(str7.c_str());
 	g_hos_code = QString::fromStdString(str8);
+
+	decode(str6, g_code);
 
 	if (g_remember_flag)
 	{

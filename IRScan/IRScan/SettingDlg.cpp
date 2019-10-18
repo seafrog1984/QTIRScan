@@ -17,6 +17,8 @@ extern QString g_passwd;
 
 extern int g_remember_flag;
 
+int g_code[7] = { 4, 9, 6, 2, 8, 7, 3 };
+
 SettingDlg::SettingDlg(QWidget *parent)
 	: QWidget(parent)
 {
@@ -48,6 +50,17 @@ void SettingDlg::exec()
 
 }
 
+void encryption(string& c, int a[]){
+
+	for (int i = 0, j = 0; c[j]; j++, i = (i + 1) % 7){
+
+		c[j] += a[i];
+
+		if (c[j] > 122) c[j] -= 90;
+	}
+}
+
+
 void SettingDlg::btn_setPar()
 {
 	g_camIP = ui.lineEdit_camIP->text();
@@ -55,10 +68,12 @@ void SettingDlg::btn_setPar()
 	g_port = ui.lineEdit_port->text();
 	g_uport = ui.lineEdit_uport->text();
 
+	string s = g_passwd.toStdString();
+	encryption(s, g_code);
 
 	ofstream fout("config.ini");
 
-	fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << g_passwd.toStdString() << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
+	fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << s << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
 
 	fout.close();
 

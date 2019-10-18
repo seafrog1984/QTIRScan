@@ -57,7 +57,7 @@ QString g_ID="id003";
 QString g_scanID="SCAN0016";
 QString g_cardID="CARD100000000003";
 
-int g_pageSize = 20;
+int g_pageSize = 30;
 int g_maxPage = 2;
 int g_curPage = 1;
 
