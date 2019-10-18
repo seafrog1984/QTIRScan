@@ -42,6 +42,8 @@ extern QString g_passwd;
 extern int iTestFlag;
 extern client_t m_cli;
 extern int g_log_flag;
+extern int g_code[7];
+extern void encryption(string& c, int a[]);
 
 int g_reg_flag = 0;
 int g_recap_flag = 0;
@@ -60,6 +62,7 @@ QString g_cardID="CARD100000000003";
 int g_pageSize = 30;
 int g_maxPage = 2;
 int g_curPage = 1;
+int g_show_progress = 1;
 
 long FrameProc(long hFrame, long lParam)
 {
@@ -129,6 +132,7 @@ IRScan::IRScan(QWidget *parent)
 	ui.tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);//设置单击选择一行
 	ui.tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);	//设置每行内容不可编辑
 	ui.tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);	//设置只能选择一行，不能选择多行
+
 
 	connect(ui.checkBox_13, SIGNAL(clicked()), this, SLOT(customize()));
 	connect(ui.checkBox_15, SIGNAL(clicked()), this, SLOT(customize()));
@@ -247,6 +251,7 @@ void IRScan::btn_show_func()
 	}
 }
 
+
 void IRScan::customize()
 {
 
@@ -300,9 +305,12 @@ void IRScan::customize()
 		{
 			g_remember_flag = 0;
 		}
+
+		string s = g_passwd.toStdString();
+		encryption(s, g_code);
 		ofstream fout("config.ini");
 
-		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << g_passwd.toStdString() << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
+		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << s << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
 
 		fout.close();
 
@@ -730,6 +738,7 @@ void IRScan::btn_change()
 	g_age = ui.tableWidget->item(row, 6)->text();
 	g_name = ui.tableWidget->item(row, 3)->text();
 	g_gender = ui.tableWidget->item(row, 4)->text();
+	g_ID = ui.tableWidget->item(row, 5)->text();
 
 	g_reg_flag = 0;
 
@@ -880,21 +889,54 @@ void IRScan::updateData()
 	std::string sParams = map_join(mapParams, '&', '=');
 
 	std::string sData;
-	
+
+	if (g_show_progress)
+	{
+		progressDialog = new QProgressDialog(this);
+
+		Qt::WindowFlags flags = Qt::Dialog;
+		flags |= Qt::WindowCloseButtonHint;
+
+		progressDialog->setWindowFlags(flags);
+
+		QLabel *lb = new QLabel;
+		lb->setStyleSheet("color:rgb(255,255,255)");
+		QPushButton *bt = new QPushButton;
+		bt->setStyleSheet("color:rgb(255,255,255)");
+
+		progressDialog->setLabel(lb);
+		progressDialog->setLabelText(QString::fromLocal8Bit("数据载入中..."));
+		progressDialog->setCancelButton(bt);
+		progressDialog->setCancelButtonText(QString::fromLocal8Bit("取消"));     //设置进度对话框的取消按钮的显示文字
+
+		progressDialog->setWindowModality(Qt::WindowModal);
+		progressDialog->setMinimumDuration(5);
+		progressDialog->setWindowTitle(QString::fromLocal8Bit("数据载入中..."));
+
+	}
+
+
 	int iRet = m_cli.get_listdata(sParams, sData);
-	
+
 	if (0 < iRet)
 	{
 		//m_msg = "结果:\n";
-		m_msg=QString::fromLocal8Bit(sData.c_str());
+		m_msg.append(QString::fromLocal8Bit(sData.c_str()));
 		//QMessageBox::information(NULL, "Title", m_msg);
 		QList<QString> lst;
 		lst = m_msg.split(';');
 
 		QString temp = lst[0].section('&', 0, 0);
 		int dataNum = temp.section('=', -1, -1).toInt();
-		
-		g_maxPage = (dataNum-1) / g_pageSize + 1;
+
+		int num = dataNum<g_pageSize ? dataNum : g_pageSize;
+
+		if (g_show_progress)
+		{
+			progressDialog->setRange(0, num);                    //设置进度条的范围,从0到num
+		}
+
+		g_maxPage = (dataNum - 1) / g_pageSize + 1;
 
 
 		lst[0] = lst[0].section('=', -1, -1);
@@ -904,6 +946,12 @@ void IRScan::updateData()
 			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
 
 			addData(i, lst[i].section(',', 0, 0), lst[i].section(',', 1, 1), lst[i].section(',', -1, -1));
+			if (g_show_progress)
+			{
+				progressDialog->setValue(i + 1);
+				if (progressDialog->wasCanceled())               //检测取消按钮是否被触发,如果触发,则退出循环并关闭进度条
+					return;
+			}
 		}
 
 	}
@@ -914,6 +962,11 @@ void IRScan::updateData()
 		QMessageBox::information(NULL, "Title", m_msg);
 		m_cli.close();
 		conDataBase();
+	}
+
+	if (g_show_progress)
+	{
+		g_show_progress = 0;
 	}
 }
 
@@ -1112,6 +1165,7 @@ void IRScan::addData(int index,QString cardID,QString scanID,QString RegTime)
 
 		ui.tableWidget->setItem(index, 3, new QTableWidgetItem(g_name));
 		ui.tableWidget->setItem(index, 4, new QTableWidgetItem(g_gender));
+		ui.tableWidget->setItem(index, 5, new QTableWidgetItem(g_ID));
 		ui.tableWidget->setItem(index, 6, new QTableWidgetItem(g_age));
 
 		if (mapUserInfoResp.end() != mapUserInfoResp.find("pic"))

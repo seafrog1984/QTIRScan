@@ -23,6 +23,9 @@ using namespace std;
 extern int g_remember_flag;
 extern int g_code[7];
 
+
+extern void encryption(string& c, int a[]);
+
 void decode(string& c, int a[]){
 
 	for (int i = 0, j = 0; c[j]; j++, i = (i + 1) % 7){
@@ -107,7 +110,7 @@ void LogDlg::log()
 	{
 		m_msg = QString::fromLocal8Bit("连接成功");
 
-		QMessageBox::information(NULL, "Title", m_msg);
+	//	QMessageBox::information(NULL, "Title", m_msg);
 	}
 	else
 	{
@@ -125,6 +128,7 @@ void LogDlg::log()
 		m_msg.append(m_cli.get_msg().c_str());
 		m_cli.close();
 		QMessageBox::information(NULL, "Title", m_msg);
+		return;
 	}
 	else
 	{
@@ -187,22 +191,26 @@ void LogDlg::log()
 		if (pt.p1 || pt.p3)
 		{
 			g_log_flag = 1;
-			QMessageBox::information(NULL, "Title", m_msg);
+			//QMessageBox::information(NULL, "Title", m_msg);
 
 		}
 		else
 		{
 			m_msg.append(QString::fromLocal8Bit("没有权限"));
 			QMessageBox::information(NULL, "Title", m_msg);
+			return;
 		}
 
 	}
 
 	if (g_remember_flag)
 	{
+		string s = g_passwd.toStdString();
+		encryption(s, g_code);
+
 		ofstream fout("config.ini");
 
-		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString()<<' '<<g_user.toStdString()<<' '<<g_passwd.toStdString()<<' '<<g_remember_flag<<' '<<g_hos_code.toStdString();
+		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString()<<' '<<g_user.toStdString()<<' '<<s<<' '<<g_remember_flag<<' '<<g_hos_code.toStdString();
 
 		fout.close();
 

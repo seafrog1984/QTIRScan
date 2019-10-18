@@ -2132,7 +2132,7 @@ color: rgb(0, 0, 0);</string>
           </column>
           <column>
            <property name="text">
-            <string>生日</string>
+            <string>身份证号</string>
            </property>
           </column>
           <column>

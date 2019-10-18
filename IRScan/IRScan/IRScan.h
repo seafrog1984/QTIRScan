@@ -10,6 +10,7 @@
 #include "./incl/client.h"
 #include <opencv2\opencv.hpp>
 #include <QTimer>
+#include <QProgressDialog>
 
 class IRScan : public QMainWindow
 {
@@ -64,6 +65,9 @@ private slots:
 
 
 public:
+
+	QProgressDialog *progressDialog;
+
 	QString ir_ip;
 
 	SettingDlg *dlg;

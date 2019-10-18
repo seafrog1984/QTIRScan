@@ -67,6 +67,7 @@ void SettingDlg::btn_setPar()
 	g_ip = ui.lineEdit_servIP->text();
 	g_port = ui.lineEdit_port->text();
 	g_uport = ui.lineEdit_uport->text();
+	g_hos_code = ui.lineEdit_hosCode->text();
 
 	string s = g_passwd.toStdString();
 	encryption(s, g_code);

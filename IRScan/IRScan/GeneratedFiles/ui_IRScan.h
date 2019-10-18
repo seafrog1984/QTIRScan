@@ -989,7 +989,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("IRScanClass", "\346\200\247\345\210\253", 0));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("IRScanClass", "\347\224\237\346\227\245", 0));
+        ___qtablewidgetitem5->setText(QApplication::translate("IRScanClass", "\350\272\253\344\273\275\350\257\201\345\217\267", 0));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("IRScanClass", "\345\271\264\351\276\204", 0));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget->horizontalHeaderItem(7);
