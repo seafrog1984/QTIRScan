@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -35,12 +36,14 @@ public:
     QLineEdit *lineEdit_uport;
     QLabel *label_5;
     QLineEdit *lineEdit_hosCode;
+    QLabel *label_6;
+    QComboBox *comboBox;
 
     void setupUi(QWidget *SettingDlg)
     {
         if (SettingDlg->objectName().isEmpty())
             SettingDlg->setObjectName(QStringLiteral("SettingDlg"));
-        SettingDlg->resize(400, 300);
+        SettingDlg->resize(400, 373);
         SettingDlg->setStyleSheet(QLatin1String("QWidget{color: rgb(255, 255, 255);\n"
 "background-color: rgb(15, 21, 42);\n"
 "}\n"
@@ -51,42 +54,57 @@ public:
 "QPushButton{\n"
 "background-color: rgb(18, 59, 101);\n"
 "border:0px;\n"
+"}\n"
+"QComboBox{\n"
+"color: rgb(0,0 ,0 );\n"
+"background-color: rgb(255, 255, 255);\n"
 "}"));
         lineEdit_camIP = new QLineEdit(SettingDlg);
         lineEdit_camIP->setObjectName(QStringLiteral("lineEdit_camIP"));
-        lineEdit_camIP->setGeometry(QRect(130, 20, 113, 20));
+        lineEdit_camIP->setGeometry(QRect(130, 70, 113, 20));
         label = new QLabel(SettingDlg);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 20, 54, 12));
+        label->setGeometry(QRect(20, 70, 54, 12));
         btn_set_Par = new QPushButton(SettingDlg);
         btn_set_Par->setObjectName(QStringLiteral("btn_set_Par"));
-        btn_set_Par->setGeometry(QRect(140, 260, 75, 23));
+        btn_set_Par->setGeometry(QRect(140, 310, 75, 23));
         label_2 = new QLabel(SettingDlg);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(20, 70, 54, 12));
+        label_2->setGeometry(QRect(20, 120, 54, 12));
         lineEdit_servIP = new QLineEdit(SettingDlg);
         lineEdit_servIP->setObjectName(QStringLiteral("lineEdit_servIP"));
-        lineEdit_servIP->setGeometry(QRect(130, 70, 113, 20));
+        lineEdit_servIP->setGeometry(QRect(130, 120, 113, 20));
         label_3 = new QLabel(SettingDlg);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(20, 120, 54, 12));
+        label_3->setGeometry(QRect(20, 170, 54, 12));
         lineEdit_port = new QLineEdit(SettingDlg);
         lineEdit_port->setObjectName(QStringLiteral("lineEdit_port"));
-        lineEdit_port->setGeometry(QRect(130, 110, 113, 20));
+        lineEdit_port->setGeometry(QRect(130, 160, 113, 20));
         label_4 = new QLabel(SettingDlg);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(20, 160, 54, 12));
+        label_4->setGeometry(QRect(20, 210, 54, 12));
         lineEdit_uport = new QLineEdit(SettingDlg);
         lineEdit_uport->setObjectName(QStringLiteral("lineEdit_uport"));
-        lineEdit_uport->setGeometry(QRect(130, 160, 113, 20));
+        lineEdit_uport->setGeometry(QRect(130, 210, 113, 20));
         label_5 = new QLabel(SettingDlg);
         label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(20, 210, 54, 12));
+        label_5->setGeometry(QRect(20, 260, 54, 12));
         lineEdit_hosCode = new QLineEdit(SettingDlg);
         lineEdit_hosCode->setObjectName(QStringLiteral("lineEdit_hosCode"));
-        lineEdit_hosCode->setGeometry(QRect(130, 210, 113, 20));
+        lineEdit_hosCode->setGeometry(QRect(130, 260, 113, 20));
+        label_6 = new QLabel(SettingDlg);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setGeometry(QRect(20, 30, 54, 12));
+        comboBox = new QComboBox(SettingDlg);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(130, 20, 111, 22));
+        comboBox->setStyleSheet(QStringLiteral(""));
+        comboBox->setEditable(false);
 
         retranslateUi(SettingDlg);
+
+        comboBox->setCurrentIndex(-1);
+
 
         QMetaObject::connectSlotsByName(SettingDlg);
     } // setupUi
@@ -100,6 +118,8 @@ public:
         label_3->setText(QApplication::translate("SettingDlg", "\346\225\260\346\215\256\347\253\257\345\217\243:", 0));
         label_4->setText(QApplication::translate("SettingDlg", "\347\224\250\346\210\267\347\253\257\345\217\243\357\274\232", 0));
         label_5->setText(QApplication::translate("SettingDlg", "\345\215\225\344\275\215\347\274\226\345\217\267\357\274\232", 0));
+        label_6->setText(QApplication::translate("SettingDlg", "\347\233\270\346\234\272\347\261\273\345\236\213:", 0));
+        comboBox->setCurrentText(QString());
     } // retranslateUi
 
 };

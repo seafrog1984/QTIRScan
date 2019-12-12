@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>373</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,13 +24,17 @@ background-color: rgb(255, 255, 255);
 QPushButton{
 background-color: rgb(18, 59, 101);
 border:0px;
+}
+QComboBox{
+color: rgb(0,0 ,0 );
+background-color: rgb(255, 255, 255);
 }</string>
   </property>
   <widget class="QLineEdit" name="lineEdit_camIP">
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>20</y>
+     <y>70</y>
      <width>113</width>
      <height>20</height>
     </rect>
@@ -40,7 +44,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
+     <y>70</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -53,7 +57,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>260</y>
+     <y>310</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -66,7 +70,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>70</y>
+     <y>120</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -79,7 +83,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>70</y>
+     <y>120</y>
      <width>113</width>
      <height>20</height>
     </rect>
@@ -89,7 +93,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>120</y>
+     <y>170</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -102,7 +106,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>110</y>
+     <y>160</y>
      <width>113</width>
      <height>20</height>
     </rect>
@@ -112,7 +116,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>160</y>
+     <y>210</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -125,7 +129,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>160</y>
+     <y>210</y>
      <width>113</width>
      <height>20</height>
     </rect>
@@ -135,7 +139,7 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>210</y>
+     <y>260</y>
      <width>54</width>
      <height>12</height>
     </rect>
@@ -148,10 +152,45 @@ border:0px;
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>210</y>
+     <y>260</y>
      <width>113</width>
      <height>20</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>54</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>相机类型:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>20</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="editable">
+    <bool>false</bool>
+   </property>
+   <property name="currentText">
+    <string/>
+   </property>
+   <property name="currentIndex">
+    <number>-1</number>
    </property>
   </widget>
  </widget>

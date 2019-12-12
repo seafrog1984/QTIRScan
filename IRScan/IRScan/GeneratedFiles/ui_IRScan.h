@@ -500,6 +500,7 @@ public:
         dateEdit_start->setStyleSheet(QLatin1String("background-image: url();\n"
 "background-color: rgb(12,40,70);\n"
 "border-image: url(:/IRProc/Pro-Rect1);"));
+        dateEdit_start->setDateTime(QDateTime(QDate(2019, 1, 1), QTime(0, 0, 0)));
         label_4 = new QLabel(groupBox_13);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(90, 22, 40, 20));
@@ -514,6 +515,7 @@ public:
         dateEdit_end->setStyleSheet(QLatin1String("background-image: url();\n"
 "background-color: rgb(12,40,70);\n"
 "border-image: url(:/IRProc/Pro-Rect1);"));
+        dateEdit_end->setDateTime(QDateTime(QDate(2019, 1, 1), QTime(0, 0, 0)));
         btn_date_sel = new QToolButton(groupBox_13);
         btn_date_sel->setObjectName(QStringLiteral("btn_date_sel"));
         btn_date_sel->setGeometry(QRect(250, 20, 32, 50));
@@ -877,7 +879,7 @@ public:
 
     void retranslateUi(QMainWindow *IRScanClass)
     {
-        IRScanClass->setWindowTitle(QApplication::translate("IRScanClass", "GTT3.0-Scan", 0));
+        IRScanClass->setWindowTitle(QApplication::translate("IRScanClass", "GTT1.0-Scan", 0));
         imgScanAct->setText(QApplication::translate("IRScanClass", "\345\233\276\345\203\217\346\211\253\346\217\217", 0));
 #ifndef QT_NO_TOOLTIP
         imgScanAct->setToolTip(QApplication::translate("IRScanClass", "\345\233\276\345\203\217\346\211\253\346\217\217", 0));

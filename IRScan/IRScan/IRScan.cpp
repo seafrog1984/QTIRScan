@@ -7,9 +7,17 @@
 #include <imgProcDll.h>
 #include "ThumLabel.h"
 
-#define IMAGE_WIDTH  384
-#define IMAGE_HEIGHT 288
+
+
+//#define IMAGE_WIDTH  384
+//#define IMAGE_HEIGHT 288
 #define IMAGE_MAX_NUM 15
+
+int g_cam_type = 0;//0：384*288；1：640*480
+
+int IMAGE_WIDTH = 640;
+int IMAGE_HEIGHT = 480;
+
 
 Frame g_frame;
 
@@ -67,55 +75,64 @@ int g_show_progress = 1;
 long FrameProc(long hFrame, long lParam)
 {
 
+	//if (0 == IRSDK_IsConnected(0))
+	//{
+	//	IRSDK_Connect(0);
+	//}
+
 	Frame* pFrame = (Frame*)hFrame;
 
-	STAT_TEMPER sFull_Temp;
-
-	memcpy(&g_frame, pFrame, sizeof(Frame));
-
-	Mat img;
-	img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
-
-	data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2,21.5);
-	cv::resize(img, img, cv::Size(480, 640));
-
-	Mat g_dstImage3;
-	img.copyTo(g_dstImage3);
-
-	int thickness = 2;
-	int lineType = 8;
-	cv::line(g_dstImage3, Point(g_dstImage3.cols / 2, 0),
-		Point(g_dstImage3.cols / 2, g_dstImage3.rows - 1),
-		Scalar(255, 255, 255),
-		thickness,
-		lineType);
-	int step = g_dstImage3.rows / 4;
-
-	for (int i = 0; i<4; i++)
+	if (pFrame != NULL)
 	{
-		cv::line(g_dstImage3,
-			Point(g_dstImage3.cols / 2, 0 + i*step),
-			Point(0, g_dstImage3.cols / 2 * 1.73 + i*step),
-			Scalar(255, 255, 255),
-			thickness,
-			lineType);
+		STAT_TEMPER sFull_Temp;
 
-		cv::line(g_dstImage3,
-			Point(g_dstImage3.cols / 2, 0 + i*step),
-			Point(g_dstImage3.cols - 1, g_dstImage3.cols / 2 * 1.73 + i*step),
+		memcpy(&g_frame, pFrame, sizeof(Frame));
+
+		Mat img;
+		img.create(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC1);
+
+		data2Img(g_frame.buffer, img, IMAGE_HEIGHT, IMAGE_WIDTH, 16, 2, 2, 21.5);
+		cv::resize(img, img, cv::Size(480, 640));
+
+		Mat g_dstImage3;
+		img.copyTo(g_dstImage3);
+
+		int thickness = 2;
+		int lineType = 8;
+		cv::line(g_dstImage3, Point(g_dstImage3.cols / 2, 0),
+			Point(g_dstImage3.cols / 2, g_dstImage3.rows - 1),
 			Scalar(255, 255, 255),
 			thickness,
 			lineType);
+		int step = g_dstImage3.rows / 4;
+
+		for (int i = 0; i<4; i++)
+		{
+			cv::line(g_dstImage3,
+				Point(g_dstImage3.cols / 2, 0 + i*step),
+				Point(0, g_dstImage3.cols / 2 * 1.73 + i*step),
+				Scalar(255, 255, 255),
+				thickness,
+				lineType);
+
+			cv::line(g_dstImage3,
+				Point(g_dstImage3.cols / 2, 0 + i*step),
+				Point(g_dstImage3.cols - 1, g_dstImage3.cols / 2 * 1.73 + i*step),
+				Scalar(255, 255, 255),
+				thickness,
+				lineType);
+		}
+
+
+		QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
+
+		Ui::IRScanClass *pui = (Ui::IRScanClass*)lParam;
+
+		pui->scanPicShow->setPixmap(QPixmap::fromImage(image));
+
+		img.release();
 	}
-	
 
-	QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
-
-	Ui::IRScanClass *pui = (Ui::IRScanClass*)lParam;
-
-	pui->scanPicShow->setPixmap(QPixmap::fromImage(image));
-
-	img.release();
 	return 1;
 }
 
@@ -235,7 +252,18 @@ IRScan::IRScan(QWidget *parent)
 	timer->start(1000); //每隔1000ms发送timeout的信号
 	connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
 
+
+
 }
+
+void IRScan::Monitor()
+{
+	if (0 == IRSDK_IsConnected(0))
+	{
+		IRSDK_Connect(0);
+	}
+}
+
 
 void IRScan::btn_show_func()
 {
@@ -881,6 +909,9 @@ void IRScan::updateData()
 	QString start_time = current_time.toString("yyyy-MM-dd"); //
 	QString end_time = current_time.addDays(1).toString("yyyy-MM-dd"); //
 
+	ui.dateEdit_start->setDateTime(current_time);
+	ui.dateEdit_end->setDateTime(current_time.addDays(1));
+
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
 	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
@@ -1391,7 +1422,9 @@ void IRScan::btn_scan_Clicked()
 	ui.tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
 	g_cam_flag = 1;
 	
-
+	QTimer *monitor_timer = new QTimer(this);
+	monitor_timer->start(100); //每隔100ms发送timeout的信号
+	connect(monitor_timer, SIGNAL(timeout()), this, SLOT(Monitor()));
 }
 
 bool IRScan::eventFilter(QObject *obj, QEvent *event)

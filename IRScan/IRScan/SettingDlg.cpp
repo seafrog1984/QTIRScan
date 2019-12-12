@@ -6,6 +6,7 @@
 
 using namespace std;
 
+extern int g_cam_type;
 extern QString g_camIP;
 
 extern QString g_ip;
@@ -29,6 +30,9 @@ SettingDlg::SettingDlg(QWidget *parent)
 	ui.lineEdit_port->setText(g_port);
 	ui.lineEdit_uport->setText(g_uport);
 	ui.lineEdit_hosCode->setText(g_hos_code);
+
+
+
 
 
 	connect(ui.btn_set_Par, SIGNAL(clicked()), this, SLOT(btn_setPar()));

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>GTT3.0-Scan</string>
+   <string>GTT1.0-Scan</string>
   </property>
   <property name="windowIcon">
    <iconset resource="IRScan.qrc">
@@ -1199,6 +1199,16 @@ QToolButton{
 background-color: rgb(12,40,70);
 border-image: url(:/IRProc/Pro-Rect1);</string>
          </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2019</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
         </widget>
         <widget class="QLabel" name="label_4">
          <property name="geometry">
@@ -1245,6 +1255,16 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
           <string notr="true">background-image: url();
 background-color: rgb(12,40,70);
 border-image: url(:/IRProc/Pro-Rect1);</string>
+         </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2019</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
          </property>
         </widget>
         <widget class="QToolButton" name="btn_date_sel">

@@ -1,5 +1,6 @@
 #include "RegDlg.h"
 #include <QCloseEvent>
+#include <QDateTime>
 
 #pragma execution_character_set("utf-8")
 
@@ -39,11 +40,14 @@ RegDlg::RegDlg(QWidget *parent)
 
 	connect(ui.comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setGender(int)));
 
-	 ui.lineEdit_ID->setText(g_ID);
-	 ui.lineEdit_age->setText(g_age);
-	 ui.lineEdit_name->setText(g_name);
-	ui.lineEdit_card->setText(g_cardID);
-	 ui.lineEdit_5->setText(g_scanID);
+	 ui.lineEdit_ID->setText("");
+	 ui.lineEdit_age->setText("");
+	 ui.lineEdit_name->setText("");
+	 QDateTime current_time = QDateTime::currentDateTime();
+	 QString timestr = current_time.toString("yyyyMMddhhmmss"); //设置显示的格式
+
+	ui.lineEdit_card->setText("CARD"+timestr);
+	 ui.lineEdit_5->setText("SCAN"+timestr);
 }
 
 RegDlg::~RegDlg()

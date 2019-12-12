@@ -61,6 +61,7 @@ private slots:
 
 	void time_update();
 	void customize();//系统设置-定制
+	void Monitor();//监控相机状态
 
 
 
