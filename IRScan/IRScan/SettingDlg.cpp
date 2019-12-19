@@ -7,6 +7,11 @@
 using namespace std;
 
 extern int g_cam_type;
+
+extern short int IMAGE_WIDTH;
+extern short int IMAGE_HEIGHT;
+
+
 extern QString g_camIP;
 
 extern QString g_ip;
@@ -32,7 +37,18 @@ SettingDlg::SettingDlg(QWidget *parent)
 	ui.lineEdit_hosCode->setText(g_hos_code);
 
 
+	ui.comboBox->addItem("384*288");
+	ui.comboBox->addItem("640*480");
 
+
+	if (g_cam_type == 0)
+	{
+		ui.comboBox->setCurrentIndex(0);
+	}
+	else if (g_cam_type == 1)
+	{
+		ui.comboBox->setCurrentIndex(1);
+	}
 
 
 	connect(ui.btn_set_Par, SIGNAL(clicked()), this, SLOT(btn_setPar()));
@@ -73,12 +89,26 @@ void SettingDlg::btn_setPar()
 	g_uport = ui.lineEdit_uport->text();
 	g_hos_code = ui.lineEdit_hosCode->text();
 
+	g_cam_type = ui.comboBox->currentIndex();
+
+	if (g_cam_type == 0)
+	{
+		IMAGE_WIDTH = 384;
+		IMAGE_HEIGHT = 288;
+	}
+	else if (g_cam_type == 1)
+	{
+		IMAGE_WIDTH = 640;
+		IMAGE_HEIGHT = 480;
+	}
+
+
 	string s = g_passwd.toStdString();
 	encryption(s, g_code);
 
 	ofstream fout("config.ini");
 
-	fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << s << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
+	fout<<g_cam_type<<' ' << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() <<' '<< g_user.toStdString() << ' ' << s << ' ' << QString::number(g_remember_flag).toStdString() << ' ' << g_hos_code.toStdString();
 
 	fout.close();
 

@@ -15,8 +15,8 @@
 
 int g_cam_type = 0;//0：384*288；1：640*480
 
-int IMAGE_WIDTH = 640;
-int IMAGE_HEIGHT = 480;
+short int IMAGE_WIDTH = 640;
+short int IMAGE_HEIGHT = 480;
 
 
 Frame g_frame;
@@ -75,11 +75,6 @@ int g_show_progress = 1;
 long FrameProc(long hFrame, long lParam)
 {
 
-	//if (0 == IRSDK_IsConnected(0))
-	//{
-	//	IRSDK_Connect(0);
-	//}
-
 	Frame* pFrame = (Frame*)hFrame;
 
 	if (pFrame != NULL)
@@ -131,6 +126,7 @@ long FrameProc(long hFrame, long lParam)
 		pui->scanPicShow->setPixmap(QPixmap::fromImage(image));
 
 		img.release();
+		g_dstImage3.release();
 	}
 
 	return 1;
@@ -252,7 +248,7 @@ IRScan::IRScan(QWidget *parent)
 	timer->start(1000); //每隔1000ms发送timeout的信号
 	connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
 
-
+	IRSDK_Init();
 
 }
 
@@ -383,24 +379,45 @@ void IRScan::btn_sendData()
 
 	vecPngIDReq.clear();//需要测试
 
-	unsigned short sPicData[PIC_SIZE]; // = (unsigned short*)malloc(PIC_SIZE * sizeof(short));
+	int pic_size = IMAGE_WIDTH*IMAGE_HEIGHT;
+
+	unsigned short *sPicData = (unsigned short*)malloc(pic_size * sizeof(short));
 	for (int i = 0; i<size; ++i)
 	{
-		memset(sPicData, 0, PIC_SIZE*sizeof(short));
+		memset(sPicData, 0, pic_size*sizeof(short));
 
 		std::ifstream fin(vecFiles[i]);
-		for (int j = 0; j<PIC_SIZE; ++j)
+		for (int j = 0; j<pic_size; ++j)
 		{
 			fin >> *(sPicData + j);
 			if (*(sPicData + j) == ' ')
 				j--;
 		}
 
+	/*	Mat tpic(IMAGE_WIDTH,IMAGE_HEIGHT, CV_16U, sPicData);
+
+	
+
+		Mat tpic2 = Mat(IMAGE_WIDTH, IMAGE_HEIGHT, CV_16U);
+
+		cv::resize(tpic, tpic2, cv::Size(384, 388));
+
+		short t = tpic2.at<unsigned short>(0, 0);
+
+		unsigned short picData[384 * 288];
+
+		for (int i = 0; i < 288; i++)
+		{
+			for (int j = 0; j < 384; j++)
+				picData[i * 384 + j] = tpic2.at<unsigned short>(i, j);
+		}
+	*/
+
 		m_msg = QString::fromLocal8Bit("发送图片 ");
 		//m_msg.append(fileInfo->at(i).filePath());
 
 
-		if (!m_cli.send_png(g_scanID.toStdString(), sPicData, PIC_SIZE, vecPngIDReq))
+		if (!m_cli.send_png(g_scanID.toStdString(), sPicData, IMAGE_WIDTH*IMAGE_HEIGHT+2, vecPngIDReq))
 		{
 			m_msg.append(QString::fromLocal8Bit(" 失败\n原因是："));
 			m_msg.append(m_cli.get_msg().c_str());
@@ -466,6 +483,8 @@ void IRScan::btn_sendData()
 
 	g_picNum = 0;
 	g_cam_flag = 0;
+
+	free(sPicData);
 }
 
 
@@ -1423,7 +1442,7 @@ void IRScan::btn_scan_Clicked()
 	g_cam_flag = 1;
 	
 	QTimer *monitor_timer = new QTimer(this);
-	monitor_timer->start(100); //每隔100ms发送timeout的信号
+	monitor_timer->start(1000); //每隔1000ms发送timeout的信号
 	connect(monitor_timer, SIGNAL(timeout()), this, SLOT(Monitor()));
 }
 
@@ -1458,6 +1477,8 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 				path = t.data();
 
 				ofstream fout(path);
+				fout << IMAGE_WIDTH << ' ' << IMAGE_HEIGHT << ' ';
+
 				for (int i = 0; i < IMAGE_WIDTH*IMAGE_HEIGHT; i++)
 				{
 					fout << *(g_frame.buffer + i) << ' ';

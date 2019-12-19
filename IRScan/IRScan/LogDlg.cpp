@@ -5,6 +5,12 @@
 #include "./incl/client.h"
 #include <QMessageBox>
 
+
+extern int g_cam_type;
+
+extern short int IMAGE_WIDTH;
+extern short int IMAGE_HEIGHT;
+
 QString g_ip;
 QString g_port;
 QString g_uport;
@@ -55,7 +61,20 @@ LogDlg::LogDlg(QWidget *parent)
 	string str1, str2, str3,str4,str5,str6,str7,str8;
 	int remember_flag;
 
-	fin >> str1 >> str2 >> str3 >> str4 >> str5 >> str6 >> g_remember_flag>>str8;
+	fin >> g_cam_type>>str1 >> str2 >> str3 >> str4 >> str5 >> str6 >> g_remember_flag>>str8;
+
+	if (g_cam_type == 0)
+	{
+		IMAGE_WIDTH = 384;
+		IMAGE_HEIGHT = 288;
+	}
+	else if (g_cam_type == 1)
+	{
+		IMAGE_WIDTH = 640;
+		IMAGE_HEIGHT = 480;
+	}
+
+
 	g_ip = QString::fromStdString(str1);
 	g_port = QString::fromStdString(str2);
 	g_uport = QString::fromStdString(str3);
@@ -210,7 +229,7 @@ void LogDlg::log()
 
 		ofstream fout("config.ini");
 
-		fout << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString()<<' '<<g_user.toStdString()<<' '<<s<<' '<<g_remember_flag<<' '<<g_hos_code.toStdString();
+		fout << g_cam_type << ' ' << g_ip.toStdString() << ' ' << g_port.toStdString() << ' ' << g_uport.toStdString() << ' ' << g_camIP.toStdString() << ' ' << g_user.toStdString() << ' ' << s << ' ' << g_remember_flag << ' ' << g_hos_code.toStdString();
 
 		fout.close();
 

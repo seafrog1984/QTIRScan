@@ -571,7 +571,9 @@ bool _client_t::send_png(const std::string &scan_id, unsigned short *png, int pn
 	//头部+客户端标识数据大小(int)+客户端标识数据
 	tHead.length = 3 * sizeof(int)+len1 + len2 + len3;
 	//请求数据拷贝
-	char data[MAX_DATA + PIC_SIZE * 2] = { 0 };
+//	char data[MAX_DATA + PIC_SIZE * 2] = { 0 };
+	char *data = (char*)malloc(MAX_DATA + len3);
+
 	int pos = 0;
 	memcpy(&data[pos], &tHead, sizeof(req_head_t));
 	pos += sizeof(req_head_t);
@@ -616,6 +618,8 @@ bool _client_t::send_png(const std::string &scan_id, unsigned short *png, int pn
 		return false;
 	}
 	vecPngID.push_back(msg);
+
+	free(data);
 
 	return true;
 }

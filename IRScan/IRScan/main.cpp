@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {	
-
+	_CrtDumpMemoryLeaks();
 	QApplication::addLibraryPath("./plugins");
 	QApplication a(argc, argv);
 
