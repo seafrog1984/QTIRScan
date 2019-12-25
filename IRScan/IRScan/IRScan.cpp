@@ -518,6 +518,7 @@ void IRScan::btn_showAll()
 	std::string sData;
 	
 	int iRet = m_cli.get_listdata(sParams, sData);
+	m_msg = "";
 
 	if (0 < iRet)
 	{
@@ -578,7 +579,7 @@ void IRScan::btn_nameSel()
 	std::string sParams = map_join(mapParams, '&', '=');
 	std::string sData;
 	
-
+	m_msg = "";
 	int iRet1 = m_cli.get_listdata(sParams, sData);
 	if (0 < iRet1)
 	{
@@ -700,6 +701,7 @@ void IRScan::btn_dateSel()
 	std::string sData;
 	
 	int iRet = m_cli.get_listdata(sParams, sData);
+	m_msg = "";
 
 	if (0 < iRet)
 	{
@@ -971,30 +973,30 @@ void IRScan::updateData()
 		mapParams["begin"] = start_time.toStdString();
 		mapParams["end"] = end_time.toStdString();
 	}
-	//else if (g_sel_mode == 1)
-	//{
-	//	mapParams["data_type"] = "4";
-	//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-	//	mapParams["page_num"] = QString::number(g_curPage).toStdString();
-	//	//mapParams["name"] = "张三";
-	//	//mapParams["cardid"] = "CARD100000000001";
-	//	//mapParams["scanid"] = "SCAN001";
-	//	mapParams["begin"] = ui.dateEdit_start->text().toStdString();
-	//	mapParams["end"] = ui.dateEdit_end->text().toStdString();
-	//}
-	//else if (g_sel_mode == 2)
-	//{
-	//	mapParams["data_type"] = "3";
-	//	//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-	//	//mapParams["page_num"] = QString::number(g_curPage).toStdString();
-	//	if (ui.lineEdit_name->text() != "")
-	//		mapParams["name"] = ui.lineEdit_name->text().toLocal8Bit();
-	//	//mapParams["cardid"] = "CARD100000000001";
-	//	if (ui.lineEdit_scanID->text() != "")
-	//		mapParams["cardid"] = ui.lineEdit_scanID->text().toStdString();
-	//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-	//	mapParams["page_num"] = QString::number(g_curPage).toStdString();
-	//}
+	else if (g_sel_mode == 1)
+	{
+		mapParams["data_type"] = "4";
+		mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		mapParams["page_num"] = QString::number(g_curPage).toStdString();
+		//mapParams["name"] = "张三";
+		//mapParams["cardid"] = "CARD100000000001";
+		//mapParams["scanid"] = "SCAN001";
+		mapParams["begin"] = ui.dateEdit_start->text().toStdString();
+		mapParams["end"] = ui.dateEdit_end->text().toStdString();
+	}
+	else if (g_sel_mode == 2)
+	{
+		mapParams["data_type"] = "3";
+		//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		//mapParams["page_num"] = QString::number(g_curPage).toStdString();
+		if (ui.lineEdit_name->text() != "")
+			mapParams["name"] = ui.lineEdit_name->text().toLocal8Bit();
+		//mapParams["cardid"] = "CARD100000000001";
+		if (ui.lineEdit_scanID->text() != "")
+			mapParams["cardid"] = ui.lineEdit_scanID->text().toStdString();
+		mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	}
 	else
 	{
 		mapParams["data_type"] = "4";
@@ -1009,6 +1011,7 @@ void IRScan::updateData()
 
 
 	int iRet = m_cli.get_listdata(sParams, sData);
+	m_msg = "";
 
 	if (0 < iRet)
 	{
