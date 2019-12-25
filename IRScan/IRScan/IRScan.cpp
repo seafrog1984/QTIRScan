@@ -72,6 +72,9 @@ int g_maxPage = 2;
 int g_curPage = 1;
 int g_show_progress = 1;
 
+int g_sel_mode = 0;//筛选模式：0-初始化，1-按时间，2-按名字，3-全部显示
+
+
 long FrameProc(long hFrame, long lParam)
 {
 
@@ -229,6 +232,9 @@ IRScan::IRScan(QWidget *parent)
 	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
 	ui.lineEdit_page_size->setText(QString::number(g_pageSize));
 
+	ui.dateEdit_start->setDisplayFormat("yyyy-MM-dd");
+	ui.dateEdit_end->setDisplayFormat("yyyy-MM-dd");
+
 	ui.checkBox_13->setChecked(true);
 	ui.checkBox_15->setChecked(true);
 	if (g_remember_flag) ui.checkBox_18->setChecked(true);
@@ -237,6 +243,9 @@ IRScan::IRScan(QWidget *parent)
 	ui.groupBox_22->hide();
 	ui.btn_set_hos->hide();
 	ui.label_27->hide();
+	ui.toolButton_61->hide();
+	ui.btn_focus_far->hide();
+
 	updateData();
 
 	statusBar();
@@ -491,6 +500,9 @@ void IRScan::btn_sendData()
 
 void IRScan::btn_showAll()
 {
+	g_pageSize = ui.lineEdit_page_size->text().toInt();
+	g_sel_mode = 3;
+
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
 	//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
@@ -515,15 +527,20 @@ void IRScan::btn_showAll()
 		QList<QString> lst;
 		lst = m_msg.split(';');
 
-		QString temp = lst[0].section('&', 0, 0);
-		int dataNum = temp.section('=', -1, -1).toInt();
+	//	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), m_msg);
+		//QString temp = lst[0].section('&', 3, 3);
+		//int dataNum = temp.section('=', -1, -1).toInt();
+
+		int dataNum = lst.size();
+
 
 		g_maxPage = (dataNum - 1) / g_pageSize + 1;
-
+		g_curPage = 1;
+		ui.lineEdit_cur_page->setText(QString::number(g_curPage));
 
 		lst[0] = lst[0].section('=', -1, -1);
-		ui.tableWidget->setRowCount(lst.size());
-		for (int i = 0; i != lst.size(); ++i)
+		ui.tableWidget->setRowCount(dataNum<g_pageSize ? dataNum : g_pageSize);
+		for (int i = 0; i != (dataNum<g_pageSize ? dataNum : g_pageSize); ++i)
 		{
 			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
 
@@ -545,6 +562,7 @@ void IRScan::btn_showAll()
 
 void IRScan::btn_nameSel()
 {
+	g_sel_mode = 2;
 	std::map <std::string, std::string> mapParams;
 
 	mapParams["data_type"] = "3";
@@ -665,10 +683,13 @@ void IRScan::btn_nameSel()
 
 void IRScan::btn_dateSel()
 {
+	g_pageSize = ui.lineEdit_page_size->text().toInt();
+
+	g_sel_mode = 1;
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
-	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-	mapParams["page_num"] = QString::number(g_curPage).toStdString();
+//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+//	mapParams["page_num"] = QString::number(g_curPage).toStdString();
 	//mapParams["name"] = "张三";
 	//mapParams["cardid"] = "CARD100000000001";
 	//mapParams["scanid"] = "SCAN001";
@@ -687,12 +708,18 @@ void IRScan::btn_dateSel()
 		//QMessageBox::information(NULL, "Title", m_msg);
 		QList<QString> lst;
 		lst = m_msg.split(';');
+		
+	//	QMessageBox::information(NULL, "Title", m_msg);
 
 		QString temp = lst[0].section('&', 0, 0);
 		int dataNum = temp.section('=', -1, -1).toInt();
+	//	int dataNum = lst.size() - 1;
+
 
 		g_maxPage = (dataNum - 1) / g_pageSize + 1;
 
+		g_curPage = 1;
+		ui.lineEdit_cur_page->setText(QString::number(g_curPage));
 
 		lst[0] = lst[0].section('=', -1, -1);
 		if (dataNum == 0)
@@ -702,8 +729,8 @@ void IRScan::btn_dateSel()
 			return;
 		}
 
-		ui.tableWidget->setRowCount(lst.size());
-		for (int i = 0; i != dataNum; ++i)
+		ui.tableWidget->setRowCount(dataNum<g_pageSize ? dataNum : g_pageSize);
+		for (int i = 0; i != (dataNum<g_pageSize ? dataNum:g_pageSize); ++i)
 		{
 			//		QMessageBox::information(NULL, "Title", lst[i].section(',',1,1));
 
@@ -750,7 +777,7 @@ void IRScan::btn_pre()
 	g_curPage--;
 	if (g_curPage < 1) g_curPage = 1;
 	ui.lineEdit_cur_page->setText(QString::number(g_curPage));
-	g_pageSize = ui.lineEdit_page_size->text().toInt();
+//	g_pageSize = ui.lineEdit_page_size->text().toInt();
 
 	updateData();
 
@@ -923,24 +950,57 @@ void IRScan::btn_del()
 
 void IRScan::updateData()
 {
-
-	QDateTime current_time = QDateTime::currentDateTime();
-	QString start_time = current_time.toString("yyyy-MM-dd"); //
-	QString end_time = current_time.addDays(1).toString("yyyy-MM-dd"); //
-
-	ui.dateEdit_start->setDateTime(current_time);
-	ui.dateEdit_end->setDateTime(current_time.addDays(1));
-
 	std::map <std::string, std::string> mapParams;
-	mapParams["data_type"] = "4";
-	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-	mapParams["page_num"] = QString::number(g_curPage).toStdString();
-	//mapParams["name"] = "张三";
-	//mapParams["cardid"] = "CARD100000000001";
-	//mapParams["scanid"] = "SCAN001";
-	mapParams["begin"] = start_time.toStdString();
-	mapParams["end"] = end_time.toStdString();
 
+	if (g_sel_mode == 0)
+	{
+		QDateTime current_time = QDateTime::currentDateTime();
+		QString start_time = current_time.toString("yyyy-MM-dd"); //
+		QString end_time = current_time.addDays(1).toString("yyyy-MM-dd"); //
+
+		ui.dateEdit_start->setDateTime(current_time);
+		ui.dateEdit_end->setDateTime(current_time.addDays(1));
+
+
+		mapParams["data_type"] = "4";
+		mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		mapParams["page_num"] = QString::number(g_curPage).toStdString();
+		//mapParams["name"] = "张三";
+		//mapParams["cardid"] = "CARD100000000001";
+		//mapParams["scanid"] = "SCAN001";
+		mapParams["begin"] = start_time.toStdString();
+		mapParams["end"] = end_time.toStdString();
+	}
+	//else if (g_sel_mode == 1)
+	//{
+	//	mapParams["data_type"] = "4";
+	//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	//	mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	//	//mapParams["name"] = "张三";
+	//	//mapParams["cardid"] = "CARD100000000001";
+	//	//mapParams["scanid"] = "SCAN001";
+	//	mapParams["begin"] = ui.dateEdit_start->text().toStdString();
+	//	mapParams["end"] = ui.dateEdit_end->text().toStdString();
+	//}
+	//else if (g_sel_mode == 2)
+	//{
+	//	mapParams["data_type"] = "3";
+	//	//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	//	//mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	//	if (ui.lineEdit_name->text() != "")
+	//		mapParams["name"] = ui.lineEdit_name->text().toLocal8Bit();
+	//	//mapParams["cardid"] = "CARD100000000001";
+	//	if (ui.lineEdit_scanID->text() != "")
+	//		mapParams["cardid"] = ui.lineEdit_scanID->text().toStdString();
+	//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	//	mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	//}
+	else
+	{
+		mapParams["data_type"] = "4";
+		mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		mapParams["page_num"] = QString::number(g_curPage).toStdString();
+	}
 	std::string sParams = map_join(mapParams, '&', '=');
 
 	std::string sData;
@@ -1318,29 +1378,29 @@ void IRScan::conDataBase()
 
 void IRScan::btn_clockWise()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("顺时针旋转！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 void IRScan::btn_antiClock()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("逆时针旋转！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 
 void IRScan::btn_camUp()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向上！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 void IRScan::btn_camDown()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向下！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 
 void IRScan::btn_camLeft()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向左！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 void IRScan::btn_camRight()
 {
-	QMessageBox::information(NULL, QString::fromLocal8Bit("接口"), QString::fromLocal8Bit("相机向右！"));
+	QMessageBox::information(NULL, QString::fromLocal8Bit("提示"), QString::fromLocal8Bit("请在控制平板上操作！"));
 }
 
 

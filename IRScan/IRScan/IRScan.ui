@@ -524,8 +524,8 @@ border:0px solid;</string>
         <widget class="QToolButton" name="btn_focus_far">
          <property name="geometry">
           <rect>
-           <x>245</x>
-           <y>20</y>
+           <x>300</x>
+           <y>50</y>
            <width>32</width>
            <height>32</height>
           </rect>
@@ -566,7 +566,7 @@ border:0px solid;</string>
         <widget class="QToolButton" name="btn_focus_near">
          <property name="geometry">
           <rect>
-           <x>285</x>
+           <x>260</x>
            <y>20</y>
            <width>32</width>
            <height>32</height>
@@ -634,7 +634,7 @@ border:0px solid;</string>
         <widget class="QLabel" name="label_22">
          <property name="geometry">
           <rect>
-           <x>270</x>
+           <x>265</x>
            <y>60</y>
            <width>31</width>
            <height>16</height>
