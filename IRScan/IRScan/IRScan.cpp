@@ -244,7 +244,7 @@ IRScan::IRScan(QWidget *parent)
 	ui.btn_set_hos->hide();
 	ui.label_27->hide();
 	ui.toolButton_61->hide();
-	ui.btn_focus_far->hide();
+	ui.btn_focus_near->hide();
 
 	updateData();
 
@@ -505,7 +505,7 @@ void IRScan::btn_showAll()
 
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
-	//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
 	//mapParams["page_num"] = QString::number(g_curPage).toStdString();
 
 	//mapParams["name"] = ui.lineEdit_name->text().toStdString();
@@ -689,7 +689,7 @@ void IRScan::btn_dateSel()
 	g_sel_mode = 1;
 	std::map <std::string, std::string> mapParams;
 	mapParams["data_type"] = "4";
-//	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+	mapParams["page_size"] = QString::number(g_pageSize).toStdString();
 //	mapParams["page_num"] = QString::number(g_curPage).toStdString();
 	//mapParams["name"] = "ÕÅÈý";
 	//mapParams["cardid"] = "CARD100000000001";
@@ -987,8 +987,8 @@ void IRScan::updateData()
 	else if (g_sel_mode == 2)
 	{
 		mapParams["data_type"] = "3";
-		//mapParams["page_size"] = QString::number(g_pageSize).toStdString();
-		//mapParams["page_num"] = QString::number(g_curPage).toStdString();
+		mapParams["page_size"] = QString::number(g_pageSize).toStdString();
+		mapParams["page_num"] = QString::number(g_curPage).toStdString();
 		if (ui.lineEdit_name->text() != "")
 			mapParams["name"] = ui.lineEdit_name->text().toLocal8Bit();
 		//mapParams["cardid"] = "CARD100000000001";

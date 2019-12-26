@@ -312,7 +312,7 @@ public:
         btn_cam_down->setToolButtonStyle(Qt::ToolButtonIconOnly);
         btn_focus_far = new QToolButton(groupBox_20);
         btn_focus_far->setObjectName(QStringLiteral("btn_focus_far"));
-        btn_focus_far->setGeometry(QRect(300, 50, 32, 32));
+        btn_focus_far->setGeometry(QRect(260, 20, 32, 32));
         btn_focus_far->setMinimumSize(QSize(32, 32));
         btn_focus_far->setMaximumSize(QSize(32, 32));
         btn_focus_far->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
@@ -324,7 +324,7 @@ public:
         btn_focus_far->setToolButtonStyle(Qt::ToolButtonIconOnly);
         btn_focus_near = new QToolButton(groupBox_20);
         btn_focus_near->setObjectName(QStringLiteral("btn_focus_near"));
-        btn_focus_near->setGeometry(QRect(260, 20, 32, 32));
+        btn_focus_near->setGeometry(QRect(300, 50, 32, 32));
         btn_focus_near->setMinimumSize(QSize(32, 32));
         btn_focus_near->setMaximumSize(QSize(32, 32));
         btn_focus_near->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
