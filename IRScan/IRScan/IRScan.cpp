@@ -82,7 +82,7 @@ long FrameProc(long hFrame, long lParam)
 
 	if (pFrame != NULL)
 	{
-		STAT_TEMPER sFull_Temp;
+	//	STAT_TEMPER sFull_Temp;
 
 		memcpy(&g_frame, pFrame, sizeof(Frame));
 
@@ -97,7 +97,7 @@ long FrameProc(long hFrame, long lParam)
 
 		int thickness = 2;
 		int lineType = 8;
-		cv::line(g_dstImage3, Point(g_dstImage3.cols / 2, 0),
+		/*cv::line(g_dstImage3, Point(g_dstImage3.cols / 2, 0),
 			Point(g_dstImage3.cols / 2, g_dstImage3.rows - 1),
 			Scalar(255, 255, 255),
 			thickness,
@@ -119,7 +119,17 @@ long FrameProc(long hFrame, long lParam)
 				Scalar(255, 255, 255),
 				thickness,
 				lineType);
-		}
+		}*/
+
+		cv::line(g_dstImage3, Point(240, 0), Point(240, 639), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 0), Point(0, 415), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 0), Point(479, 415), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 160), Point(0, 575), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 160), Point(479, 575), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 320), Point(56, 639), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 320), Point(424, 639), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 480), Point(148, 639), Scalar(255, 255, 255), thickness, lineType);
+		cv::line(g_dstImage3, Point(240, 480), Point(332, 639), Scalar(255, 255, 255), thickness, lineType);
 
 
 		QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
@@ -1505,7 +1515,7 @@ void IRScan::btn_scan_Clicked()
 	g_cam_flag = 1;
 	
 	QTimer *monitor_timer = new QTimer(this);
-	monitor_timer->start(1000); //每隔1000ms发送timeout的信号
+	monitor_timer->start(500); //每隔500ms发送timeout的信号
 	connect(monitor_timer, SIGNAL(timeout()), this, SLOT(Monitor()));
 }
 
