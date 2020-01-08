@@ -398,7 +398,7 @@ void IRScan::btn_sendData()
 
 	vecPngIDReq.clear();//需要测试
 
-	int pic_size = IMAGE_WIDTH*IMAGE_HEIGHT;
+	int pic_size = IMAGE_WIDTH*IMAGE_HEIGHT+2;
 
 	unsigned short *sPicData = (unsigned short*)malloc(pic_size * sizeof(short));
 	for (int i = 0; i<size; ++i)
@@ -431,6 +431,7 @@ void IRScan::btn_sendData()
 				picData[i * 384 + j] = tpic2.at<unsigned short>(i, j);
 		}
 	*/
+		conDataBase();
 
 		m_msg = QString::fromLocal8Bit("发送图片 ");
 		//m_msg.append(fileInfo->at(i).filePath());
@@ -504,6 +505,12 @@ void IRScan::btn_sendData()
 	g_cam_flag = 0;
 
 	free(sPicData);
+
+	IRSDK_Stop(0);
+	IRSDK_Destroy(0);
+	IRSDK_Quit();
+
+	ui.scanPicShow->clear();
 }
 
 
@@ -1482,6 +1489,10 @@ void IRScan::btn_scan_Clicked()
 		bool res = dir.mkpath(g_tempFolder);
 		//		qDebug() << "新建目录是否成功" << res;
 	}
+
+	IRSDK_Stop(0);
+	IRSDK_Destroy(0);
+	IRSDK_Quit();
 
 
 	QString str=g_camIP;
