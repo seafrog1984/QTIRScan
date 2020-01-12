@@ -112,8 +112,7 @@ background-image: url(:/IRScan/Bg1);
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>扫描</string>
@@ -154,8 +153,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>删除</string>
@@ -196,8 +194,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>登记</string>
@@ -238,8 +235,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>修改</string>
@@ -298,8 +294,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>完成</string>
@@ -375,8 +370,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>顺时针</string>
@@ -417,8 +411,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>逆时针</string>
@@ -459,8 +452,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>上升</string>
@@ -501,8 +493,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>下降</string>
@@ -543,8 +534,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>远</string>
@@ -585,8 +575,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>近</string>
@@ -864,8 +853,7 @@ border:0px solid;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>顺时针</string>
@@ -1367,8 +1355,7 @@ border-image: url(:/IRProc/Pro-Rect1);</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(18, 59, 101);
-border:0px solid;</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>筛选</string>

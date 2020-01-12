@@ -3,9 +3,13 @@
 #include<QMessageBox>
 #include <QList>
 #include <qfiledialog.h>   
-#include<QFileInfo>
+#include <QFileInfo>
 #include <imgProcDll.h>
 #include "ThumLabel.h"
+#include <QFile>
+#include <QTextStream>
+#include <QMetaEnum>
+#include <QElapsedTimer>
 
 
 
@@ -134,12 +138,29 @@ long FrameProc(long hFrame, long lParam)
 
 		QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
 
-		Ui::IRScanClass *pui = (Ui::IRScanClass*)lParam;
+		QElapsedTimer et;
+		et.start();
+		while (et.elapsed() < 25)
+		{
+			QCoreApplication::processEvents();
+		}
 
-		pui->scanPicShow->setPixmap(QPixmap::fromImage(image));
+		QLabel *pui = ((Ui::IRScanClass*)lParam)->scanPicShow;
+
+		pui->setPixmap(QPixmap::fromImage(image));
+
+	/*	QDateTime time = QDateTime::currentDateTime();
+		QString strTime = time.toString("MM-dd hh:mm:ss");
+		QString strMessage = QString("%1 : Function:%2  \r\n").arg(strTime).arg("FrameProc");
+		QFile outFile("scan.log");
+		outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+		QTextStream ts(&outFile);
+		ts << strMessage << endl;
+		outFile.close();*/
 
 		img.release();
 		g_dstImage3.release();
+
 	}
 
 	return 1;
@@ -176,7 +197,7 @@ IRScan::IRScan(QWidget *parent)
 
 	connect(ui.btn_scan, SIGNAL(clicked()), this, SLOT(btn_scan_Clicked()));
 	connect(ui.btn_focus_far, SIGNAL(clicked()), this, SLOT(btn_focusFar()));
-	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focuNear()));
+//	connect(ui.btn_focus_near, SIGNAL(clicked()), this, SLOT(btn_focusNear()));
 	connect(ui.btn_change_3, SIGNAL(clicked()), this, SLOT(btn_sendData()));
 
 
@@ -207,15 +228,20 @@ IRScan::IRScan(QWidget *parent)
 		for (int y = 0; y < 3; y++)
 		{
 			ThumLabel *lb = new ThumLabel;
-			lb->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-			//lb->setFixedSize(240, 320);
-			//lb->setText(QString::number(x * 3 + y + 1));
-			lb->setObjectName(QString::number(x * 3 + y));
-			lb->setFrameShape(QFrame::Box);
-			ui.gridLayout_2->addWidget(lb, x, y);
-			lb->setStyleSheet(QLatin1String("backgroud-color:rgb(255,255,255)"));
-			lb->setAlignment(Qt::AlignCenter);
-			count++;
+			if (lb != NULL)
+			{
+				lb->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+				//lb->setFixedSize(240, 320);
+				//lb->setText(QString::number(x * 3 + y + 1));
+				lb->setObjectName(QString::number(x * 3 + y));
+				lb->setFrameShape(QFrame::Box);
+				ui.gridLayout_2->addWidget(lb, x, y);
+				//lb->setStyleSheet(QLatin1String("backgroud-color:rgb(255,255,255)"));
+				lb->setAlignment(Qt::AlignCenter);
+				count++;
+
+			}
+
 			if (count >= g_picTotalNum) break;
 		}
 		if (count >= g_picTotalNum) break;
@@ -260,16 +286,45 @@ IRScan::IRScan(QWidget *parent)
 
 	statusBar();
 	currentTimeLabel = new QLabel; // 创建QLabel控件
-	currentTimeLabel->setStyleSheet("color:rgb(255,255,255);");
-	//ui.statusBar->addWidget(currentTimeLabel); //在状态栏添加此控件
-	ui.statusBar->addPermanentWidget(currentTimeLabel); //在状态栏添加此控件
+
+	if (currentTimeLabel != NULL)
+	{
+		currentTimeLabel->setStyleSheet("color:rgb(255,255,255);");
+		//ui.statusBar->addWidget(currentTimeLabel); //在状态栏添加此控件
+		ui.statusBar->addPermanentWidget(currentTimeLabel); //在状态栏添加此控件
+	}
+
+	
+	
 	QTimer *timer = new QTimer(this);
-	timer->start(1000); //每隔1000ms发送timeout的信号
-	connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
+
+	if (timer != NULL)
+	{
+		timer->start(1000); //每隔1000ms发送timeout的信号
+		connect(timer, SIGNAL(timeout()), this, SLOT(time_update()));
+	}
+
 
 	IRSDK_Init();
 
 }
+
+//void IRScan::paintEvent(QPaintEvent *event)
+//{
+//	QWidget::paintEvent(event);
+//
+//	QElapsedTimer et;
+//	et.start();
+//	while (et.elapsed() < 25)
+//	{
+//		QCoreApplication::processEvents();
+//	}
+//
+//
+//}
+
+
+
 
 void IRScan::Monitor()
 {
@@ -378,10 +433,14 @@ void IRScan::btn_sendData()
 	
 	std::vector<string> vecFiles;
 	QDir *dir = new QDir(g_tempFolder);
+	if (dir == NULL) return;
+
 	QStringList filter;
 	filter<<"*.dat";
 	dir->setNameFilters(filter);
 	QList<QFileInfo> *fileInfo = new QList<QFileInfo>(dir->entryInfoList(filter));
+
+	if (fileInfo == NULL) return;
 
 	for (int i = 0; i < fileInfo->size(); i++)
 	{
@@ -401,6 +460,9 @@ void IRScan::btn_sendData()
 	int pic_size = IMAGE_WIDTH*IMAGE_HEIGHT+2;
 
 	unsigned short *sPicData = (unsigned short*)malloc(pic_size * sizeof(short));
+	
+	if (sPicData == NULL) return;
+
 	for (int i = 0; i<size; ++i)
 	{
 		memset(sPicData, 0, pic_size*sizeof(short));
@@ -837,6 +899,8 @@ void IRScan::btn_change()
 
 	rdlg = new RegDlg;
 
+	if (rdlg == NULL) return;
+
 	rdlg->setWindowTitle(QString::fromLocal8Bit("修改"));
 	rdlg->setWindowModality(Qt::ApplicationModal);
 	rdlg->ui.lineEdit_card->setDisabled(true);
@@ -1048,6 +1112,7 @@ void IRScan::updateData()
 			if (g_show_progress)
 			{
 				progressDialog = new QProgressDialog(this);
+				if (progressDialog == NULL) return;
 
 				Qt::WindowFlags flags = Qt::Dialog;
 				flags |= Qt::WindowCloseButtonHint;
@@ -1055,8 +1120,11 @@ void IRScan::updateData()
 				progressDialog->setWindowFlags(flags);
 
 				QLabel *lb = new QLabel;
+				if (lb == NULL) return;
 				lb->setStyleSheet("color:rgb(255,255,255)");
+
 				QPushButton *bt = new QPushButton;
+				if (bt == NULL) return;
 				bt->setStyleSheet("color:rgb(255,255,255)");
 
 				progressDialog->setLabel(lb);
@@ -1117,6 +1185,8 @@ void IRScan::btn_reg()
 	g_reg_flag = 0;
 
 	rdlg = new RegDlg;
+
+	if (rdlg == NULL) return;
 
 	rdlg->setWindowModality(Qt::ApplicationModal);
 	rdlg->exec();
@@ -1490,9 +1560,9 @@ void IRScan::btn_scan_Clicked()
 		//		qDebug() << "新建目录是否成功" << res;
 	}
 
-	IRSDK_Stop(0);
-	IRSDK_Destroy(0);
-	IRSDK_Quit();
+	//IRSDK_Stop(0);
+	//IRSDK_Destroy(0);
+	//IRSDK_Quit();
 
 
 	QString str=g_camIP;
@@ -1516,9 +1586,9 @@ void IRScan::btn_scan_Clicked()
 	long ret = IRSDK_Create(0, IpInfo, (CBF_IR)FrameProc, NULL, NULL, (void *)(&ui));
 	//IRSDK_DeviceCfg(0, 1);
 	IRSDK_Connect(0); //连接，设备根据这个包解析主机的端口，IP，MAC 信息
-
+	//IRSDK_Play(0);
 	//	int re=IRSDK_Play(0);
-	IRSDK_Connect(0);
+	//IRSDK_Connect(0);
 
 	g_picNum = 0;
 
@@ -1552,6 +1622,9 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 			else
 			{
 				g_pData[g_currentPic] = new unsigned short[IMAGE_WIDTH*IMAGE_HEIGHT];
+
+				if (g_pData[g_currentPic] == NULL) return false;
+
 				memcpy(g_pData[g_currentPic], g_frame.buffer, IMAGE_HEIGHT*IMAGE_WIDTH*sizeof(short));
 
 				QString filePath = g_tempFolder + "\\" + QString::number(g_currentPic) + ".dat";
@@ -1609,9 +1682,28 @@ bool IRScan::eventFilter(QObject *obj, QEvent *event)
 			g_flag_play = 1;
 
 		}
+		/*QDateTime time = QDateTime::currentDateTime();
+		QString strTime = time.toString("MM-dd hh:mm:ss");
+		QString strMessage = QString("%1 : Event:%2  \r\n").arg(strTime).arg("MouseEvent");
+		QFile outFile("scan.log");
+		outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+		QTextStream ts(&outFile);
+		ts << strMessage << endl;
+		outFile.close();*/
+
 		return true;
 	}
 	else {
+		/*QMetaEnum metaEnum = QMetaEnum::fromType<QEvent::Type>();
+		QDateTime time = QDateTime::currentDateTime();
+		QString strTime = time.toString("MM-dd hh:mm:ss");
+		QString strMessage = QString("%1 : Event:%2  \r\n").arg(strTime).arg(metaEnum.valueToKey(event->type()));
+		QFile outFile("scan.log");
+		outFile.open(QIODevice::WriteOnly | QIODevice::Append);
+		QTextStream ts(&outFile);
+		ts << strMessage << endl;
+		outFile.close();*/
+
 		return false;
 		//return QMainWindow::eventFilter(obj, event);
 	}
@@ -1622,10 +1714,10 @@ void IRScan::btn_focusFar()
 	IRSDK_NearFarFocus(0, AUTOFOCUS);  //AUTOFOCUS--自动
 }
 
-void IRScan::btn_focusNear()
-{
-	IRSDK_NearFarFocus(0, AUTOFOCUS);
-}
+//void IRScan::btn_focusNear()
+//{
+//	IRSDK_NearFarFocus(0, AUTOFOCUS);
+//}
 
 void IRScan::btn_sysPar()
 {

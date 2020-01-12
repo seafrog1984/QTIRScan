@@ -195,8 +195,7 @@ public:
         btn_scan->setGeometry(QRect(105, 20, 32, 50));
         btn_scan->setMinimumSize(QSize(32, 50));
         btn_scan->setMaximumSize(QSize(32, 50));
-        btn_scan->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_scan->setStyleSheet(QStringLiteral(""));
         QIcon icon2;
         icon2.addFile(QStringLiteral(":/IRScan/Scan-Scan"), QSize(), QIcon::Normal, QIcon::Off);
         btn_scan->setIcon(icon2);
@@ -207,8 +206,7 @@ public:
         btn_del->setGeometry(QRect(145, 20, 32, 50));
         btn_del->setMinimumSize(QSize(32, 50));
         btn_del->setMaximumSize(QSize(32, 50));
-        btn_del->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_del->setStyleSheet(QStringLiteral(""));
         QIcon icon3;
         icon3.addFile(QStringLiteral(":/IRScan/Scan-Del"), QSize(), QIcon::Normal, QIcon::Off);
         btn_del->setIcon(icon3);
@@ -219,8 +217,7 @@ public:
         btn_reg->setGeometry(QRect(65, 20, 32, 50));
         btn_reg->setMinimumSize(QSize(32, 50));
         btn_reg->setMaximumSize(QSize(32, 50));
-        btn_reg->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_reg->setStyleSheet(QStringLiteral(""));
         QIcon icon4;
         icon4.addFile(QStringLiteral(":/IRScan/Scan-Log"), QSize(), QIcon::Normal, QIcon::Off);
         btn_reg->setIcon(icon4);
@@ -231,8 +228,7 @@ public:
         btn_change->setGeometry(QRect(185, 20, 32, 50));
         btn_change->setMinimumSize(QSize(32, 50));
         btn_change->setMaximumSize(QSize(32, 50));
-        btn_change->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_change->setStyleSheet(QStringLiteral(""));
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/IRScan/Scan-Change"), QSize(), QIcon::Normal, QIcon::Off);
         btn_change->setIcon(icon5);
@@ -247,8 +243,7 @@ public:
         btn_change_3->setGeometry(QRect(230, 20, 32, 50));
         btn_change_3->setMinimumSize(QSize(32, 50));
         btn_change_3->setMaximumSize(QSize(32, 50));
-        btn_change_3->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_change_3->setStyleSheet(QStringLiteral(""));
         btn_change_3->setIcon(icon5);
         btn_change_3->setIconSize(QSize(20, 20));
         btn_change_3->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -267,8 +262,7 @@ public:
         btn_clock->setGeometry(QRect(85, 20, 32, 32));
         btn_clock->setMinimumSize(QSize(32, 32));
         btn_clock->setMaximumSize(QSize(32, 32));
-        btn_clock->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_clock->setStyleSheet(QStringLiteral(""));
         QIcon icon6;
         icon6.addFile(QStringLiteral(":/IRScan/Scan-Clock"), QSize(), QIcon::Normal, QIcon::Off);
         btn_clock->setIcon(icon6);
@@ -279,8 +273,7 @@ public:
         btn_anticlock->setGeometry(QRect(125, 20, 32, 32));
         btn_anticlock->setMinimumSize(QSize(32, 32));
         btn_anticlock->setMaximumSize(QSize(32, 32));
-        btn_anticlock->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_anticlock->setStyleSheet(QStringLiteral(""));
         QIcon icon7;
         icon7.addFile(QStringLiteral(":/IRScan/Scan-AntiClock"), QSize(), QIcon::Normal, QIcon::Off);
         btn_anticlock->setIcon(icon7);
@@ -291,8 +284,7 @@ public:
         btn_cam_up->setGeometry(QRect(165, 20, 32, 32));
         btn_cam_up->setMinimumSize(QSize(32, 32));
         btn_cam_up->setMaximumSize(QSize(32, 32));
-        btn_cam_up->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_cam_up->setStyleSheet(QStringLiteral(""));
         QIcon icon8;
         icon8.addFile(QStringLiteral(":/IRScan/Scan-Up"), QSize(), QIcon::Normal, QIcon::Off);
         btn_cam_up->setIcon(icon8);
@@ -303,8 +295,7 @@ public:
         btn_cam_down->setGeometry(QRect(205, 20, 32, 32));
         btn_cam_down->setMinimumSize(QSize(32, 32));
         btn_cam_down->setMaximumSize(QSize(32, 32));
-        btn_cam_down->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_cam_down->setStyleSheet(QStringLiteral(""));
         QIcon icon9;
         icon9.addFile(QStringLiteral(":/IRScan/Scan-Down"), QSize(), QIcon::Normal, QIcon::Off);
         btn_cam_down->setIcon(icon9);
@@ -315,8 +306,7 @@ public:
         btn_focus_far->setGeometry(QRect(260, 20, 32, 32));
         btn_focus_far->setMinimumSize(QSize(32, 32));
         btn_focus_far->setMaximumSize(QSize(32, 32));
-        btn_focus_far->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_focus_far->setStyleSheet(QStringLiteral(""));
         QIcon icon10;
         icon10.addFile(QStringLiteral(":/IRScan/Scan-Focus"), QSize(), QIcon::Normal, QIcon::Off);
         btn_focus_far->setIcon(icon10);
@@ -327,8 +317,7 @@ public:
         btn_focus_near->setGeometry(QRect(300, 50, 32, 32));
         btn_focus_near->setMinimumSize(QSize(32, 32));
         btn_focus_near->setMaximumSize(QSize(32, 32));
-        btn_focus_near->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_focus_near->setStyleSheet(QStringLiteral(""));
         QIcon icon11;
         icon11.addFile(QStringLiteral(":/IRScan/Scan-Focus2"), QSize(), QIcon::Normal, QIcon::Off);
         btn_focus_near->setIcon(icon11);
@@ -404,8 +393,7 @@ public:
         toolButton_61->setGeometry(QRect(410, 30, 32, 32));
         toolButton_61->setMinimumSize(QSize(32, 32));
         toolButton_61->setMaximumSize(QSize(32, 32));
-        toolButton_61->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        toolButton_61->setStyleSheet(QStringLiteral(""));
         QIcon icon16;
         icon16.addFile(QStringLiteral(":/IRScan/Scan-On"), QSize(), QIcon::Normal, QIcon::Off);
         toolButton_61->setIcon(icon16);
@@ -540,8 +528,7 @@ public:
         btn_name_sel->setGeometry(QRect(400, 20, 32, 50));
         btn_name_sel->setMinimumSize(QSize(32, 50));
         btn_name_sel->setMaximumSize(QSize(32, 50));
-        btn_name_sel->setStyleSheet(QLatin1String("background-color: rgb(18, 59, 101);\n"
-"border:0px solid;"));
+        btn_name_sel->setStyleSheet(QStringLiteral(""));
         btn_name_sel->setIcon(icon21);
         btn_name_sel->setIconSize(QSize(24, 24));
         btn_name_sel->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);

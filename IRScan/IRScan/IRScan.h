@@ -20,8 +20,12 @@ public:
 	IRScan(QWidget *parent = Q_NULLPTR);
 	void closeEvent(QCloseEvent* event);
 
+	friend long FrameProc(long hFrame, long lParam);
+
 protected:
 	bool eventFilter(QObject *obj, QEvent *event);
+
+	//void paintEvent(QPaintEvent *event);
 
 private:
 	Ui::IRScanClass ui;
@@ -36,7 +40,7 @@ private slots:
 
 	void btn_scan_Clicked();//扫描函数
 	void btn_focusFar();//远焦
-	void btn_focusNear();//近焦
+//	void btn_focusNear();//近焦
 	void btn_sysPar();//系统参数设置
 	void btn_setAuth();//权限设置
 	void btn_show_func();//显示功能区
