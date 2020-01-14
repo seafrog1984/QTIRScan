@@ -31,6 +31,7 @@
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <showlabel.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -121,7 +122,7 @@ public:
     QGridLayout *gridLayout;
     QSpacerItem *horizontalSpacer_2;
     QSpacerItem *verticalSpacer;
-    QLabel *scanPicShow;
+    ShowLabel *scanPicShow;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer_2;
     QToolButton *btn_show_func;
@@ -785,7 +786,7 @@ public:
 
         gridLayout->addItem(verticalSpacer, 0, 1, 1, 1);
 
-        scanPicShow = new QLabel(widget);
+        scanPicShow = new ShowLabel(widget);
         scanPicShow->setObjectName(QStringLiteral("scanPicShow"));
         QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
