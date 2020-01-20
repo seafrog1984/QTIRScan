@@ -89,7 +89,7 @@ long FrameProc(long hFrame, long lParam)
 
 	ShowLabel *pui = ((Ui::IRScanClass*)lParam)->scanPicShow;
 
-	//Sleep(25);
+//	Sleep(20);
 	pui->FrameRecv(pFrame);
 
 
@@ -588,11 +588,11 @@ void IRScan::btn_sendData()
 
 	free(sPicData);
 
-	IRSDK_Stop(0);
-	IRSDK_Destroy(0);
-	IRSDK_Quit();
+	//IRSDK_Stop(0);
+	//IRSDK_Destroy(0);
+	//IRSDK_Quit();
 
-	ui.scanPicShow->clear();
+	//ui.scanPicShow->clear();
 }
 
 
@@ -1618,6 +1618,8 @@ void IRScan::btn_scan_Clicked()
 	QTimer *monitor_timer = new QTimer(this);
 	monitor_timer->start(500); //每隔500ms发送timeout的信号
 	connect(monitor_timer, SIGNAL(timeout()), this, SLOT(Monitor()));
+
+	ui.scanPicShow->update();
 }
 
 bool IRScan::eventFilter(QObject *obj, QEvent *event)

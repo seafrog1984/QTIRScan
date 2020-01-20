@@ -13,6 +13,9 @@ public:
 	ShowLabel(QWidget *parent = 0);
 	~ShowLabel();
 
+	QMutex mutex_bmp;
+	QImage m_pixImg;
+
 	friend long FrameProc(long hFrame, long lParam);
 
 signals:

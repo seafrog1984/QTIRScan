@@ -2,10 +2,11 @@
 #include <opencv2\opencv.hpp>
 #include <imgProcDll.h>
 #include <QElapsedTimer>
-#include <QCoreApplication>
+#include <QApplication>
 #include <QTime>
 #include <QFile>
 #include <QTextStream>
+#include <QPainter>
 
 extern Frame g_frame;
 extern short int IMAGE_WIDTH ;
@@ -90,30 +91,34 @@ int ShowLabel::FrameRecv(Frame *pFrame)
 
 		QImage image = QImage((const unsigned char*)(g_dstImage3.data), img.cols, img.rows, QImage::Format_RGB888);
 
+		m_pixImg=image.copy();
+
+		emit sigPaint();
+
 		//this->setMinimumHeight(641);
 		//this->setMinimumHeight(640);
 
 		//QLabel *pui = ((Ui::IRScanClass*)lParam)->scanPicShow;
 
-		if (image.isNull())
-		{
-			return -1;
-		}
-		else
-		{
-			this->setPixmap(QPixmap::fromImage(image));
-			this->adjustSize();
+		//if (image.isNull())
+		//{
+		//	return -1;
+		//}
+		//else
+		//{
+		//	this->setPixmap(QPixmap::fromImage(image));
+		//	this->adjustSize();
 
-			emit sigPaint();
-		}
+		//	emit sigPaint();
+		//}
 
-		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+		//qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 		//QElapsedTimer et;
 		//et.start();
 		//while (et.elapsed() < 25)
 		//{
-		//	QCoreApplication::processEvents();
+		//	QApplication::processEvents();
 		//}
 
 		/*	QDateTime time = QDateTime::currentDateTime();
@@ -143,10 +148,19 @@ int ShowLabel::FrameRecv(Frame *pFrame)
 
 void ShowLabel::paintEvent(QPaintEvent *event)
 {
-	//QTime qTime;
-	//qTime.start();
 
-	QLabel::paintEvent(event);
+	QPainter painterImage(this);
+	QRect rect_image(0, 0, this->width(), this->height());
+
+	mutex_bmp.lock();
+	QImage showImg = m_pixImg.copy();
+	painterImage.drawImage(rect_image, showImg);
+	mutex_bmp.unlock();
+	painterImage.end();
+
+
+
+	//QLabel::paintEvent(event);
 
 	//QDateTime time = QDateTime::currentDateTime();
 	//QString strTime = time.toString("MM-dd hh:mm:ss");
