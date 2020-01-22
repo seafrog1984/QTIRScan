@@ -1,8 +1,12 @@
 #include "IRScan.h"
 #include <QtWidgets/QApplication>
+#include "ActiveDlg.h"
+#include <fstream>
+#include <iostream>  
+#include<QMessageBox>
+
 
 #include "LogDlg.h"
-
 #include <QApplication>
 #include <QFile>
 #include <QTextStream>
@@ -10,8 +14,13 @@
 #include <QDir>
 
 #include <Dbghelp.h>
-
 #pragma comment(lib,"Dbghelp.lib")
+
+using namespace std;
+
+int g_active_flag = 0;
+int g_time_flag = 0;
+
 static LONG WINAPI exceptionCallback(struct _EXCEPTION_POINTERS* exceptionInfo)
 {
 	QString savePath = QCoreApplication::applicationDirPath() + "/dump/";
@@ -155,8 +164,65 @@ int main(int argc, char *argv[])
 	//IRScan w;
 	//w.show();
 
-	LogDlg w;
+	ifstream fin("ac.dat");
+	char str[200];
 
-	w.show();
-	return a.exec();
+	if (fin.fail())
+	{
+		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("³ÌÐòÎ´¼¤»î£¡"));
+		//	exit(-1);
+	}
+	else
+	{
+		fin >> str;
+	}
+	//	AfxMessageBox(_T(str));
+
+	char mac[200];
+	getMac(mac);
+	//	AfxMessageBox(_T(mac));
+
+	if (CheckSN(mac, str))
+	{
+		g_active_flag = 1;
+	}
+	else
+	{
+		g_active_flag = 0;
+
+		ActiveDlg w;
+		w.show();
+
+		return a.exec();
+	}
+
+	if (CheckTime(str))
+	{
+		g_time_flag = 1;
+	}
+	else
+	{
+		g_time_flag = 0;
+		QMessageBox::information(NULL, "Title", QString::fromLocal8Bit("×¢²áÂëÒÑÊ§Ð§£¡"));
+
+		ActiveDlg w;
+		w.show();
+
+		return a.exec();
+	}
+
+
+	if (g_active_flag&&g_time_flag)
+	{
+		LogDlg w;
+		w.show();
+
+		return a.exec();
+	}
+
+
+	//LogDlg w;
+
+	//w.show();
+	//return a.exec();
 }
